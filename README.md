@@ -1,2 +1,2 @@
 # Ivan-Karnasevich
-![](docs/img/DataBase.png)
+![My db schema](docs/img/DataBase.png)
