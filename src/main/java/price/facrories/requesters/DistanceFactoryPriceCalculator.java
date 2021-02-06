@@ -13,6 +13,6 @@ public class DistanceFactoryPriceCalculator implements RequesterFactory<Long> {
         priceCurve.put(0D, 200L);
         priceCurve.put(1000D, 500L);
         priceCurve.put(6000D, 700L);
-        return new PriceCalculator(priceCurve, new RequesterFactoryDistanceConsole().create());
+        return new PriceCalculator(new RequesterFactoryDistanceConsole().create(), priceCurve);
     }
 }

@@ -12,6 +12,6 @@ public class WeightFactoryPriceCalculator implements RequesterFactory<Long> {
         priceCurve.put(0D, 1000L);
         priceCurve.put(100D, 2000L);
         priceCurve.put(400D, 5000L);
-        return new PriceCalculator(priceCurve, new RequesterFactoryWeightConsole().create());
+        return new PriceCalculator(new RequesterFactoryWeightConsole().create(), priceCurve);
     }
 }

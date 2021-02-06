@@ -1,19 +1,19 @@
 package price;
 
 import request.Requester;
+import request.RequesterAbstract;
 
 import java.util.List;
 import java.util.SortedMap;
 
-public class PriceCalculator implements Requester<Long> {
+public class PriceCalculator extends RequesterAbstract<Long, Double> {
 
     private final SortedMap<Double, Long> priceCurve;
-    private final Requester<Double> requester;
 
-    public PriceCalculator(SortedMap<Double, Long> priceCurve,
-                           Requester<Double> requester) {
+    public PriceCalculator(Requester<Double> requester,
+                           SortedMap<Double, Long> priceCurve) {
+        super(requester);
         this.priceCurve = priceCurve;
-        this.requester = requester;
     }
 
     @Override
@@ -31,7 +31,6 @@ public class PriceCalculator implements Requester<Long> {
                 break;
             }
         }
-
         var last = curve.get(curve.size() - 1);
         if (value > last.getKey()) {
             price += Math.round((value - last.getKey()) * last.getValue());

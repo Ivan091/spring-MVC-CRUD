@@ -1,6 +1,5 @@
 package price;
 
-import price.facrories.requesters.RequesterFactory;
 import request.Requester;
 
 public class DeliveryPriceCalculator implements Requester<Long> {
@@ -12,12 +11,6 @@ public class DeliveryPriceCalculator implements Requester<Long> {
                                    Requester<Long> distancePrice) {
         this.weightPrice = weightPrice;
         this.distancePrice = distancePrice;
-    }
-
-    public DeliveryPriceCalculator(RequesterFactory<Long> weightPriceFactory,
-                                   RequesterFactory<Long> distancePriceFactory) {
-        this.weightPrice = weightPriceFactory.create();
-        this.distancePrice = distancePriceFactory.create();
     }
 
     @Override

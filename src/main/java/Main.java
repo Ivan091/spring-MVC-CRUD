@@ -13,8 +13,8 @@ public class Main {
                 "Final price is ",
                 System.out,
                 new DeliveryPriceCalculator(
-                        new DistanceFactoryPriceCalculator(),
-                        new WeightFactoryPriceCalculator()
+                        new DistanceFactoryPriceCalculator().create(),
+                        new WeightFactoryPriceCalculator().create()
                 ),
                 (m, v) -> m + new Dollar(v).asString()
         ).request();
