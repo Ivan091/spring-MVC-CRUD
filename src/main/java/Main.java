@@ -1,41 +1,17 @@
-import messengers.MessengerOutput;
-import request.messaging.MessageRequester;
-import request.parsing.ParserStringToDouble;
-import request.*;
-import request.validation.ValidatorRequest;
-
-import java.util.Scanner;
-
-
 // a * b + c * d
 
+import price.DeliveryPriceCalculator;
+import price.facrories.functions.DistanceFactoryPriceCalculator;
+import price.facrories.functions.WeightFactoryPriceCalculator;
+import price.facrories.requesters.RequesterFactoryDistanceConsole;
+import price.facrories.requesters.RequesterFactoryWeightConsole;
+
 public class Main {
-    public static void main(String[] args){
-
-        var a =
-        new ValidatorRequest<>(
-                new ValidatorRequest<>(
-                        new ParserStringToDouble(
-                                new MessageRequester<>(
-                                        "Enter double value\n",
-                                        System.out,
-                                        new RequesterExternalValue(new Scanner(System.in))
-                                ),
-                                new MessengerOutput(
-                                        "Value not Valid\n",
-                                        System.out)
-                        ),
-                        (x -> x > 0),
-                        new MessengerOutput(
-                                "Value cannot be less than 0\n",
-                                System.out)
-                ),
-                (x -> x < 10000),
-                new MessengerOutput(
-                        "Value cannot be bigger than 10000\n",
-                        System.out)
-        );
-
-        System.out.println(a.request());
+    public static void main(String[] args) {
+        var deliveryPriceCalculator = new DeliveryPriceCalculator(
+                new RequesterFactoryWeightConsole(),
+                new RequesterFactoryDistanceConsole(),
+                new WeightFactoryPriceCalculator(),
+                new DistanceFactoryPriceCalculator());
     }
 }
