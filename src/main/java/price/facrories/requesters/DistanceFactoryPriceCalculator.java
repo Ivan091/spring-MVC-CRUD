@@ -1,15 +1,14 @@
-package price.facrories.functions;
+package price.facrories.requesters;
 
 import price.PriceCalculator;
-import price.facrories.requesters.RequesterFactoryDistanceConsole;
+import request.Requester;
 
 import java.util.TreeMap;
-import java.util.function.Function;
 
-public class DistanceFactoryPriceCalculator implements FunctionFactory<Void, Long> {
+public class DistanceFactoryPriceCalculator implements RequesterFactory<Long> {
 
     @Override
-    public Function<Void, Long> create() {
+    public Requester<Long> create() {
         var priceCurve = new TreeMap<Double, Long>();
         priceCurve.put(0D, 200L);
         priceCurve.put(1000D, 500L);

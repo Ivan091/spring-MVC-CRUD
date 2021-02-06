@@ -4,9 +4,8 @@ import request.Requester;
 
 import java.util.List;
 import java.util.SortedMap;
-import java.util.function.Function;
 
-public class PriceCalculator implements Function<Void, Long> {
+public class PriceCalculator implements Requester<Long> {
 
     private final SortedMap<Double, Long> priceCurve;
     private final Requester<Double> requester;
@@ -18,10 +17,9 @@ public class PriceCalculator implements Function<Void, Long> {
     }
 
     @Override
-    public Long apply(Void unused) {
+    public Long request() {
         var aDouble = requester.request();
         var result = 0L;
-        var it = priceCurve.entrySet().iterator();
         var curve = List.copyOf(priceCurve.entrySet());
         for (var i = 0; i < curve.size() - 1; i++) {
             var current = curve.get(i);
@@ -29,7 +27,8 @@ public class PriceCalculator implements Function<Void, Long> {
             if (aDouble > next.getKey()) {
                 result += Math.round((next.getKey() - current.getKey()) * current.getValue());
             } else {
-                result += Math.round((current.getKey() - aDouble) * current.getValue());
+                result += Math.round((aDouble - current.getKey()) * current.getValue());
+                break;
             }
         }
 
