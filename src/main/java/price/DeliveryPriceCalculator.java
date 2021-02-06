@@ -5,23 +5,23 @@ import request.Requester;
 
 public class DeliveryPriceCalculator implements Requester<Long> {
 
-    private final Requester<Long> pricePerKg;
-    private final Requester<Long> pricePerKm;
+    private final Requester<Long> weightPrice;
+    private final Requester<Long> distancePrice;
 
-    public DeliveryPriceCalculator(Requester<Long> pricePerKg,
-                                   Requester<Long> pricePerKm) {
-        this.pricePerKg = pricePerKg;
-        this.pricePerKm = pricePerKm;
+    public DeliveryPriceCalculator(Requester<Long> weightPrice,
+                                   Requester<Long> distancePrice) {
+        this.weightPrice = weightPrice;
+        this.distancePrice = distancePrice;
     }
 
-    public DeliveryPriceCalculator(RequesterFactory<Long> pricePerKgFactory,
-                                   RequesterFactory<Long> pricePerKmFactory) {
-        this.pricePerKg = pricePerKgFactory.create();
-        this.pricePerKm = pricePerKmFactory.create();
+    public DeliveryPriceCalculator(RequesterFactory<Long> weightPriceFactory,
+                                   RequesterFactory<Long> distancePriceFactory) {
+        this.weightPrice = weightPriceFactory.create();
+        this.distancePrice = distancePriceFactory.create();
     }
 
     @Override
     public Long request() {
-        return pricePerKg.request() + pricePerKm.request();
+        return weightPrice.request() + distancePrice.request();
     }
 }

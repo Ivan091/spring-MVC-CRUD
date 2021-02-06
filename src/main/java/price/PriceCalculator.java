@@ -18,24 +18,24 @@ public class PriceCalculator implements Requester<Long> {
 
     @Override
     public Long request() {
-        var aDouble = requester.request();
-        var result = 0L;
+        var value = requester.request();
+        var price = 0L;
         var curve = List.copyOf(priceCurve.entrySet());
         for (var i = 0; i < curve.size() - 1; i++) {
             var current = curve.get(i);
             var next = curve.get(i + 1);
-            if (aDouble > next.getKey()) {
-                result += Math.round((next.getKey() - current.getKey()) * current.getValue());
+            if (value > next.getKey()) {
+                price += Math.round((next.getKey() - current.getKey()) * current.getValue());
             } else {
-                result += Math.round((aDouble - current.getKey()) * current.getValue());
+                price += Math.round((value - current.getKey()) * current.getValue());
                 break;
             }
         }
 
         var last = curve.get(curve.size() - 1);
-        if (aDouble > last.getKey()) {
-            result += Math.round((aDouble - last.getKey()) * last.getValue());
+        if (value > last.getKey()) {
+            price += Math.round((value - last.getKey()) * last.getValue());
         }
-        return result;
+        return price;
     }
 }
