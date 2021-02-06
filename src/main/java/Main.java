@@ -1,18 +1,37 @@
-import java.util.ArrayList;
+import requestor.*;
+
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 
 // a * b + c * d
 
 public class Main {
-    public static void main(String[] args) {
-        var scanner = new Scanner(System.in);
-        var array = new ArrayList<Integer>();
+    public static void main(String[] args){
 
-        IntStream.range(0, 4).forEach(i ->
-            array.add(scanner.nextInt())
+        var a =
+        new ValidatorByPredicate<>(
+                new ValidatorByPredicate<>(
+                        new ParserStringToDouble(
+                                new MessageRequester<>(
+                                        "Enter double value\n",
+                                        System.out,
+                                        new RequesterExternalValue(new Scanner(System.in))
+                                ),
+                                new MessengerOutput(
+                                        "Value not Valid\n",
+                                        System.out)
+                        ),
+                        (x -> x > 0),
+                        new MessengerOutput(
+                                "Value cannot be less than 0\n",
+                                System.out)
+                ),
+                (x -> x < 10000),
+                new MessengerOutput(
+                        "Value cannot be bigger than 10000\n",
+                        System.out)
         );
-        System.out.println(array);
+
+        System.out.println(a.request());
     }
 }
