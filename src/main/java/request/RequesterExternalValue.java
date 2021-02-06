@@ -1,4 +1,4 @@
-package requestor;
+package request;
 
 import java.util.Scanner;
 

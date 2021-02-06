@@ -1,4 +1,7 @@
-package requestor;
+package request.messaging;
+
+import messengers.MessengerOutput;
+import request.Requester;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,8 @@
-package requestor;
+package request.parsing;
+
+import messengers.Messenger;
+import request.messaging.RequesterMessengerAbstract;
+import request.Requester;
 
 public class ParserStringToDouble extends RequesterMessengerAbstract<Double, String> {
 

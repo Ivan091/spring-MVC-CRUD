@@ -1,4 +1,8 @@
-import requestor.*;
+import messengers.MessengerOutput;
+import request.messaging.MessageRequester;
+import request.parsing.ParserStringToDouble;
+import request.*;
+import request.validation.ValidatorRequest;
 
 import java.util.Scanner;
 
@@ -9,8 +13,8 @@ public class Main {
     public static void main(String[] args){
 
         var a =
-        new ValidatorByPredicate<>(
-                new ValidatorByPredicate<>(
+        new ValidatorRequest<>(
+                new ValidatorRequest<>(
                         new ParserStringToDouble(
                                 new MessageRequester<>(
                                         "Enter double value\n",

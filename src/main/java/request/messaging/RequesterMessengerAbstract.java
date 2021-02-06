@@ -1,4 +1,8 @@
-package requestor;
+package request.messaging;
+
+import messengers.Messenger;
+import request.Requester;
+import request.RequesterAbstract;
 
 public abstract class RequesterMessengerAbstract<R, I> extends RequesterAbstract<R, I> {
 

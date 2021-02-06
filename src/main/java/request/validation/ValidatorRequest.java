@@ -1,12 +1,16 @@
-package requestor;
+package request.validation;
+
+import messengers.Messenger;
+import request.messaging.RequesterMessengerAbstract;
+import request.Requester;
 
 import java.util.function.Predicate;
 
-public class ValidatorByPredicate<R> extends RequesterMessengerAbstract<R, R> implements Validator<R> {
+public class ValidatorRequest<R> extends RequesterMessengerAbstract<R, R> implements Validator<R> {
 
     private final Predicate<R> predicate;
 
-    public ValidatorByPredicate(Requester<R> requester, Predicate<R> predicate, Messenger errorMessenger) {
+    public ValidatorRequest(Requester<R> requester, Predicate<R> predicate, Messenger errorMessenger) {
         super(requester, errorMessenger);
         this.predicate = predicate;
     }
