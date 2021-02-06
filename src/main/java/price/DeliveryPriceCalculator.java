@@ -1,41 +1,29 @@
 package price;
 
 import price.facrories.functions.FunctionFactory;
-import price.facrories.requesters.RequesterFactory;
 import request.Requester;
 
 import java.util.function.Function;
 
 public class DeliveryPriceCalculator implements Requester<Long> {
 
-    private final Requester<Double> weightKg;
-    private final Requester<Double> distanceKm;
-    private final Function<Double, Long> pricePerKg;
-    private final Function<Double, Long> pricePerKm;
+    private final Function<Void, Long> pricePerKg;
+    private final Function<Void, Long> pricePerKm;
 
-    public DeliveryPriceCalculator(Requester<Double> weightKg,
-                                   Requester<Double> distanceKm,
-                                   Function<Double, Long> pricePerKg,
-                                   Function<Double, Long> pricePerKm) {
-
-        this.weightKg = weightKg;
-        this.distanceKm = distanceKm;
+    public DeliveryPriceCalculator(Function<Void, Long> pricePerKg,
+                                   Function<Void, Long> pricePerKm) {
         this.pricePerKg = pricePerKg;
         this.pricePerKm = pricePerKm;
     }
 
-    public DeliveryPriceCalculator(RequesterFactory<Double> weightKgFactory,
-                                   RequesterFactory<Double> distanceKmFactory,
-                                   FunctionFactory<Double, Long> pricePerKgFactory,
-                                   FunctionFactory<Double, Long> pricePerKmFactory) {
-        this.weightKg = weightKgFactory.create();
-        this.distanceKm = distanceKmFactory.create();
+    public DeliveryPriceCalculator(FunctionFactory<Void, Long> pricePerKgFactory,
+                                   FunctionFactory<Void, Long> pricePerKmFactory) {
         this.pricePerKg = pricePerKgFactory.create();
         this.pricePerKm = pricePerKmFactory.create();
     }
 
     @Override
     public Long request() {
-        return pricePerKg.apply(weightKg.request()) + pricePerKm.apply(distanceKm.request());
+        return pricePerKg.apply(null) + pricePerKm.apply(null);
     }
 }

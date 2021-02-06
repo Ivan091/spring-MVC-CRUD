@@ -3,7 +3,7 @@ package price.facrories.requesters;
 import messengers.MessengerOutput;
 import request.Requester;
 import request.RequesterExternalValue;
-import request.messaging.MessageRequester;
+import request.messaging.MessengerBeforeRequester;
 import request.parsing.ParserStringToDouble;
 import request.validation.ValidatorRequest;
 
@@ -17,7 +17,7 @@ public class RequesterFactoryWeightConsole implements RequesterFactory<Double> {
                 new ValidatorRequest<>(
                         new ValidatorRequest<>(
                                 new ParserStringToDouble(
-                                        new MessageRequester<>(
+                                        new MessengerBeforeRequester<>(
                                                 "Enter weight, kg\n",
                                                 System.out,
                                                 new RequesterExternalValue(new Scanner(System.in))

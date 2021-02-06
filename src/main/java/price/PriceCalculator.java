@@ -1,19 +1,25 @@
 package price;
 
+import request.Requester;
+
 import java.util.List;
 import java.util.SortedMap;
 import java.util.function.Function;
 
-public class PriceCalculator implements Function<Double, Long> {
+public class PriceCalculator implements Function<Void, Long> {
 
     private final SortedMap<Double, Long> priceCurve;
+    private final Requester<Double> requester;
 
-    public PriceCalculator(SortedMap<Double, Long> priceCurve) {
+    public PriceCalculator(SortedMap<Double, Long> priceCurve,
+                           Requester<Double> requester) {
         this.priceCurve = priceCurve;
+        this.requester = requester;
     }
 
     @Override
-    public Long apply(Double aDouble) {
+    public Long apply(Void unused) {
+        var aDouble = requester.request();
         var result = 0L;
         var it = priceCurve.entrySet().iterator();
         var curve = List.copyOf(priceCurve.entrySet());
@@ -23,7 +29,7 @@ public class PriceCalculator implements Function<Double, Long> {
             if (aDouble > next.getKey()) {
                 result += Math.round((next.getKey() - current.getKey()) * current.getValue());
             } else {
-                result += Math.round((aDouble - current.getKey()) * current.getValue());
+                result += Math.round((current.getKey() - aDouble) * current.getValue());
             }
         }
 
