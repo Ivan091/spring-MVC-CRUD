@@ -6,7 +6,7 @@ import request.Requester;
 
 import java.util.function.Predicate;
 
-public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> implements Validator<R> {
+public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> {
 
     private final Predicate<R> predicate;
 
@@ -24,10 +24,5 @@ public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> i
             errorMessenger.send();
             return requester.request();
         }
-    }
-
-    @Override
-    public boolean isValid(R value) {
-        return predicate.test(value);
     }
 }
