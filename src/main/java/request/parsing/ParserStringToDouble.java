@@ -4,7 +4,7 @@ import messengers.Messenger;
 import request.ErrorMessengerRequesterAbstract;
 import request.Requester;
 
-public class ParserStringToDouble extends ErrorMessengerRequesterAbstract<Double, String> {
+public class ParserStringToDouble extends ErrorMessengerRequesterAbstract<String, Double> {
 
     public ParserStringToDouble(Requester<String> requester, Messenger errorMessenger) {
         super(requester, errorMessenger);

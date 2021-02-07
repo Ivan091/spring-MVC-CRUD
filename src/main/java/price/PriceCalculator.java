@@ -6,7 +6,7 @@ import request.RequesterAbstract;
 import java.util.List;
 import java.util.SortedMap;
 
-public class PriceCalculator extends RequesterAbstract<Long, Double> {
+public class PriceCalculator extends RequesterAbstract<Double, Long> {
 
     private final SortedMap<Double, Long> priceCurve;
 
