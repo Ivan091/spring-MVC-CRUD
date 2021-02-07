@@ -1,5 +1,7 @@
 package request.validation;
 
+import exceptions.RequestFailureException;
+import exceptions.RequestInterruptedException;
 import messengers.Messenger;
 import request.ErrorMessengerRequesterAbstract;
 import request.Requester;
@@ -16,7 +18,7 @@ public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> {
     }
 
     @Override
-    public R request() {
+    public R request() throws RequestFailureException, RequestInterruptedException {
         var requestValue = requester.request();
         if (predicate.test(requestValue)) {
             return requestValue;

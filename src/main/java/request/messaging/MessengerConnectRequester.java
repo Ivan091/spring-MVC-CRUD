@@ -1,5 +1,7 @@
 package request.messaging;
 
+import exceptions.RequestFailureException;
+import exceptions.RequestInterruptedException;
 import messengers.MessengerOutput;
 import request.Requester;
 
@@ -19,7 +21,7 @@ public class MessengerConnectRequester<R> extends MessengerRequesterAbstract<R> 
     }
 
     @Override
-    public R request() {
+    public R request() throws RequestFailureException, RequestInterruptedException {
         var requestResult = requester.request();
         var connectedMessage = connectFunction.apply(message, requestResult);
         new MessengerOutput(connectedMessage, outputStream).send();
