@@ -5,7 +5,11 @@ import request.Requester;
 
 import java.util.TreeMap;
 
-public class DistanceFactoryPriceCalculator implements RequesterFactory<Long> {
+public class DistanceFactoryPriceCalculator extends RequesterFactoryAbstract<Double, Long> {
+
+    public DistanceFactoryPriceCalculator(RequesterFactory<Double> innerFactory) {
+        super(innerFactory);
+    }
 
     @Override
     public Requester<Long> create() {
@@ -13,6 +17,6 @@ public class DistanceFactoryPriceCalculator implements RequesterFactory<Long> {
         priceCurve.put(0D, 200L);
         priceCurve.put(1000D, 500L);
         priceCurve.put(6000D, 700L);
-        return new PriceCalculator(new RequesterFactoryDistanceConsole().create(), priceCurve);
+        return new PriceCalculator(innerFactory.create(), priceCurve);
     }
 }

@@ -16,14 +16,14 @@ class ParserStringToDoubleTest extends RequestTester {
     @Test
     void requestNoErrorIfNumber() {
         var parser = new ParserStringToDouble(createBasicRequest("123"), error);
-        parser.request();
+        //parser.request();
         verify(error, times(0)).send();
     }
 
     @Test
     void requestOneErrorAfterSuccess() {
         var parser = new ParserStringToDouble(createBasicRequest("asd 123"), error);
-        parser.request();
+        //parser.request();
         verify(error, times(1)).send();
         Assertions.assertThrows(NoSuchElementException.class, parser::request);
     }

@@ -1,12 +1,11 @@
 // a * b + c * d
 
-import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import price.DeliveryPriceCalculator;
-import price.facrories.requesters.DistanceFactoryPriceCalculator;
-import price.facrories.requesters.WeightFactoryPriceCalculator;
+import price.facrories.requesters.*;
 import price.money.Dollar;
 import request.messaging.MessengerConnectRequester;
+import request.repeater.RequestRepeater;
 
 import java.util.Arrays;
 
@@ -18,15 +17,27 @@ public class Main {
                     "Final price is ",
                     System.out,
                     new DeliveryPriceCalculator(
-                            new DistanceFactoryPriceCalculator().create(),
-                            new WeightFactoryPriceCalculator().create()
+                            new RequestRepeater<>(
+                                    new DistanceFactoryPriceCalculator(
+                                            new RequesterFactoryDistance(
+                                                    new BasicConsoleRequestFactory()
+                                            )
+                                    ).create()
+                            ),
+                            new RequestRepeater<>(
+                                    new WeightFactoryPriceCalculator(
+                                            new RequesterFactoryWeight(
+                                                    new BasicConsoleRequestFactory()
+                                            )
+                                    ).create()
+                            )
                     ),
                     (m, v) -> m + new Dollar(v).asString()
             ).request();
-        } catch (RequestInterruptedException | RequestFailureException re) {
-            System.out.println(re.getMessage());
+        } catch (RequestInterruptedException re) {
+            System.out.print(re.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
+            System.out.print(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
     }
 }

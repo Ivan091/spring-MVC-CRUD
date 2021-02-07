@@ -5,13 +5,17 @@ import request.Requester;
 
 import java.util.TreeMap;
 
-public class WeightFactoryPriceCalculator implements RequesterFactory<Long> {
+public class WeightFactoryPriceCalculator extends RequesterFactoryAbstract<Double, Long> {
+    public WeightFactoryPriceCalculator(RequesterFactory<Double> innerFactory) {
+        super(innerFactory);
+    }
+
     @Override
     public Requester<Long> create() {
         var priceCurve = new TreeMap<Double, Long>();
         priceCurve.put(0D, 1000L);
         priceCurve.put(100D, 2000L);
         priceCurve.put(400D, 5000L);
-        return new PriceCalculator(new RequesterFactoryWeightConsole().create(), priceCurve);
+        return new PriceCalculator(innerFactory.create(), priceCurve);
     }
 }

@@ -2,14 +2,15 @@ package price.facrories.requesters;
 
 import messengers.MessengerOutput;
 import request.Requester;
-import request.RequesterExternalValue;
 import request.messaging.MessengerBeforeRequester;
 import request.parsing.ParserStringToDouble;
 import request.validation.ValidatorRequest;
 
-import java.util.Scanner;
+public class RequesterFactoryDistance extends RequesterFactoryAbstract<String, Double> {
 
-public class RequesterFactoryDistanceConsole implements RequesterFactory<Double> {
+    public RequesterFactoryDistance(RequesterFactory<String> innerFactory) {
+        super(innerFactory);
+    }
 
     @Override
     public Requester<Double> create() {
@@ -20,7 +21,7 @@ public class RequesterFactoryDistanceConsole implements RequesterFactory<Double>
                                         new MessengerBeforeRequester<>(
                                                 "Enter distance, km\n",
                                                 System.out,
-                                                new RequesterExternalValue(new Scanner(System.in))
+                                                innerFactory.create()
                                         ),
                                         new MessengerOutput(
                                                 "You must enter a number\n",

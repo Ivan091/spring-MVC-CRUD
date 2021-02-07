@@ -23,8 +23,7 @@ public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> {
         if (predicate.test(requestValue)) {
             return requestValue;
         } else {
-            errorMessenger.send();
-            return requester.request();
+            throw new RequestFailureException(errorMessenger.send());
         }
     }
 }

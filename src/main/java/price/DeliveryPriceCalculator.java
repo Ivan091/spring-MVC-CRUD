@@ -1,5 +1,7 @@
 package price;
 
+import exceptions.RequestFailureException;
+import exceptions.RequestInterruptedException;
 import request.Requester;
 
 public class DeliveryPriceCalculator implements Requester<Long> {
@@ -14,7 +16,7 @@ public class DeliveryPriceCalculator implements Requester<Long> {
     }
 
     @Override
-    public Long request() {
+    public Long request() throws RequestFailureException, RequestInterruptedException {
         return weightPrice.request() + distancePrice.request();
     }
 }

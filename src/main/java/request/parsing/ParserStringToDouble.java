@@ -17,8 +17,7 @@ public class ParserStringToDouble extends ErrorMessengerRequesterAbstract<String
         try {
             return Double.parseDouble(requester.request());
         } catch (NumberFormatException e) {
-            errorMessenger.send();
-            return this.request();
+            throw new RequestFailureException(errorMessenger.send());
         }
     }
 }

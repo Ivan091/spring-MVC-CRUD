@@ -1,5 +1,7 @@
 package price;
 
+import exceptions.RequestFailureException;
+import exceptions.RequestInterruptedException;
 import request.Requester;
 import request.RequesterAbstract;
 
@@ -17,7 +19,7 @@ public class PriceCalculator extends RequesterAbstract<Double, Long> {
     }
 
     @Override
-    public Long request() {
+    public Long request() throws RequestFailureException, RequestInterruptedException {
         var value = requester.request();
         var price = 0L;
         var curve = List.copyOf(priceCurve.entrySet());
