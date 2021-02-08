@@ -1,5 +1,6 @@
 package price.facrories.requesters;
 
+import exceptions.RequesterCreationException;
 import messengers.MessengerBasic;
 import requesters.Requester;
 import requesters.messaging.MessengerBeforeRequester;
@@ -13,7 +14,7 @@ public class DistanceRequesterFactory extends RequesterFactoryAbstract<String, D
     }
 
     @Override
-    public Requester<Double> create() {
+    public Requester<Double> create() throws RequesterCreationException {
         return
                 new ValidatorRequester<>(
                         new ValidatorRequester<>(

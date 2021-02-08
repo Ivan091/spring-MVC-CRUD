@@ -1,4 +1,4 @@
-package requesters.repeater;
+package requesters.repeaters;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;

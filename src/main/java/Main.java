@@ -1,15 +1,17 @@
-import exceptions.RequestInterruptedException;
 import price.DeliveryPriceCalculator;
 import price.facrories.requesters.*;
 import price.money.Dollar;
 import requesters.messaging.MessengerConnectRequester;
-import requesters.repeater.RepeaterRequest;
+import requesters.repeaters.RepeaterRequest;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+        new Main().run();
+    }
 
+    public void run() {
         try {
             new MessengerConnectRequester<>(
                     "Final price is ",
@@ -19,21 +21,21 @@ public class Main {
                                     new DistancePriceCalculatorFactory(
                                             new DistanceRequesterFactory(
                                                     new ConsoleRequesterBasicFactory()
-                                            )
+                                            ),
+                                            new RequesterSCVFileFactory(getClass().getResourceAsStream("/distance_price.scv"))
                                     ).create()
                             ),
                             new RepeaterRequest<>(
                                     new WeightPriceCalculatorFactory(
                                             new WeightRequesterFactory(
                                                     new ConsoleRequesterBasicFactory()
-                                            )
+                                            ),
+                                            new RequesterSCVFileFactory(getClass().getResourceAsStream("/weight_price.scv"))
                                     ).create()
                             )
                     ),
                     (m, v) -> m + new Dollar(v).asString()
             ).request();
-        } catch (RequestInterruptedException re) {
-            System.out.print(re.getMessage());
         } catch (Exception e) {
             System.out.print(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }

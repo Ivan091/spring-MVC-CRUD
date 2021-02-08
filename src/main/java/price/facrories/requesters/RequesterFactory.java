@@ -1,8 +1,8 @@
 package price.facrories.requesters;
 
-import price.facrories.Factory;
+import exceptions.RequesterCreationException;
 import requesters.Requester;
 
-public interface RequesterFactory<R> extends Factory<Requester<R>> {
-    Requester<R> create();
+public interface RequesterFactory<R> {
+    Requester<R> create() throws RequesterCreationException;
 }

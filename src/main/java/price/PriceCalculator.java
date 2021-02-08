@@ -10,17 +10,18 @@ import java.util.SortedMap;
 
 public class PriceCalculator extends RequesterAbstract<Double, Long> {
 
-    private final SortedMap<Double, Long> priceCurve;
+    private final Requester<SortedMap<Double, Long>> priceCurveRequester;
 
     public PriceCalculator(Requester<Double> requester,
-                           SortedMap<Double, Long> priceCurve) {
+                           Requester<SortedMap<Double, Long>> priceCurveRequester) {
         super(requester);
-        this.priceCurve = priceCurve;
+        this.priceCurveRequester = priceCurveRequester;
     }
 
     @Override
     public Long request() throws RequestFailureException, RequestInterruptedException {
         var value = requester.request();
+        var priceCurve = priceCurveRequester.request();
         var price = 0L;
         var curve = List.copyOf(priceCurve.entrySet());
         for (var i = 0; i < curve.size() - 1; i++) {
