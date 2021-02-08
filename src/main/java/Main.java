@@ -1,3 +1,4 @@
+import exceptions.RequestInterruptedException;
 import price.DeliveryPriceCalculator;
 import price.facrories.requesters.*;
 import price.money.Dollar;
@@ -17,29 +18,31 @@ public class Main {
                     "Final price is ",
                     System.out,
                     new DeliveryPriceCalculator(
-                            new RepeaterRequest<>(
-                                    new DistancePriceCalculatorFactory(
+                            new DistancePriceCalculatorFactory(
+                                    new RepeaterRequest<>(
                                             new DistanceRequesterFactory(
                                                     new ConsoleRequesterBasicFactory().create()
-                                            ).create(),
-                                            new RequesterSCVFileFactory(
-                                                    getClass().getResourceAsStream("/distance_price.scv")
                                             ).create()
+                                    ),
+                                    new RequesterSCVFileFactory(
+                                            getClass().getResourceAsStream("/distance_price.scv")
                                     ).create()
-                            ),
-                            new RepeaterRequest<>(
-                                    new WeightPriceCalculatorFactory(
+                            ).create(),
+                            new WeightPriceCalculatorFactory(
+                                    new RepeaterRequest<>(
                                             new WeightRequesterFactory(
                                                     new ConsoleRequesterBasicFactory().create()
-                                            ).create(),
-                                            new RequesterSCVFileFactory(
-                                                    getClass().getResourceAsStream("/weight_price.scv")
                                             ).create()
+                                    ),
+                                    new RequesterSCVFileFactory(
+                                            getClass().getResourceAsStream("/weight_price.scv")
                                     ).create()
-                            )
+                            ).create()
                     ),
                     (m, v) -> m + new Dollar(v).asString()
             ).request();
+        } catch (RequestInterruptedException e) {
+            System.out.print("bye");
         } catch (Exception e) {
             System.out.print(e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
