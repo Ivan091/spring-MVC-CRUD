@@ -1,11 +1,9 @@
-// a * b + c * d
-
 import exceptions.RequestInterruptedException;
 import price.DeliveryPriceCalculator;
 import price.facrories.requesters.*;
 import price.money.Dollar;
 import request.messaging.MessengerConnectRequester;
-import request.repeater.RequestRepeater;
+import request.repeater.RepeaterRequest;
 
 import java.util.Arrays;
 
@@ -17,17 +15,17 @@ public class Main {
                     "Final price is ",
                     System.out,
                     new DeliveryPriceCalculator(
-                            new RequestRepeater<>(
-                                    new DistanceFactoryPriceCalculator(
-                                            new RequesterFactoryDistance(
-                                                    new BasicConsoleRequestFactory()
+                            new RepeaterRequest<>(
+                                    new DistancePriceCalculatorFactory(
+                                            new DistanceRequesterFactory(
+                                                    new ConsoleRequesterBasicFactory()
                                             )
                                     ).create()
                             ),
-                            new RequestRepeater<>(
-                                    new WeightFactoryPriceCalculator(
-                                            new RequesterFactoryWeight(
-                                                    new BasicConsoleRequestFactory()
+                            new RepeaterRequest<>(
+                                    new WeightPriceCalculatorFactory(
+                                            new WeightRequesterFactory(
+                                                    new ConsoleRequesterBasicFactory()
                                             )
                                     ).create()
                             )

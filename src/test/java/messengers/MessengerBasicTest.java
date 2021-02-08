@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
-class MessengerOutputTest {
+class MessengerBasicTest {
 
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     String s = "";
@@ -13,21 +13,21 @@ class MessengerOutputTest {
     @Test
     void sendEmpty() {
         s = "";
-        new MessengerOutput(s, os).send();
+        new MessengerBasic(s, os).send();
         Assertions.assertEquals(s, os.toString());
     }
 
     @Test
     void sendText() {
         s = "Some text";
-        new MessengerOutput(s, os).send();
+        new MessengerBasic(s, os).send();
         Assertions.assertEquals(s, os.toString());
     }
 
     @Test
     void sendCharacters() {
         s = "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-=";
-        new MessengerOutput(s, os).send();
+        new MessengerBasic(s, os).send();
         Assertions.assertEquals(s, os.toString());
     }
 }

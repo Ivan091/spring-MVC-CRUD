@@ -3,16 +3,16 @@ package request.validation;
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import messengers.Messenger;
-import request.ErrorMessengerRequesterAbstract;
 import request.Requester;
+import request.RequesterFailureMessengerAbstract;
 
 import java.util.function.Predicate;
 
-public class ValidatorRequest<R> extends ErrorMessengerRequesterAbstract<R, R> {
+public class ValidatorRequester<R> extends RequesterFailureMessengerAbstract<R, R> {
 
     private final Predicate<R> predicate;
 
-    public ValidatorRequest(Requester<R> requester, Predicate<R> predicate, Messenger errorMessenger) {
+    public ValidatorRequester(Requester<R> requester, Predicate<R> predicate, Messenger errorMessenger) {
         super(requester, errorMessenger);
         this.predicate = predicate;
     }

@@ -1,6 +1,6 @@
 package request.parsing;
 
-import messengers.MessengerOutput;
+import messengers.MessengerBasic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import request.RequestTester;
@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 class ParserStringToDoubleTest extends RequestTester {
 
-    MessengerOutput error = mock(MessengerOutput.class);
+    MessengerBasic error = mock(MessengerBasic.class);
 
     @Test
     void requestNoErrorIfNumber() {

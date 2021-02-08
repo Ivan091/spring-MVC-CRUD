@@ -2,7 +2,7 @@ package request.messaging;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import messengers.MessengerOutput;
+import messengers.MessengerBasic;
 import request.Requester;
 
 import java.io.OutputStream;
@@ -24,7 +24,7 @@ public class MessengerConnectRequester<R> extends MessengerRequesterAbstract<R> 
     public R request() throws RequestFailureException, RequestInterruptedException {
         var requestResult = requester.request();
         var connectedMessage = connectFunction.apply(message, requestResult);
-        new MessengerOutput(connectedMessage, outputStream).send();
+        new MessengerBasic(connectedMessage, outputStream).send();
         return requestResult;
     }
 }

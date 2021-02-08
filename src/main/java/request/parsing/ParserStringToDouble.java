@@ -3,10 +3,10 @@ package request.parsing;
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import messengers.Messenger;
-import request.ErrorMessengerRequesterAbstract;
 import request.Requester;
+import request.RequesterFailureMessengerAbstract;
 
-public class ParserStringToDouble extends ErrorMessengerRequesterAbstract<String, Double> {
+public class ParserStringToDouble extends RequesterFailureMessengerAbstract<String, Double> {
 
     public ParserStringToDouble(Requester<String> requester, Messenger errorMessenger) {
         super(requester, errorMessenger);
