@@ -1,4 +1,4 @@
-package price.facrories.requesters;
+package price.facrories;
 
 import price.RequesterSCVFile;
 import requesters.Requester;
