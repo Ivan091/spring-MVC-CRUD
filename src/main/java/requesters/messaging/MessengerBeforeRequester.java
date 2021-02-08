@@ -1,8 +1,8 @@
-package request.messaging;
+package requesters.messaging;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import request.Requester;
+import requesters.Requester;
 
 import java.io.OutputStream;
 

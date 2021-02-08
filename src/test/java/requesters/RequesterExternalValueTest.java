@@ -1,4 +1,4 @@
-package request;
+package requesters;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

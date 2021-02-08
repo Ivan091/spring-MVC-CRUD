@@ -1,9 +1,9 @@
-package request.repeater;
+package requesters.repeater;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import request.Requester;
-import request.RequesterAbstract;
+import requesters.Requester;
+import requesters.RequesterAbstract;
 
 public class RepeaterRequest<R> extends RequesterAbstract<R, R> {
 

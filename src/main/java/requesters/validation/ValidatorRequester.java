@@ -1,10 +1,10 @@
-package request.validation;
+package requesters.validation;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import messengers.Messenger;
-import request.Requester;
-import request.RequesterFailureMessengerAbstract;
+import requesters.Requester;
+import requesters.RequesterFailureMessengerAbstract;
 
 import java.util.function.Predicate;
 

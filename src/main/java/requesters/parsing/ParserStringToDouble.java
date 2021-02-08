@@ -1,10 +1,10 @@
-package request.parsing;
+package requesters.parsing;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import messengers.Messenger;
-import request.Requester;
-import request.RequesterFailureMessengerAbstract;
+import requesters.Requester;
+import requesters.RequesterFailureMessengerAbstract;
 
 public class ParserStringToDouble extends RequesterFailureMessengerAbstract<String, Double> {
 

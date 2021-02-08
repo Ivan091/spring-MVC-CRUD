@@ -1,4 +1,4 @@
-package request;
+package requesters;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;

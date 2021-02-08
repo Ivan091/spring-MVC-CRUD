@@ -1,8 +1,8 @@
-package request.validation;
+package requesters.validation;
 
 import messengers.MessengerBasic;
 import org.junit.jupiter.api.Test;
-import request.RequestTester;
+import requesters.RequestTester;
 
 import static org.mockito.Mockito.mock;
 

@@ -2,7 +2,7 @@ package price;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import request.Requester;
+import requesters.Requester;
 
 public class DeliveryPriceCalculator implements Requester<Long> {
 

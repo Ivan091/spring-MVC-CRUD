@@ -1,7 +1,7 @@
-package request.messaging;
+package requesters.messaging;
 
 import messengers.MessengerBasic;
-import request.Requester;
+import requesters.Requester;
 
 import java.io.OutputStream;
 

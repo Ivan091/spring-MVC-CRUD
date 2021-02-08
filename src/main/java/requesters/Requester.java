@@ -1,4 +1,4 @@
-package request;
+package requesters;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;

@@ -1,9 +1,9 @@
-package request.messaging;
+package requesters.messaging;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
 import messengers.MessengerBasic;
-import request.Requester;
+import requesters.Requester;
 
 import java.io.OutputStream;
 import java.util.function.BiFunction;

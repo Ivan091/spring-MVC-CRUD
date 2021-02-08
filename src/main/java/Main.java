@@ -2,8 +2,8 @@ import exceptions.RequestInterruptedException;
 import price.DeliveryPriceCalculator;
 import price.facrories.requesters.*;
 import price.money.Dollar;
-import request.messaging.MessengerConnectRequester;
-import request.repeater.RepeaterRequest;
+import requesters.messaging.MessengerConnectRequester;
+import requesters.repeater.RepeaterRequest;
 
 import java.util.Arrays;
 

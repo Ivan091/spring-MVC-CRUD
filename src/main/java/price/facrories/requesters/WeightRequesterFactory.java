@@ -1,10 +1,10 @@
 package price.facrories.requesters;
 
 import messengers.MessengerBasic;
-import request.Requester;
-import request.messaging.MessengerBeforeRequester;
-import request.parsing.ParserStringToDouble;
-import request.validation.ValidatorRequester;
+import requesters.Requester;
+import requesters.messaging.MessengerBeforeRequester;
+import requesters.parsing.ParserStringToDouble;
+import requesters.validation.ValidatorRequester;
 
 public class WeightRequesterFactory extends RequesterFactoryAbstract<String, Double> {
 

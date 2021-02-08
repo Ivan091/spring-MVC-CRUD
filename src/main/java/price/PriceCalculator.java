@@ -2,8 +2,8 @@ package price;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import request.Requester;
-import request.RequesterAbstract;
+import requesters.Requester;
+import requesters.RequesterAbstract;
 
 import java.util.List;
 import java.util.SortedMap;

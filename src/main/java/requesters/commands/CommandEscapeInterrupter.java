@@ -1,9 +1,9 @@
-package request.commands;
+package requesters.commands;
 
 import exceptions.RequestFailureException;
 import exceptions.RequestInterruptedException;
-import request.Requester;
-import request.RequesterAbstract;
+import requesters.Requester;
+import requesters.RequesterAbstract;
 
 public class CommandEscapeInterrupter extends RequesterAbstract<String, String> {
 

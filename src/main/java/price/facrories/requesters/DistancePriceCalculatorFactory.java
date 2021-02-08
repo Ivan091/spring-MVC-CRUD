@@ -1,7 +1,7 @@
 package price.facrories.requesters;
 
 import price.PriceCalculator;
-import request.Requester;
+import requesters.Requester;
 
 import java.util.TreeMap;
 

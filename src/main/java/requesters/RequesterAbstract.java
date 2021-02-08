@@ -1,4 +1,4 @@
-package request;
+package requesters;
 
 public abstract class RequesterAbstract<I, R> implements Requester<R> {
     protected final Requester<I> requester;

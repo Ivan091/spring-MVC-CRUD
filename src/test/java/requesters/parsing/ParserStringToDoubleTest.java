@@ -1,9 +1,9 @@
-package request.parsing;
+package requesters.parsing;
 
 import messengers.MessengerBasic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import request.RequestTester;
+import requesters.RequestTester;
 
 import java.util.NoSuchElementException;
 
