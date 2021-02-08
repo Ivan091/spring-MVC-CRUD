@@ -20,21 +20,21 @@ public class Main {
                             new RepeaterRequest<>(
                                     new DistancePriceCalculatorFactory(
                                             new DistanceRequesterFactory(
-                                                    new ConsoleRequesterBasicFactory()
-                                            ),
+                                                    new ConsoleRequesterBasicFactory().create()
+                                            ).create(),
                                             new RequesterSCVFileFactory(
                                                     getClass().getResourceAsStream("/distance_price.scv")
-                                            )
+                                            ).create()
                                     ).create()
                             ),
                             new RepeaterRequest<>(
                                     new WeightPriceCalculatorFactory(
                                             new WeightRequesterFactory(
-                                                    new ConsoleRequesterBasicFactory()
-                                            ),
+                                                    new ConsoleRequesterBasicFactory().create()
+                                            ).create(),
                                             new RequesterSCVFileFactory(
                                                     getClass().getResourceAsStream("/weight_price.scv")
-                                            )
+                                            ).create()
                                     ).create()
                             )
                     ),

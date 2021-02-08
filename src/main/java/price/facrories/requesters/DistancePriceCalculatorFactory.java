@@ -1,6 +1,5 @@
 package price.facrories.requesters;
 
-import exceptions.RequesterCreationException;
 import price.PriceCalculator;
 import requesters.Requester;
 
@@ -8,16 +7,16 @@ import java.util.SortedMap;
 
 public class DistancePriceCalculatorFactory extends RequesterFactoryAbstract<Double, Long> {
 
-    private final RequesterFactory<SortedMap<Double, Long>> priceCurveFactory;
+    private final Requester<SortedMap<Double, Long>> priceCurveFactory;
 
-    public DistancePriceCalculatorFactory(RequesterFactory<Double> innerFactory,
-                                          RequesterFactory<SortedMap<Double, Long>> priceCurveFactory) {
-        super(innerFactory);
+    public DistancePriceCalculatorFactory(Requester<Double> innerRequester,
+                                          Requester<SortedMap<Double, Long>> priceCurveFactory) {
+        super(innerRequester);
         this.priceCurveFactory = priceCurveFactory;
     }
 
     @Override
-    public Requester<Long> create() throws RequesterCreationException {
-        return new PriceCalculator(innerFactory.create(), priceCurveFactory.create());
+    public Requester<Long> create() {
+        return new PriceCalculator(innerRequester, priceCurveFactory);
     }
 }

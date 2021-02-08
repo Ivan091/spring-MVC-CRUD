@@ -1,6 +1,5 @@
 package price.facrories.requesters;
 
-import exceptions.RequesterCreationException;
 import messengers.MessengerBasic;
 import requesters.Requester;
 import requesters.messaging.MessengerBeforeRequester;
@@ -9,12 +8,12 @@ import requesters.validation.ValidatorRequester;
 
 public class DistanceRequesterFactory extends RequesterFactoryAbstract<String, Double> {
 
-    public DistanceRequesterFactory(RequesterFactory<String> innerFactory) {
-        super(innerFactory);
+    public DistanceRequesterFactory(Requester<String> innerRequester) {
+        super(innerRequester);
     }
 
     @Override
-    public Requester<Double> create() throws RequesterCreationException {
+    public Requester<Double> create() {
         return
                 new ValidatorRequester<>(
                         new ValidatorRequester<>(
@@ -22,7 +21,7 @@ public class DistanceRequesterFactory extends RequesterFactoryAbstract<String, D
                                         new MessengerBeforeRequester<>(
                                                 "Enter distance, km\n",
                                                 System.out,
-                                                innerFactory.create()
+                                                innerRequester
                                         ),
                                         new MessengerBasic(
                                                 "You must enter a number\n",

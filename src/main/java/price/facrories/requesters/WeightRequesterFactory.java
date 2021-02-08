@@ -1,6 +1,5 @@
 package price.facrories.requesters;
 
-import exceptions.RequesterCreationException;
 import messengers.MessengerBasic;
 import requesters.Requester;
 import requesters.messaging.MessengerBeforeRequester;
@@ -9,12 +8,12 @@ import requesters.validation.ValidatorRequester;
 
 public class WeightRequesterFactory extends RequesterFactoryAbstract<String, Double> {
 
-    public WeightRequesterFactory(RequesterFactory<String> innerFactory) {
+    public WeightRequesterFactory(Requester<String> innerFactory) {
         super(innerFactory);
     }
 
     @Override
-    public Requester<Double> create() throws RequesterCreationException {
+    public Requester<Double> create() {
         return
                 new ValidatorRequester<>(
                         new ValidatorRequester<>(
@@ -22,7 +21,7 @@ public class WeightRequesterFactory extends RequesterFactoryAbstract<String, Dou
                                         new MessengerBeforeRequester<>(
                                                 "Enter weight, kg\n",
                                                 System.out,
-                                                innerFactory.create()
+                                                innerRequester
                                         ),
                                         new MessengerBasic(
                                                 "You must enter a number\n",
