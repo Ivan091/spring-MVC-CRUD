@@ -2,11 +2,10 @@ package requesters.validation;
 
 import messengers.MessengerBasic;
 import org.junit.jupiter.api.Test;
-import requesters.RequestTester;
 
 import static org.mockito.Mockito.mock;
 
-class ValidatorRequesterTest extends RequestTester {
+class ValidatorRequesterTest {
 
     @Test
     void validTest() {

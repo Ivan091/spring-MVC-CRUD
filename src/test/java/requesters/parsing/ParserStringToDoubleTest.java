@@ -1,30 +1,29 @@
 package requesters.parsing;
 
-import messengers.MessengerBasic;
+import exceptions.RequestFailureException;
+import messengers.Messenger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import requesters.RequestTester;
-
-import java.util.NoSuchElementException;
 
 import static org.mockito.Mockito.*;
 
-class ParserStringToDoubleTest extends RequestTester {
+class ParserStringToDoubleTest {
 
-    MessengerBasic error = mock(MessengerBasic.class);
+    Messenger error = mock(Messenger.class);
 
     @Test
     void requestNoErrorIfNumber() {
-        var parser = new ParserStringToDouble(createBasicRequest("123"), error);
-        //parser.request();
+        var parser = new ParserStringToDouble(() -> "213.123", error);
+        Assertions.assertDoesNotThrow(
+                () -> Assertions.assertEquals(213.123, parser.request())
+        );
         verify(error, times(0)).send();
     }
 
     @Test
     void requestOneErrorAfterSuccess() {
-        var parser = new ParserStringToDouble(createBasicRequest("asd 123"), error);
-        //parser.request();
+        var parser = new ParserStringToDouble(() -> "asd", error);
         verify(error, times(1)).send();
-        Assertions.assertThrows(NoSuchElementException.class, parser::request);
+        Assertions.assertThrows(RequestFailureException.class, parser::request);
     }
 }
