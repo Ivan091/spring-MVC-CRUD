@@ -22,7 +22,9 @@ public class Main {
                                             new DistanceRequesterFactory(
                                                     new ConsoleRequesterBasicFactory()
                                             ),
-                                            new RequesterSCVFileFactory(getClass().getResourceAsStream("/distance_price.scv"))
+                                            new RequesterSCVFileFactory(
+                                                    getClass().getResourceAsStream("/distance_price.scv")
+                                            )
                                     ).create()
                             ),
                             new RepeaterRequest<>(
@@ -30,7 +32,9 @@ public class Main {
                                             new WeightRequesterFactory(
                                                     new ConsoleRequesterBasicFactory()
                                             ),
-                                            new RequesterSCVFileFactory(getClass().getResourceAsStream("/weight_price.scv"))
+                                            new RequesterSCVFileFactory(
+                                                    getClass().getResourceAsStream("/weight_price.scv")
+                                            )
                                     ).create()
                             )
                     ),
