@@ -13,7 +13,6 @@ target/
 .idea/
 
 # Package Files #
-bootstrap*
 *.jar
 *.war
 *.nar
