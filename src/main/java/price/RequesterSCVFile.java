@@ -19,9 +19,12 @@ public class RequesterSCVFile implements Requester<SortedMap<Double, Long>> {
     public SortedMap<Double, Long> request() throws RequestFailureException, RequestInterruptedException {
 
         var map = new TreeMap<Double, Long>();
+        String line;
         try {
-            var values = reader.readLine().split(",");
-            map.put(Double.parseDouble(values[0]), Long.parseLong(values[1]));
+            while ((line = reader.readLine()) != null) {
+                var values = line.split(",");
+                map.put(Double.parseDouble(values[0]), Long.parseLong(values[1]));
+            }
         } catch (IOException io) {
             throw new RequesterCreationException(io.getMessage() + Arrays.toString(io.getStackTrace()));
         }
