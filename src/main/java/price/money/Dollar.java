@@ -1,6 +1,7 @@
 package price.money;
 
 public class Dollar extends MoneyAbstract {
+
     public Dollar(long moneyInMinValues) {
         super(moneyInMinValues);
     }

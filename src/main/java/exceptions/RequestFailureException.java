@@ -1,6 +1,7 @@
 package exceptions;
 
 public class RequestFailureException extends Exception {
+
     public RequestFailureException(String message) {
         super(message);
     }

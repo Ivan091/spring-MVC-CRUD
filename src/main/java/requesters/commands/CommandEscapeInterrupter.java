@@ -5,6 +5,7 @@ import exceptions.RequestInterruptedException;
 import requesters.Requester;
 import requesters.RequesterAbstract;
 
+
 public class CommandEscapeInterrupter extends RequesterAbstract<String, String> {
 
     public CommandEscapeInterrupter(Requester<String> requester) {

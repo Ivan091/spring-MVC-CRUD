@@ -7,6 +7,7 @@ import requesters.parsing.ParserStringToDouble;
 import requesters.repeaters.RepeaterRequest;
 import requesters.validation.ValidatorRequester;
 
+
 public class DistanceRequesterFactory extends RequesterFactoryAbstract<String, Double> {
 
     public DistanceRequesterFactory(Requester<String> innerRequester) {

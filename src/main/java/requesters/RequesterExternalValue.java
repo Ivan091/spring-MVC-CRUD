@@ -2,6 +2,7 @@ package requesters;
 
 import java.util.Scanner;
 
+
 public class RequesterExternalValue implements Requester<String> {
 
     private final Scanner scanner;

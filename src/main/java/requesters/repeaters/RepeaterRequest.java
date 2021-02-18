@@ -5,6 +5,7 @@ import exceptions.RequestInterruptedException;
 import requesters.Requester;
 import requesters.RequesterAbstract;
 
+
 public class RepeaterRequest<R> extends RequesterAbstract<R, R> {
 
     public RepeaterRequest(Requester<R> requester) {

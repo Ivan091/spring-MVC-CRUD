@@ -5,6 +5,7 @@ import requesters.Requester;
 
 import java.util.SortedMap;
 
+
 public class DistancePriceCalculatorFactory extends RequesterFactoryAbstract<Double, Long> {
 
     private final Requester<SortedMap<Double, Long>> priceCurveFactory;

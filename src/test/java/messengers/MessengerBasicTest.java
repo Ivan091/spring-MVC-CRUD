@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 
 class MessengerBasicTest {
-
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     String s = "";
 

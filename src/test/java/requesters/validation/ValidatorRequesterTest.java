@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 
 class ValidatorRequesterTest {
-
     @Test
     void validTest() {
         var messenger = mock(MessengerBasic.class);

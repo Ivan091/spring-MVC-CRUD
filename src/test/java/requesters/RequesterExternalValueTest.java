@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 class RequesterExternalValueTest {
-
     @Test
     void requestValues() {
         var str = "123 qwe plm";

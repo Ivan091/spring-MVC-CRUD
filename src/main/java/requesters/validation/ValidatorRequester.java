@@ -8,6 +8,7 @@ import requesters.RequesterFailureMessengerAbstract;
 
 import java.util.function.Predicate;
 
+
 public class ValidatorRequester<R> extends RequesterFailureMessengerAbstract<R, R> {
 
     private final Predicate<R> predicate;

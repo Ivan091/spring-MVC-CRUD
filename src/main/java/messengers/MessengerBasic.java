@@ -3,6 +3,7 @@ package messengers;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
+
 public class MessengerBasic implements Messenger {
 
     protected final String message;

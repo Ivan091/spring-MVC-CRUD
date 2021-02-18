@@ -5,6 +5,7 @@ import requesters.Requester;
 
 import java.util.SortedMap;
 
+
 public class WeightPriceCalculatorFactory extends RequesterFactoryAbstract<Double, Long> {
 
     private final Requester<SortedMap<Double, Long>> priceCurveFactory;

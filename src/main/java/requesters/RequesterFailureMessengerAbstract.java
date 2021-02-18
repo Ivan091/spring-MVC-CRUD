@@ -2,6 +2,7 @@ package requesters;
 
 import messengers.Messenger;
 
+
 public abstract class RequesterFailureMessengerAbstract<I, R> extends RequesterAbstract<I, R> {
 
     protected final Messenger errorMessenger;

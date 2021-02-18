@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class ParserStringToDoubleTest {
-
     Messenger error = mock(Messenger.class);
 
     @Test

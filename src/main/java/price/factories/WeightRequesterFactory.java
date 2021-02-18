@@ -7,6 +7,7 @@ import requesters.parsing.ParserStringToDouble;
 import requesters.repeaters.RepeaterRequest;
 import requesters.validation.ValidatorRequester;
 
+
 public class WeightRequesterFactory extends RequesterFactoryAbstract<String, Double> {
 
     public WeightRequesterFactory(Requester<String> innerFactory) {

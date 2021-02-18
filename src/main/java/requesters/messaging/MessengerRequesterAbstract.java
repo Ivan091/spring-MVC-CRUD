@@ -5,6 +5,7 @@ import requesters.Requester;
 
 import java.io.OutputStream;
 
+
 public abstract class MessengerRequesterAbstract<R> extends MessengerBasic implements Requester<R> {
 
     protected final Requester<R> requester;

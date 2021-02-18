@@ -6,6 +6,7 @@ import messengers.Messenger;
 import requesters.Requester;
 import requesters.RequesterFailureMessengerAbstract;
 
+
 public class ParserStringToDouble extends RequesterFailureMessengerAbstract<String, Double> {
 
     public ParserStringToDouble(Requester<String> requester, Messenger errorMessenger) {

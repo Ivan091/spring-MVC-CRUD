@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
 
+
 public class RequesterSCVFile implements Requester<SortedMap<Double, Long>> {
 
     private final BufferedReader reader;

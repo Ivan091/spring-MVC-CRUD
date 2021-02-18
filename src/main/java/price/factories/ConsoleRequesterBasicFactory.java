@@ -6,7 +6,9 @@ import requesters.commands.CommandEscapeInterrupter;
 
 import java.util.Scanner;
 
+
 public class ConsoleRequesterBasicFactory implements RequesterFactory<String> {
+
     @Override
     public Requester<String> create() {
         return

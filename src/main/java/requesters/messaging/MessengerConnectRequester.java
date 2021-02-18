@@ -8,6 +8,7 @@ import requesters.Requester;
 import java.io.OutputStream;
 import java.util.function.BiFunction;
 
+
 public class MessengerConnectRequester<R> extends MessengerRequesterAbstract<R> {
 
     private final BiFunction<String, R, String> connectFunction;

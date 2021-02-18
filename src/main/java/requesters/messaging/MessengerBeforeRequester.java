@@ -6,6 +6,7 @@ import requesters.Requester;
 
 import java.io.OutputStream;
 
+
 public class MessengerBeforeRequester<R> extends MessengerRequesterAbstract<R> {
 
     public MessengerBeforeRequester(String message, OutputStream outputStream, Requester<R> requester) {

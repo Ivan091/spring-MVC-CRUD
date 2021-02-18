@@ -6,7 +6,9 @@ import requesters.Requester;
 import java.io.*;
 import java.util.SortedMap;
 
+
 public class RequesterSCVFileFactory implements RequesterFactory<SortedMap<Double, Long>> {
+
     private final InputStream inputStream;
 
     public RequesterSCVFileFactory(InputStream inputStream) {
