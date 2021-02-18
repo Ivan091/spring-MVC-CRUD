@@ -1,4 +1,4 @@
-package price.facrories;
+package price.factories;
 
 import messengers.MessengerBasic;
 import requesters.Requester;

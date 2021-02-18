@@ -1,4 +1,4 @@
-package price.facrories;
+package price.factories;
 
 import requesters.Requester;
 import requesters.RequesterExternalValue;

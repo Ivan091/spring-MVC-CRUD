@@ -1,4 +1,4 @@
-package price.facrories;
+package price.factories;
 
 import price.PriceCalculator;
 import requesters.Requester;
