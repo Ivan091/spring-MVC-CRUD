@@ -6,7 +6,13 @@
 
     <groupId>groupId</groupId>
     <artifactId>IKarnasevich</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>dao</module>
+        <module>model</module>
+        <module>test-db</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
