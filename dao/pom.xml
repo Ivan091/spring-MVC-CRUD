@@ -15,6 +15,10 @@
             <groupId>groupId</groupId>
             <artifactId>model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>groupId</groupId>
+            <artifactId>test-db</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -24,6 +28,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
