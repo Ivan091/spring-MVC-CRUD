@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -43,7 +45,7 @@ public class Title {
     @Override
     public String
     toString() {
-        return "Title{" +
+        return "model.Title{" +
                 "titleId=" + titleId +
                 ", budget=" + budget +
                 ", premiereDate=" + premiereDate +

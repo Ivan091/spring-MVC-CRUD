@@ -1,4 +1,6 @@
-import java.time.LocalDate;
+package model;
+
+import java.sql.Date;
 import java.util.Objects;
 
 
@@ -10,9 +12,9 @@ public class Director {
 
     private final String surname;
 
-    private final LocalDate birthDate;
+    private final Date birthDate;
 
-    public Director(int directorId, String name, String surname, LocalDate birthDate) {
+    public Director(int directorId, String name, String surname, Date birthDate) {
         this.directorId = directorId;
         this.name = name;
         this.surname = surname;
@@ -38,7 +40,7 @@ public class Director {
 
     @Override
     public String toString() {
-        return "Director{" +
+        return "model.Director{" +
                 "directorId=" + directorId +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -58,7 +60,7 @@ public class Director {
         return surname;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 }

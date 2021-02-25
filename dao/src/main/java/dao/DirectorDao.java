@@ -1,9 +1,13 @@
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+package dao;
+
+import dao.factories.DaoFactory;
+import dao.factories.DirectorFactory;
+import model.Director;
+import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class DirectorDao implements Dao<Director> {
@@ -14,7 +18,9 @@ public class DirectorDao implements Dao<Director> {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Director> rowMapper = BeanPropertyRowMapper.newInstance(Director.class);
+    private final RowMapper<Map<String, Object>> rowMapper = new ColumnMapRowMapper();
+
+    private final DaoFactory<Director> directorDaoFactory = new DirectorFactory();
 
     public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -22,7 +28,12 @@ public class DirectorDao implements Dao<Director> {
 
     @Override
     public List<Director> findAll() {
-        return jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
+        var listOfMaps = jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
+        var instances = new ArrayList<Director>(listOfMaps.size());
+        for (var item : listOfMaps) {
+            instances.add(directorDaoFactory.create(item));
+        }
+        return instances;
     }
 
     @Override
