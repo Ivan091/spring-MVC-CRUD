@@ -1,4 +1,5 @@
-import dao.Dao;
+package dao;
+
 import model.Director;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -6,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.stream.IntStream;
 
 
 @ExtendWith(SpringExtension.class)
@@ -18,7 +21,15 @@ class DirectorDaoTest {
     @Test
     void findAll() {
         var result = directorDao.findAll();
-        Assertions.assertNotNull(result);
-        Assertions.assertTrue(result.size() > 0);
+        Assertions.assertEquals(3, result.size());
+    }
+
+    @Test
+    void delete() {
+        IntStream.range(1, 4).forEach(i -> {
+            Assertions.assertTrue(directorDao.findById(i).isPresent());
+            directorDao.delete(i);
+            Assertions.assertTrue(directorDao.findById(i).isEmpty());
+        });
     }
 }
