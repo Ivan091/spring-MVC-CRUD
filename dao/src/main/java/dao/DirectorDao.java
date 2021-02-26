@@ -63,7 +63,7 @@ public class DirectorDao implements Dao<Director> {
                 "surname", entity.getSurname(),
                 "birth_date", entity.getBirthDate()
         ));
-        jdbcTemplate.update(SQL_CREATE, sqlParameterSource, keyHolder);
+        jdbcTemplate.update(SQL_UPDATE, sqlParameterSource, keyHolder);
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
@@ -75,7 +75,7 @@ public class DirectorDao implements Dao<Director> {
                 "surname", entity.getSurname(),
                 "birth_date", entity.getBirthDate()
         ));
-        jdbcTemplate.update(SQL_UPDATE, sqlParameterSource, keyHolder);
+        jdbcTemplate.update(SQL_CREATE, sqlParameterSource, keyHolder);
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
@@ -84,6 +84,6 @@ public class DirectorDao implements Dao<Director> {
         var keyHolder = new GeneratedKeyHolder();
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
         jdbcTemplate.update(SQL_DELETE, sqlParameterSource, keyHolder);
-        return Objects.requireNonNull(keyHolder.getKey() == null ? 0 : keyHolder.getKey()).intValue();
+        return 0;
     }
 }
