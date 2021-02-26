@@ -1,6 +1,6 @@
-package dao;
+package com.titles.dao;
 
-import model.Director;
+import com.titles.model.Director;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

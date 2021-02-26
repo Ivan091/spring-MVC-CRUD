@@ -29,7 +29,7 @@
             </dependency>
             <dependency>
                 <groupId>groupId</groupId>
-                <artifactId>dao</artifactId>
+                <artifactId>com.dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

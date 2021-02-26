@@ -1,6 +1,6 @@
-package dao;
+package com.titles.dao;
 
-import model.Director;
+import com.titles.model.Director;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

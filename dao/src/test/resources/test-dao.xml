@@ -8,7 +8,7 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="directorDao" class="dao.DirectorDao">
+    <bean id="directorDao" class="com.titles.dao.DirectorDao">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
