@@ -41,7 +41,7 @@ public class Director {
     @Override
     public String toString() {
         return "model.Director{" +
-                "directorId=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +

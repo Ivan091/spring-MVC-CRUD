@@ -47,16 +47,20 @@ public class DirectorDao implements Dao<Director> {
 
     @Override
     public List<Director> findAll() {
-        LOGGER.debug("Find all directors");
-        return jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
+        var directors = jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
+        LOGGER.debug("Finding all directors ({} found)", directors.size());
+        return directors;
     }
 
     @Override
     public Optional<Director> findById(int id) {
-        LOGGER.debug("Find director by id: {}", id);
+        LOGGER.debug("Finding director by id: {}", id);
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(SQL_FIND_BY_ID, sqlParameterSource, rowMapper));
+            var director = Optional
+                    .ofNullable(jdbcTemplate.queryForObject(SQL_FIND_BY_ID, sqlParameterSource, rowMapper));
+            LOGGER.debug("Director was found by id: {}", director);
+            return director;
         } catch (EmptyResultDataAccessException e) {
             LOGGER.debug("Director was not found by id: {}", id);
             return Optional.empty();
@@ -65,20 +69,18 @@ public class DirectorDao implements Dao<Director> {
 
     @Override
     public int update(Director entity) {
-        LOGGER.debug("Update director: {}", entity);
-        var keyHolder = new GeneratedKeyHolder();
+        LOGGER.debug("Updating director: {}", entity);
         var sqlParameterSource = new MapSqlParameterSource()
                 .addValue("director_id", entity.getId())
                 .addValue("name", entity.getName())
                 .addValue("surname", entity.getSurname())
                 .addValue("birth_date", entity.getBirthDate());
-        jdbcTemplate.update(SQL_UPDATE, sqlParameterSource, keyHolder);
-        return Objects.requireNonNull(keyHolder.getKey()).intValue();
+        return jdbcTemplate.update(SQL_UPDATE, sqlParameterSource);
     }
 
     @Override
     public int create(Director entity) {
-        LOGGER.debug("Create director: {}", entity);
+        LOGGER.debug("Creating director: {}", entity);
         var keyHolder = new GeneratedKeyHolder();
         var sqlParameterSource = new MapSqlParameterSource()
                 .addValue("name", entity.getName())
@@ -92,7 +94,7 @@ public class DirectorDao implements Dao<Director> {
 
     @Override
     public int delete(int id) {
-        LOGGER.debug("Delete director by id: {}", id);
+        LOGGER.debug("Deleting director by id: {}", id);
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
         var affectedRowsCount = jdbcTemplate.update(SQL_DELETE, sqlParameterSource);
         if (affectedRowsCount == 0) {

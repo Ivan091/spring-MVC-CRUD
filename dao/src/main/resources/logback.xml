@@ -1,11 +1,11 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>dao.log</file>
         <append>true</append>
         <encoder>
@@ -13,12 +13,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.titles" level="DEBUG">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+    <logger name="com.titles" level="debug">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="file"/>
     </logger>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
+    <root level="info" additivity="false">
     </root>
 </configuration>
