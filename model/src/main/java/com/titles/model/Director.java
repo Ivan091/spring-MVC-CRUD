@@ -6,16 +6,16 @@ import java.util.Objects;
 
 public class Director {
 
-    private final int directorId;
+    private int id;
 
-    private final String name;
+    private String name;
 
-    private final String surname;
+    private String surname;
 
-    private final Date birthDate;
+    private Date birthDate;
 
-    public Director(int directorId, String name, String surname, Date birthDate) {
-        this.directorId = directorId;
+    public Director(int id, String name, String surname, Date birthDate) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -23,7 +23,7 @@ public class Director {
 
     @Override
     public int hashCode() {
-        return Objects.hash(directorId, name, surname, birthDate);
+        return Objects.hash(id, name, surname, birthDate);
     }
 
     @Override
@@ -35,32 +35,52 @@ public class Director {
             return false;
         }
         Director director = (Director) o;
-        return directorId == director.directorId && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
+        return id == director.id && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
     }
 
     @Override
     public String toString() {
         return "model.Director{" +
-                "directorId=" + directorId +
+                "directorId=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
     }
 
-    public int getDirectorId() {
-        return directorId;
+    public int getId() {
+        return id;
+    }
+
+    public Director setId(int id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
+    public Director setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getSurname() {
         return surname;
     }
 
+    public Director setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
     public Date getBirthDate() {
         return birthDate;
+    }
+
+    public Director setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+        return this;
     }
 }

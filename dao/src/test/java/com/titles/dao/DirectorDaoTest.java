@@ -34,22 +34,23 @@ class DirectorDaoTest {
         IntStream.range(1, 4).forEach(i -> {
             Assertions.assertTrue(directorDao.findById(i).isPresent());
             directorDao.delete(i);
-            var r = directorDao.findAll();
             Assertions.assertTrue(directorDao.findById(i).isEmpty());
         });
     }
 
     @Test
     void create() {
-        Assertions.assertEquals(newEntity.getDirectorId(), directorDao.create(newEntity));
-        Assertions.assertEquals(newEntity, directorDao.findById(newEntity.getDirectorId()).orElseThrow());
+        var oltEntities = directorDao.findAll();
+        Assertions.assertEquals(newEntity.getId(), directorDao.create(newEntity));
+        Assertions.assertEquals(newEntity, directorDao.findById(newEntity.getId()).orElseThrow());
+        Assertions.assertEquals(oltEntities.size() + 1, directorDao.findAll().size());
     }
 
     @Test
     void update() {
         directorDao.create(newEntity);
-        var secondNew = new Director(newEntity.getDirectorId(), "Name", "Surname", Date.valueOf("1971-01-01"));
+        var secondNew = new Director(newEntity.getId(), "Name", "Surname", Date.valueOf("1971-01-01"));
         directorDao.update(secondNew);
-        Assertions.assertEquals(secondNew, directorDao.findById(secondNew.getDirectorId()).orElseThrow());
+        Assertions.assertEquals(secondNew, directorDao.findById(secondNew.getId()).orElseThrow());
     }
 }
