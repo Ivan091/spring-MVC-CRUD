@@ -3,31 +3,16 @@ package com.titles.dao;
 import com.titles.model.Director;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-
 import java.util.*;
 
 
 public class DirectorDao implements Dao<Director> {
-
-    private final static String SQL_FIND_ALL =
-            "SELECT * FROM director";
-
-    private final static String SQL_FIND_BY_ID =
-            "SELECT * FROM director WHERE director_id = :director_id";
-
-    private final static String SQL_CREATE =
-            "INSERT INTO director (name, surname, birth_date) VALUES (:name, :surname, :birth_date)";
-
-    private final static String SQL_DELETE =
-            "DELETE FROM director WHERE director_id = :director_id";
-
-    private final static String SQL_UPDATE =
-            "UPDATE director SET name = :name, surname = :surname, birth_date = :birth_date WHERE director_id = :director_id";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);
 
@@ -40,6 +25,21 @@ public class DirectorDao implements Dao<Director> {
                     rs.getString("surname"),
                     rs.getDate("birth_date")
             );
+
+    @Value("${director.selectAll}")
+    private String SQL_FIND_ALL;
+
+    @Value("${director.findById}")
+    private String SQL_FIND_BY_ID;
+
+    @Value("${director.create}")
+    private String SQL_CREATE;
+
+    @Value("${director.delete}")
+    private String SQL_DELETE;
+
+    @Value("${director.update}")
+    private String SQL_UPDATE;
 
     public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
