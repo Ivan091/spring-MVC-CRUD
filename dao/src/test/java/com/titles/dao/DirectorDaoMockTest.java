@@ -3,7 +3,7 @@ package com.titles.dao;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 
-public class DirectorDaoJdbcMockTest {
+public class DirectorDaoMockTest {
 
     private DirectorDao directorDao;
 

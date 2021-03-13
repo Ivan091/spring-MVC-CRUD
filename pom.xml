@@ -46,12 +46,22 @@
             </dependency>
             <dependency>
                 <groupId>com.IKarnasevich</groupId>
-                <artifactId>com.dao</artifactId>
+                <artifactId>dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.IKarnasevich</groupId>
-                <artifactId>test-db</artifactId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.IKarnasevich</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.IKarnasevich</groupId>
+                <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
