@@ -10,6 +10,11 @@ public class RootController {
 
     @RequestMapping("/")
     public final String root(Model model) {
-        return "hello";
+        return "titles";
+    }
+
+    @RequestMapping("/d")
+    public final String d(Model model) {
+        return "directors";
     }
 }

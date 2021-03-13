@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>IKarnasevich</artifactId>
-        <groupId>groupId</groupId>
+        <artifactId>com.IKarnasevich.titles</artifactId>
+        <groupId>com.IKarnasevich</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,11 +12,11 @@
     <artifactId>dao</artifactId>
     <dependencies>
         <dependency>
-            <groupId>groupId</groupId>
+            <groupId>com.IKarnasevich</groupId>
             <artifactId>model</artifactId>
         </dependency>
         <dependency>
-            <groupId>groupId</groupId>
+            <groupId>com.IKarnasevich</groupId>
             <artifactId>test-db</artifactId>
         </dependency>
 
