@@ -23,7 +23,7 @@ public class RootController {
 
     @RequestMapping("/")
     public final String root(Model model) {
-        model.addAttribute("name", directorServiceDao.findById(1).orElseThrow().getName());
+        model.addAttribute("name", directorServiceDao.findById(1).orElseThrow().toString());
         return "titles";
     }
 

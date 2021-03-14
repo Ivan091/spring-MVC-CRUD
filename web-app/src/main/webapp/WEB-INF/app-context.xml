@@ -16,7 +16,7 @@
     <mvc:annotation-driven/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
-    <context:component-scan base-package="com.titles*"/>
+    <context:component-scan base-package="com.titles"/>
 
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"

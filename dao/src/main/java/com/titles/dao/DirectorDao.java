@@ -10,9 +10,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Component;
 import java.util.*;
 
 
+@Component
 @PropertySource("classpath:dao.properties")
 public class DirectorDao implements Dao<Director> {
 
