@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/bootstrap.css" rel="stylesheet"
+          th:href="@{/resources/static/css/bootstrap.css}">
+    <script src="../static/js/bootstrap.js"
+            th:href="@{/resources/static/js/bootstrap.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Directors</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark h4">
+        <div class="container-fluid">
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="#">Directors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Titles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section id="directors">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Birth Date</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="director : ${directors}">
+                            <td th:text="${director.name}">&lt;blank&gt;</td>
+                            <td th:text="${director.surname}">&lt;blank&gt;</td>
+                            <td th:text="${director.birthDate}">&lt;blank&gt;</td>
+                            <td class="text-end">
+                                <a class="btn-sm btn-outline-secondary"
+                                   href="director.html"
+                                   th:href="@{|/director/${director.id}|}"
+                                   title="Edit director">
+                                    <i class="bi bi-pen"></i><span class="d-none d-md-inline">Edit</span></a>
+                                <span data-bs-target="#deleteDialog" data-bs-toggle="modal">
+                                    <a class="btn-sm btn-outline-secondary" href="#"
+                                       title="delete director"><i class="bi-x"></i><span
+                                            class="d-none d-md-inline">Delete</span>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

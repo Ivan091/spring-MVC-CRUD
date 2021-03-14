@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -23,12 +23,13 @@ public class DirectorController {
 
     @RequestMapping("/directors")
     public final String directors(Model model) {
-
+        model.addAttribute("directors", directorServiceDao.findAll());
         return "directors";
     }
 
-    @RequestMapping("/director")
-    public final String director(Model model) {
+    @GetMapping("/director/{id}")
+    public final String director(@PathVariable int id, Model model) {
+
         return "director";
     }
 }
