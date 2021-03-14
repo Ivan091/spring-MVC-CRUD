@@ -4,6 +4,7 @@ import com.titles.model.Director;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import java.util.*;
 
 
+@PropertySource("classpath:dao.properties")
 public class DirectorDao implements Dao<Director> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);

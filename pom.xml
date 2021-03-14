@@ -201,9 +201,6 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty-maven-plugin.version}</version>
                 <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
                     <httpConnector>
                         <port>8080</port>
                     </httpConnector>

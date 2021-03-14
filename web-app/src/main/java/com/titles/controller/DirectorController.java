@@ -1,4 +1,4 @@
-package com.titles;
+package com.titles.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
