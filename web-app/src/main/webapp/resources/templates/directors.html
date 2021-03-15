@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="../static/css/bootstrap.css" rel="stylesheet"
-          th:href="@{/resources/static/css/bootstrap.css}">
-    <script src="../static/js/bootstrap.js"
-            th:href="@{/resources/static/js/bootstrap.js}"></script>
+    <link href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"
+          th:href="@{/resources/static/bootstrap/css/bootstrap.css}">
+    <script src="../static/bootstrap/js/bootstrap.js"
+            th:src="@{/resources/static/bootstrap/js/bootstrap.js}">
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
     <title>Directors</title>
 </head>
@@ -55,11 +56,13 @@
                                    href="director.html"
                                    th:href="@{|/director/${director.id}|}"
                                    title="Edit director">
-                                    <i class="bi bi-pen"></i><span class="d-none d-md-inline">Edit</span></a>
+                                    <i class="bi bi-pen"></i>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
                                 <span data-bs-target="#deleteDialog" data-bs-toggle="modal">
                                     <a class="btn-sm btn-outline-secondary" href="#"
-                                       title="delete director"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">Delete</span>
+                                       title="delete director"><i class="bi-x"></i>
+                                        <span class="d-none d-md-inline">Delete</span>
                                     </a>
                                 </span>
                             </td>
