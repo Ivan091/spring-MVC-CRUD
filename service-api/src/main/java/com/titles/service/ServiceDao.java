@@ -27,4 +27,6 @@ public interface ServiceDao<T> {
      * @return count of rows affected.
      */
     int delete(int id);
+
+    int count();
 }

@@ -1,5 +1,6 @@
-package com.titles.dao;
+package com.titles.dao.director;
 
+import com.titles.dao.Dao;
 import com.titles.model.Director;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +9,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.sql.Date;
-import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +39,7 @@ class DirectorDaoTest {
 
     @Test
     void findByWrongIdFails() {
-        assertThrows(NoSuchElementException.class, () -> directorDao.findById(-989).orElseThrow());
+        assertTrue(directorDao.findById(-1000).isEmpty());
     }
 
     @Test

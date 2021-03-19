@@ -9,15 +9,15 @@ public class Title {
 
     private final int titleId;
 
-    private final long budget;
+    private final float budget;
+
+    private final float boxOffice;
 
     private final LocalDate premiereDate;
 
     private final LocalTime runtime;
 
-    private final long boxOffice;
-
-    public Title(int titleId, long budget, LocalDate premiereDate, LocalTime runtime, long boxOffice) {
+    public Title(int titleId, float budget, float boxOffice, LocalDate premiereDate, LocalTime runtime) {
         this.titleId = titleId;
         this.budget = budget;
         this.premiereDate = premiereDate;
@@ -58,7 +58,7 @@ public class Title {
         return titleId;
     }
 
-    public long getBudget() {
+    public float getBudget() {
         return budget;
     }
 
@@ -70,7 +70,7 @@ public class Title {
         return runtime;
     }
 
-    public long getBoxOffice() {
+    public float getBoxOffice() {
         return boxOffice;
     }
 }

@@ -43,4 +43,9 @@ public class EntityServiceAbstract<T> implements ServiceDao<T> {
     public int delete(int id) {
         return dao.delete(id);
     }
+
+    @Override
+    public int count() {
+        return dao.count();
+    }
 }

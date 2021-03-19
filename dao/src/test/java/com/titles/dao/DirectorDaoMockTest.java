@@ -1,5 +1,6 @@
 package com.titles.dao;
 
+import com.titles.dao.director.DirectorDao;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 

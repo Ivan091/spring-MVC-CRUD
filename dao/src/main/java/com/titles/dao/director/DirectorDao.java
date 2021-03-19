@@ -1,11 +1,12 @@
-package com.titles.dao;
+package com.titles.dao.director;
 
+import com.titles.dao.Dao;
 import com.titles.model.Director;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,12 +16,12 @@ import java.util.*;
 
 
 @Component
-@PropertySource("classpath:dao.properties")
+@PropertySource("classpath:director/director.properties")
 public class DirectorDao implements Dao<Director> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+    protected final NamedParameterJdbcTemplate jdbcTemplate;
 
     private final RowMapper<Director> rowMapper =
             (rs, i) -> new Director(
@@ -45,6 +46,9 @@ public class DirectorDao implements Dao<Director> {
     @Value("${director.update}")
     private String SQL_UPDATE;
 
+    @Value("${director.count}")
+    private String SQL_COUNT;
+
     public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -60,12 +64,12 @@ public class DirectorDao implements Dao<Director> {
     public Optional<Director> findById(int id) {
         LOGGER.debug("Finding director by id: {}", id);
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
-        try {
-            var director = Optional
-                    .ofNullable(jdbcTemplate.queryForObject(SQL_FIND_BY_ID, sqlParameterSource, rowMapper));
+        var director = DataAccessUtils.uniqueResult((jdbcTemplate.query(SQL_FIND_BY_ID, sqlParameterSource, rowMapper)));
+
+        if (director != null) {
             LOGGER.debug("Director was found by id: {}", director);
-            return director;
-        } catch (EmptyResultDataAccessException e) {
+            return Optional.of(director);
+        } else {
             LOGGER.debug("Director was not found by id: {}", id);
             return Optional.empty();
         }
@@ -105,5 +109,12 @@ public class DirectorDao implements Dao<Director> {
             LOGGER.debug("Director was not found by id: {}, so was not deleted", id);
         }
         return affectedRowsCount;
+    }
+
+    @Override
+    public int count() {
+        var count = jdbcTemplate.queryForObject(SQL_COUNT, new HashMap<>(), Integer.class);
+        LOGGER.debug("Counting rows in director table ({} rows found)", count);
+        return count == null ? 0 : count;
     }
 }

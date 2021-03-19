@@ -6,13 +6,13 @@ import java.util.Objects;
 
 public class Director {
 
-    private int id;
+    protected int id;
 
-    private String name;
+    protected String name;
 
-    private String surname;
+    protected String surname;
 
-    private Date birthDate;
+    protected Date birthDate;
 
     public Director(int id, String name, String surname, Date birthDate) {
         this.id = id;
