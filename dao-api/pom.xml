@@ -10,4 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dao-api</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.IKarnasevich</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+    </dependencies>
 </project>

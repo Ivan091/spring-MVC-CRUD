@@ -1,7 +1,7 @@
 package com.titles.service;
 
-import com.titles.dao.Dao;
 import com.titles.model.Director;
+import dao.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

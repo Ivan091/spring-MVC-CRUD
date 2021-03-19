@@ -1,7 +1,7 @@
 package com.titles.dao.director;
 
-import com.titles.dao.Dao;
 import com.titles.model.Director;
+import dao.Dao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,9 @@ class DirectorDaoTest {
     @Test
     void findByWrongIdFails() {
         assertTrue(directorDao.findById(-1000).isEmpty());
+    }
+
+    private void assertTrue(boolean empty) {
     }
 
     @Test

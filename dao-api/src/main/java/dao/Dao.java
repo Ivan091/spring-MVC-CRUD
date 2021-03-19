@@ -1,4 +1,4 @@
-package com.titles.dao;
+package dao;
 
 import java.util.List;
 import java.util.Optional;

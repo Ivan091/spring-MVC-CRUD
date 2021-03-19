@@ -1,6 +1,5 @@
-package com.titles.dao.director;
+package dao;
 
-import com.titles.dao.Dao;
 import com.titles.model.Director;
 import com.titles.model.DirectorDto;
 import java.util.Optional;

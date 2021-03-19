@@ -1,7 +1,7 @@
 package com.titles.dao.director;
 
-import com.titles.dao.Dao;
 import com.titles.model.Director;
+import dao.Dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
