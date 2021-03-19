@@ -1,6 +1,6 @@
 package com.titles.service;
 
-import dao.Dao;
+import com.titles.dao.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class EntityServiceAbstract<T> implements ServiceDao<T> {
+public abstract class EntityServiceAbstract<T> implements ServiceDao<T> {
 
     protected final Dao<T> dao;
 

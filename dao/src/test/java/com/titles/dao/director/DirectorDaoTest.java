@@ -1,7 +1,7 @@
 package com.titles.dao.director;
 
+import com.titles.dao.Dao;
 import com.titles.model.Director;
-import dao.Dao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
-package com.titles.dao.director;
+package com.titles.dao;
 
 import com.titles.model.DirectorDto;
-import dao.DirectorDtoDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.support.DataAccessUtils;

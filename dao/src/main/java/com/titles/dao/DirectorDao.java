@@ -1,9 +1,9 @@
-package com.titles.dao.director;
+package com.titles.dao;
 
 import com.titles.model.Director;
-import dao.Dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
@@ -49,6 +49,7 @@ public class DirectorDao implements Dao<Director> {
     @Value("${director.count}")
     private String SQL_COUNT;
 
+    @Autowired
     public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

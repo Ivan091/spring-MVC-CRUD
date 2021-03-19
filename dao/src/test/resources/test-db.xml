@@ -24,11 +24,11 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="directorDao" class="com.titles.dao.director.DirectorDao">
+    <bean id="directorDao" class="com.titles.dao.DirectorDao">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="directorDtoDao" class="com.titles.dao.director.DirectorDtoDaoAggregator">
+    <bean id="directorDtoDao" class="com.titles.dao.DirectorDtoDaoAggregator">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 </beans>

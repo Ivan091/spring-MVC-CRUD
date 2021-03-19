@@ -6,7 +6,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>dao/dao.log</file>
+        <file>com.titles.dao/com.titles.dao.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n</pattern>
