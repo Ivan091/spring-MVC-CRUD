@@ -7,11 +7,13 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import java.io.*;
 import java.util.Optional;
 
 
+@Component
 public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDtoDao {
 
     private final RowMapper<DirectorDto> rowMapper =

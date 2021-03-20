@@ -33,7 +33,6 @@ public class DirectorController {
 
     @GetMapping("/director/{id}")
     public final String director(@PathVariable int id, Model model) {
-
         return "director";
     }
 }
