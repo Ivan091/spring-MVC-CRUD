@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.FileCopyUtils;
-import java.io.*;
 import java.util.Optional;
 
 
@@ -39,7 +37,7 @@ public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDto
     @Override
     public Optional<DirectorDto> findByIdCalculatingProfit(int id) {
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
-        var directorsDto = jdbcTemplate.query(asString(FIND_ALL_CALCULATING_PROFIT), sqlParameterSource, rowMapper);
+        var directorsDto = jdbcTemplate.query(ResourceReader.asString(FIND_ALL_CALCULATING_PROFIT), sqlParameterSource, rowMapper);
         var directorDto = DataAccessUtils.uniqueResult(directorsDto);
 
         if (directorDto != null) {
@@ -48,14 +46,6 @@ public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDto
         } else {
             LOGGER.debug("Director was not found by id: {}", id);
             return Optional.empty();
-        }
-    }
-
-    private static String asString(Resource resource) {
-        try (Reader reader = new InputStreamReader(resource.getInputStream())) {
-            return FileCopyUtils.copyToString(reader);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
         }
     }
 }

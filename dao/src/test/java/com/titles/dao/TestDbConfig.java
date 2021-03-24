@@ -1,6 +1,5 @@
-package com.titles.dao.config;
+package com.titles.dao;
 
-import com.titles.dao.*;
 import com.titles.model.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;

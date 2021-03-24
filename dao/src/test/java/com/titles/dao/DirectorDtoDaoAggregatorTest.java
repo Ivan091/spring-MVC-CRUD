@@ -1,6 +1,5 @@
 package com.titles.dao;
 
-import com.titles.dao.config.TestDbConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
