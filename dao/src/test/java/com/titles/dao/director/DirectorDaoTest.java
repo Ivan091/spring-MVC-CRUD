@@ -1,6 +1,7 @@
 package com.titles.dao.director;
 
 import com.titles.dao.Dao;
+import com.titles.dao.config.TestDbConfig;
 import com.titles.model.Director;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@ContextConfiguration(locations = {"classpath:test-db.xml"})
+@ContextConfiguration(classes = {TestDbConfig.class})
 class DirectorDaoTest {
 
     private final Director newEntity = new Director(1, "Ivan", "Karnasevich", Date.valueOf("2002-07-19"));

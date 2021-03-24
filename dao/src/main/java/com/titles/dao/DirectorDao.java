@@ -5,18 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import java.util.*;
 
 
-@Component
-@PropertySource("classpath:director/director.properties")
+@Repository
 public class DirectorDao implements Dao<Director> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);

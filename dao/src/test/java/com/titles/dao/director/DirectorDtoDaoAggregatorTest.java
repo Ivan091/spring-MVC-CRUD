@@ -1,6 +1,7 @@
 package com.titles.dao.director;
 
 import com.titles.dao.DirectorDtoDao;
+import com.titles.dao.config.TestDbConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@ContextConfiguration(locations = {"classpath:test-db.xml"})
+@ContextConfiguration(classes = {TestDbConfig.class})
 class DirectorDtoDaoAggregatorTest {
 
     @Autowired

@@ -1,19 +1,20 @@
 package com.titles.dao;
 
 import com.titles.model.DirectorDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.FileCopyUtils;
 import java.io.*;
 import java.util.Optional;
 
 
-@Component
+@Repository
 public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDtoDao {
 
     private final RowMapper<DirectorDto> rowMapper =
@@ -30,6 +31,7 @@ public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDto
     @Value("classpath:director/director_profit.sql")
     private Resource FIND_ALL_CALCULATING_PROFIT;
 
+    @Autowired
     public DirectorDtoDaoAggregator(NamedParameterJdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }

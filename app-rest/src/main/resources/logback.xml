@@ -1,7 +1,8 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -9,7 +10,8 @@
         <file>app.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -17,7 +19,7 @@
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="debug" additivity="false">
+    <root level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
