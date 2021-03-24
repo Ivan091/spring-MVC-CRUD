@@ -1,6 +1,5 @@
-package com.titles.dao.director;
+package com.titles.dao;
 
-import com.titles.dao.Dao;
 import com.titles.dao.config.TestDbConfig;
 import com.titles.model.Director;
 import org.junit.jupiter.api.Test;

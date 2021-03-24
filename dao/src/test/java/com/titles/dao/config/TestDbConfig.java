@@ -17,7 +17,7 @@ public class TestDbConfig {
     public NamedParameterJdbcTemplate h2TestDb() {
         var dataSource = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScripts("classpath:create-test-db.sql", "classpath:init-test-db.sql")
+                .addScripts("classpath:create-db.sql", "classpath:init-test-db.sql")
                 .build();
         return new NamedParameterJdbcTemplate(dataSource);
     }

@@ -5,7 +5,6 @@ import com.titles.service.ServiceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,7 @@ public class DirectorController {
     private final ServiceDao<Director> directorServiceDao;
 
     @Autowired
-    public DirectorController(@Qualifier("directorDtoServiceExtended") ServiceDao<Director> directorServiceDao) {
+    public DirectorController(ServiceDao<Director> directorServiceDao) {
         this.directorServiceDao = directorServiceDao;
     }
 

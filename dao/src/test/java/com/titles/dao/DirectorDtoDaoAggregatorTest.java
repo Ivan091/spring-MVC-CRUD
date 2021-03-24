@@ -1,6 +1,5 @@
-package com.titles.dao.director;
+package com.titles.dao;
 
-import com.titles.dao.DirectorDtoDao;
 import com.titles.dao.config.TestDbConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ class DirectorDtoDaoAggregatorTest {
     @Test
     void findAllCalculatingProfit() {
         var directorDto = directorDtoDao.findByIdCalculatingProfit(3).orElseThrow();
-        Assertions.assertEquals(4.25, directorDto.getProfitMultiplier());
+        Assertions.assertEquals(4.0, directorDto.getProfitMultiplier());
         Assertions.assertEquals(450, directorDto.getProfitAverage());
     }
 }
