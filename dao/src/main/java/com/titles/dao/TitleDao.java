@@ -1,6 +1,6 @@
 package com.titles.dao;
 
-import com.titles.model.Director;
+import com.titles.model.Title;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,70 +16,70 @@ import java.util.*;
 
 
 @Repository
-@PropertySource("classpath:director.properties")
-public class DirectorDao implements Dao<Director> {
+@PropertySource("classpath:title.properties")
+public class TitleDao implements Dao<Title> {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(DirectorDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TitleDao.class);
 
-    protected final NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Director> rowMapper;
+    private final RowMapper<Title> rowMapper;
 
-    @Value("${director.findAll}")
+    @Value("${title.findAll}")
     private String FIND_ALL;
 
-    @Value("${director.findById}")
+    @Value("${title.findById}")
     private String FIND_BY_ID;
 
-    @Value("${director.create}")
+    @Value("${title.create}")
     private String CREATE;
 
-    @Value("${director.delete}")
+    @Value("${title.delete}")
     private String DELETE;
 
-    @Value("${director.update}")
+    @Value("${title.update}")
     private String UPDATE;
 
-    @Value("${director.count}")
+    @Value("${title.count}")
     private String COUNT;
 
     @Autowired
-    public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Director> rowMapper) {
+    public TitleDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Title> rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.rowMapper = rowMapper;
     }
 
     @Override
-    public List<Director> findAll() {
-        var directors = jdbcTemplate.query(FIND_ALL, rowMapper);
-        LOGGER.debug("Finding all directors ({} found)", directors.size());
-        return directors;
+    public List<Title> findAll() {
+        var titles = jdbcTemplate.query(FIND_ALL, rowMapper);
+        LOGGER.debug("Finding all titles ({} found)", titles.size());
+        return titles;
     }
 
     @Override
-    public Optional<Director> findById(Integer id) {
-        LOGGER.debug("Finding director by id: {}", id);
+    public Optional<Title> findById(Integer id) {
+        LOGGER.debug("Finding title by id: {}", id);
         var sqlParameterSource = generateIdMapSqlParameterSource(id);
-        var director = DataAccessUtils.uniqueResult((jdbcTemplate.query(FIND_BY_ID, sqlParameterSource, rowMapper)));
-        if (director != null) {
-            LOGGER.debug("Director was found by id: {}", director);
-            return Optional.of(director);
+        var title = DataAccessUtils.uniqueResult((jdbcTemplate.query(FIND_BY_ID, sqlParameterSource, rowMapper)));
+        if (title != null) {
+            LOGGER.debug("Title was found by id: {}", title);
+            return Optional.of(title);
         } else {
-            LOGGER.debug("Director was not found by id: {}", id);
+            LOGGER.debug("Title was not found by id: {}", id);
             return Optional.empty();
         }
     }
 
     @Override
-    public Integer update(Director entity) {
-        LOGGER.debug("Updating director: {}", entity);
+    public Integer update(Title entity) {
+        LOGGER.debug("Updating title: {}", entity);
         var sqlParameterSource = generateMapSqlParameterSource(entity);
         return jdbcTemplate.update(UPDATE, sqlParameterSource);
     }
 
     @Override
-    public Integer create(Director entity) {
-        LOGGER.debug("Creating director: {}", entity);
+    public Integer create(Title entity) {
+        LOGGER.debug("Creating title: {}", entity);
         var keyHolder = new GeneratedKeyHolder();
         var sqlParameterSource = generateMapSqlParameterSource(entity);
         jdbcTemplate.update(CREATE, sqlParameterSource, keyHolder);
@@ -90,11 +90,11 @@ public class DirectorDao implements Dao<Director> {
 
     @Override
     public Integer delete(Integer id) {
-        LOGGER.debug("Deleting director by id: {}", id);
+        LOGGER.debug("Deleting title by id: {}", id);
         var sqlParameterSource = generateIdMapSqlParameterSource(id);
         var affectedRowsCount = jdbcTemplate.update(DELETE, sqlParameterSource);
         if (affectedRowsCount == 0) {
-            LOGGER.debug("Director was not found by id: {}, so was not deleted", id);
+            LOGGER.debug("Title was not found by id: {}, so was not deleted", id);
         }
         return affectedRowsCount;
     }
@@ -102,19 +102,22 @@ public class DirectorDao implements Dao<Director> {
     @Override
     public Integer count() {
         var count = jdbcTemplate.queryForObject(COUNT, new HashMap<>(), Integer.class);
-        LOGGER.debug("Counting rows in director table ({} rows found)", count);
+        LOGGER.debug("Counting rows in title table ({} rows found)", count);
         return count == null ? 0 : count;
     }
 
-    private MapSqlParameterSource generateMapSqlParameterSource(Director entity) {
+    private MapSqlParameterSource generateMapSqlParameterSource(Title entity) {
         return new MapSqlParameterSource()
-                .addValue("director_id", entity.getId())
+                .addValue("title_id", entity.getId())
                 .addValue("name", entity.getName())
-                .addValue("surname", entity.getSurname())
-                .addValue("birth_date", entity.getBirthDate());
+                .addValue("budget", entity.getBudget())
+                .addValue("premiere_date", entity.getPremiereDate())
+                .addValue("runtime", entity.getRuntime())
+                .addValue("box_office", entity.getBoxOffice())
+                .addValue("director_id", entity.getDirectorId());
     }
 
     private MapSqlParameterSource generateIdMapSqlParameterSource(Integer id) {
-        return new MapSqlParameterSource("director_id", id);
+        return new MapSqlParameterSource("title_id", id);
     }
 }

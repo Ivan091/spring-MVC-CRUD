@@ -1,7 +1,5 @@
 package com.titles.dao;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -16,11 +14,10 @@ class DirectorDaoAggregatorTest {
 
     @Autowired
     private DirectorDtoDao directorDtoDao;
-
-    @Test
-    void findAllCalculatingProfit() {
-        var directorDto = directorDtoDao.findByIdCalculatingProfit(3).orElseThrow();
-        Assertions.assertEquals(4.0, directorDto.getProfitMultiplier());
-        Assertions.assertEquals(450, directorDto.getProfitAverage());
-    }
+//    @Test
+//    void findAllCalculatingProfit() {
+//        var directorDto = directorDtoDao.findByIdCalculatingProfit(3).orElseThrow();
+//        Assertions.assertEquals(4.0, directorDto.getProfitMultiplier());
+//        Assertions.assertEquals(450, directorDto.getProfitAverage());
+//    }
 }

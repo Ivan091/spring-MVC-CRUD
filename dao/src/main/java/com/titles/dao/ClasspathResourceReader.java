@@ -8,10 +8,10 @@ import java.io.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
-public class ResourceReader {
+public class ClasspathResourceReader {
 
     public static String readFileToString(String path) {
-        Resource resource = new ClassPathResource(path);
+        var resource = new ClassPathResource(path);
         return asString(resource);
     }
 

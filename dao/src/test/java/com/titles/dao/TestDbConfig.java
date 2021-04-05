@@ -7,7 +7,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 
 @Configuration
-@PropertySource("classpath:director/director.properties")
+@PropertySource("classpath:director.properties")
 public class TestDbConfig {
 
     @Bean

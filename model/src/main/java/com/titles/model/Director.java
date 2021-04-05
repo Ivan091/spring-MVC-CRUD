@@ -12,9 +12,12 @@ public class Director {
 
     private Date birthDate;
 
-    private int id;
+    private Integer id;
 
-    public Director(int id, String name, String surname, Date birthDate) {
+    private Director() {
+    }
+
+    public Director(Integer id, String name, String surname, Date birthDate) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -35,7 +38,7 @@ public class Director {
             return false;
         }
         Director director = (Director) o;
-        return id == director.id && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
+        return id.equals(director.id) && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class Director {
         return this;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

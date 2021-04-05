@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 
 @SpringBootApplication
-@PropertySource("classpath:director/director.properties")
 @ComponentScan(basePackages = "com.titles")
 @ImportResource(locations = {"classpath:db.xml"})
 @EnableSwagger2

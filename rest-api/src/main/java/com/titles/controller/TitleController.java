@@ -1,8 +1,7 @@
 package com.titles.controller;
 
-import com.titles.model.Director;
-import com.titles.model.DirectorDto;
-import com.titles.service.DirectorService;
+import com.titles.model.Title;
+import com.titles.service.TitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,51 +13,51 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class DirectorController {
+public class TitleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
 
-    private final DirectorService service;
+    private final TitleService service;
 
     @Autowired
-    public DirectorController(DirectorService service) {
+    public TitleController(TitleService service) {
         this.service = service;
     }
 
-    @GetMapping("/directors")
-    public List<DirectorDto> findAllCalculatingAverageProfit() {
-        return service.findAllCalculatingProfit();
+    @GetMapping("/titles")
+    public List<Title> findAll() {
+        return service.findAll();
     }
 
-    @GetMapping("/director/{id}")
-    public ResponseEntity<Director> findById(@PathVariable Integer id) {
-        var director = service.findById(id);
-        return director
+    @GetMapping("/title/{id}")
+    public ResponseEntity<Title> findById(@PathVariable Integer id) {
+        var title = service.findById(id);
+        return title
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping(value = "/directors")
-    public ResponseEntity<Integer> create(@RequestBody Director director) {
-        var createdId = service.create(director);
+    @PostMapping(value = "/titles")
+    public ResponseEntity<Integer> create(@RequestBody Title title) {
+        var createdId = service.create(title);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/directors")
-    public ResponseEntity<Integer> update(@RequestBody Director director) {
-        var updatedRowsCount = service.update(director);
+    @PutMapping(value = "/titles")
+    public ResponseEntity<Integer> update(@RequestBody Title title) {
+        var updatedRowsCount = service.update(title);
         if (updatedRowsCount == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/directors/{id}")
+    @DeleteMapping(value = "/titles/{id}")
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @GetMapping(value = "/directors/count")
+    @GetMapping(value = "/titles/count")
     public ResponseEntity<Integer> count() {
         return new ResponseEntity<>(service.count(), HttpStatus.OK);
     }

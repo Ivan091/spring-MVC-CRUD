@@ -1,33 +1,44 @@
 package com.titles.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Objects;
 
 
 public class Title {
 
-    private int titleId;
+    private Integer id;
 
-    private float budget;
+    private String name;
 
-    private float boxOffice;
+    private Float budget;
 
-    private LocalDate premiereDate;
+    private Float boxOffice;
 
-    private LocalTime runtime;
+    private Date premiereDate;
 
-    public Title(int titleId, float budget, float boxOffice, LocalDate premiereDate, LocalTime runtime) {
-        this.titleId = titleId;
+    @JsonFormat(pattern = "HH:MM:SS")
+    private Time runtime;
+
+    private Integer directorId;
+
+    public Title() {
+    }
+
+    public Title(Integer id, String name, Float budget, Float boxOffice, Date premiereDate, Time runtime, Integer directorId) {
+        this.id = id;
+        this.name = name;
         this.budget = budget;
         this.premiereDate = premiereDate;
         this.runtime = runtime;
         this.boxOffice = boxOffice;
+        this.directorId = directorId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(titleId, budget, premiereDate, runtime, boxOffice);
+        return Objects.hash(id, budget, premiereDate, runtime, boxOffice);
     }
 
     @Override
@@ -39,14 +50,14 @@ public class Title {
             return false;
         }
         Title title = (Title) o;
-        return titleId == title.titleId && budget == title.budget && boxOffice == title.boxOffice && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime);
+        return id.equals(title.id) && budget.equals(title.budget) && boxOffice.equals(title.boxOffice) && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime);
     }
 
     @Override
     public String
     toString() {
         return "model.Title{" +
-                "titleId=" + titleId +
+                "titleId=" + id +
                 ", budget=" + budget +
                 ", premiereDate=" + premiereDate +
                 ", runtime=" + runtime +
@@ -54,48 +65,66 @@ public class Title {
                 '}';
     }
 
-    public int getTitleId() {
-        return titleId;
+    public Integer getId() {
+        return id;
     }
 
-    public Title setTitleId(int titleId) {
-        this.titleId = titleId;
+    public Title setId(Integer id) {
+        this.id = id;
         return this;
     }
 
-    public float getBudget() {
+    public String getName() {
+        return name;
+    }
+
+    public Title setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Float getBudget() {
         return budget;
     }
 
-    public Title setBudget(float budget) {
+    public Title setBudget(Float budget) {
         this.budget = budget;
         return this;
     }
 
-    public float getBoxOffice() {
+    public Float getBoxOffice() {
         return boxOffice;
     }
 
-    public Title setBoxOffice(float boxOffice) {
+    public Title setBoxOffice(Float boxOffice) {
         this.boxOffice = boxOffice;
         return this;
     }
 
-    public LocalDate getPremiereDate() {
+    public Date getPremiereDate() {
         return premiereDate;
     }
 
-    public Title setPremiereDate(LocalDate premiereDate) {
+    public Title setPremiereDate(Date premiereDate) {
         this.premiereDate = premiereDate;
         return this;
     }
 
-    public LocalTime getRuntime() {
+    public Time getRuntime() {
         return runtime;
     }
 
-    public Title setRuntime(LocalTime runtime) {
+    public Title setRuntime(Time runtime) {
         this.runtime = runtime;
+        return this;
+    }
+
+    public Integer getDirectorId() {
+        return directorId;
+    }
+
+    public Title setDirectorId(Integer directorId) {
+        this.directorId = directorId;
         return this;
     }
 }

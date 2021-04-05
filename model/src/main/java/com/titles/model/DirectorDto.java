@@ -9,11 +9,11 @@ public class DirectorDto {
     @JsonUnwrapped
     private Director director;
 
-    private float profitMultiplier;
+    private Float profitMultiplier;
 
-    private float profitAverage;
+    private Float profitAverage;
 
-    public DirectorDto(Director director, float profitMultiplier, float profitAverage) {
+    public DirectorDto(Director director, Float profitMultiplier, Float profitAverage) {
         this.director = director;
         this.profitMultiplier = profitMultiplier;
         this.profitAverage = profitAverage;
@@ -54,7 +54,7 @@ public class DirectorDto {
         return this;
     }
 
-    public float getProfitMultiplier() {
+    public Float getProfitMultiplier() {
         return profitMultiplier;
     }
 
@@ -63,7 +63,7 @@ public class DirectorDto {
         return this;
     }
 
-    public float getProfitAverage() {
+    public Float getProfitAverage() {
         return profitAverage;
     }
 

@@ -15,48 +15,48 @@ import java.util.Optional;
 @Transactional
 public class DirectorDtoService implements DirectorService {
 
-    private final DirectorDtoDao directorDtoDao;
+    private final DirectorDtoDao dtoDao;
 
-    private final Dao<Director> directorDao;
+    private final Dao<Director> dao;
 
     @Autowired
-    public DirectorDtoService(DirectorDtoDao directorDtoDao, Dao<Director> directorDao) {
-        this.directorDtoDao = directorDtoDao;
-        this.directorDao = directorDao;
+    public DirectorDtoService(DirectorDtoDao dtoDao, Dao<Director> dao) {
+        this.dtoDao = dtoDao;
+        this.dao = dao;
     }
 
     @Override
-    public Optional<DirectorDto> findByIdCalculatingProfit(int id) {
-        return directorDtoDao.findByIdCalculatingProfit(id);
+    public List<DirectorDto> findAllCalculatingProfit() {
+        return dtoDao.findAllCalculatingProfit();
     }
 
     @Override
     public List<Director> findAll() {
-        return directorDao.findAll();
+        return dao.findAll();
     }
 
     @Override
     public Optional<Director> findById(int id) {
-        return directorDao.findById(id);
+        return dao.findById(id);
     }
 
     @Override
-    public int update(Director entity) {
-        return directorDao.update(entity);
+    public Integer update(Director entity) {
+        return dao.update(entity);
     }
 
     @Override
-    public int create(Director entity) {
-        return directorDao.create(entity);
+    public Integer create(Director entity) {
+        return dao.create(entity);
     }
 
     @Override
-    public int delete(int id) {
-        return directorDao.delete(id);
+    public Integer delete(int id) {
+        return dao.delete(id);
     }
 
     @Override
-    public int count() {
-        return directorDao.count();
+    public Integer count() {
+        return dao.count();
     }
 }
