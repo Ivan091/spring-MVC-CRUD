@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ContextConfiguration(classes = {TestDbConfig.class})
-class DirectorDtoDaoAggregatorTest {
+class DirectorDaoAggregatorTest {
 
     @Autowired
     private DirectorDtoDao directorDtoDao;

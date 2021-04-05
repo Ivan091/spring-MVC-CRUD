@@ -1,7 +1,5 @@
 package com.titles.dao;
 
-import com.titles.model.Director;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -20,16 +18,14 @@ public class TestDbConfig {
                 .build();
         return new NamedParameterJdbcTemplate(dataSource);
     }
-
-    @Bean
-    @Autowired
-    public Dao<Director> directorDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new DirectorDao(jdbcTemplate);
-    }
-
-    @Bean
-    @Autowired
-    public DirectorDtoDao directorDtoDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new DirectorDtoDaoAggregator(jdbcTemplate);
-    }
+//    @Bean
+//    @Autowired
+//    public Dao<Director> directorDao(NamedParameterJdbcTemplate jdbcTemplate) {
+//        return new DirectorDao(jdbcTemplate);
+//    }
+//    @Bean
+//    @Autowired
+//    public DirectorDtoDao directorDtoDao(NamedParameterJdbcTemplate jdbcTemplate) {
+//        return new DirectorDaoAggregator(rowMapper, jdbcTemplate);
+//    }
 }

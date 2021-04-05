@@ -1,6 +1,8 @@
 package com.titles.dao;
 
 import com.titles.model.DirectorDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -13,25 +15,21 @@ import java.util.Optional;
 
 
 @Repository
-public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDtoDao {
+public class DirectorDaoAggregator implements DirectorDtoDao {
 
-    private final RowMapper<DirectorDto> rowMapper =
-            (rs, i) -> new DirectorDto
-                    (
-                            rs.getInt("director_id"),
-                            rs.getString("name"),
-                            rs.getString("surname"),
-                            rs.getDate("birth_date"),
-                            rs.getFloat("profit_multiplier"),
-                            rs.getFloat("profit_average")
-                    );
+    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDaoAggregator.class);
+
+    private final RowMapper<DirectorDto> rowMapper;
+
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Value("classpath:director/director_profit.sql")
     private Resource FIND_ALL_CALCULATING_PROFIT;
 
     @Autowired
-    public DirectorDtoDaoAggregator(NamedParameterJdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate);
+    public DirectorDaoAggregator(RowMapper<DirectorDto> rowMapper, NamedParameterJdbcTemplate jdbcTemplate) {
+        this.rowMapper = rowMapper;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -39,7 +37,6 @@ public class DirectorDtoDaoAggregator extends DirectorDao implements DirectorDto
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
         var directorsDto = jdbcTemplate.query(ResourceReader.asString(FIND_ALL_CALCULATING_PROFIT), sqlParameterSource, rowMapper);
         var directorDto = DataAccessUtils.uniqueResult(directorsDto);
-
         if (directorDto != null) {
             LOGGER.debug("DirectorDto was found by id: {}", directorDto);
             return Optional.of(directorDto);

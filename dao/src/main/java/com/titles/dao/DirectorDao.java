@@ -21,13 +21,7 @@ public class DirectorDao implements Dao<Director> {
 
     protected final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Director> rowMapper =
-            (rs, i) -> new Director(
-                    rs.getInt("director_id"),
-                    rs.getString("name"),
-                    rs.getString("surname"),
-                    rs.getDate("birth_date")
-            );
+    private final RowMapper<Director> rowMapper;
 
     @Value("${director.selectAll}")
     private String SQL_FIND_ALL;
@@ -48,8 +42,9 @@ public class DirectorDao implements Dao<Director> {
     private String SQL_COUNT;
 
     @Autowired
-    public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate) {
+    public DirectorDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Director> rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.rowMapper = rowMapper;
     }
 
     @Override
@@ -64,7 +59,6 @@ public class DirectorDao implements Dao<Director> {
         LOGGER.debug("Finding director by id: {}", id);
         var sqlParameterSource = new MapSqlParameterSource("director_id", id);
         var director = DataAccessUtils.uniqueResult((jdbcTemplate.query(SQL_FIND_BY_ID, sqlParameterSource, rowMapper)));
-
         if (director != null) {
             LOGGER.debug("Director was found by id: {}", director);
             return Optional.of(director);

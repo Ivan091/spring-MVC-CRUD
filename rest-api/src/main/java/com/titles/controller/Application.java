@@ -12,6 +12,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @PropertySource("classpath:director/director.properties")
 @ComponentScan(basePackages = "com.titles")
+@ImportResource(locations = {"classpath:db.xml"})
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

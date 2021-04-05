@@ -1,24 +1,27 @@
 package com.titles.model;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.util.Objects;
 
 
-public class DirectorDto extends Director {
+public class DirectorDto {
 
-    private float profitMultiplier;
+    @JsonUnwrapped
+    private final Director director;
 
-    private float profitAverage;
+    private final float profitMultiplier;
 
-    public DirectorDto(int id, String name, String surname, Date birthDate, float profitMultiplier, float profitAverage) {
-        super(id, name, surname, birthDate);
+    private final float profitAverage;
+
+    public DirectorDto(Director director, float profitMultiplier, float profitAverage) {
+        this.director = director;
         this.profitMultiplier = profitMultiplier;
         this.profitAverage = profitAverage;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), profitMultiplier, profitAverage);
+        return Objects.hash(director, profitMultiplier, profitAverage);
     }
 
     @Override
@@ -29,40 +32,16 @@ public class DirectorDto extends Director {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
         DirectorDto that = (DirectorDto) o;
-        return Float.compare(that.profitMultiplier, profitMultiplier) == 0 && Float.compare(that.profitAverage, profitAverage) == 0;
+        return Float.compare(that.profitMultiplier, profitMultiplier) == 0 && Float.compare(that.profitAverage, profitAverage) == 0 && Objects.equals(director, that.director);
     }
 
     @Override
     public String toString() {
         return "DirectorDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthDate=" + birthDate +
+                "director=" + director +
                 ", profitMultiplier=" + profitMultiplier +
                 ", profitAverage=" + profitAverage +
                 '}';
-    }
-
-    public float getProfitMultiplier() {
-        return profitMultiplier;
-    }
-
-    public DirectorDto setProfitMultiplier(float profitMultiplier) {
-        this.profitMultiplier = profitMultiplier;
-        return this;
-    }
-
-    public float getProfitAverage() {
-        return profitAverage;
-    }
-
-    public DirectorDto setProfitAverage(float profitAverage) {
-        this.profitAverage = profitAverage;
-        return this;
     }
 }

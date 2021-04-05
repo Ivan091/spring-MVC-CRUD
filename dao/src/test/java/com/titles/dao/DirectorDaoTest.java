@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@ContextConfiguration(classes = {TestDbConfig.class})
+@ContextConfiguration(classes = {com.titles.dao.TestDbConfig.class})
 class DirectorDaoTest {
 
     private final Director newEntity = new Director(1, "Ivan", "Karnasevich", Date.valueOf("2002-07-19"));
