@@ -6,13 +6,13 @@ import java.util.Objects;
 
 public class Director {
 
-    private final String name;
+    private String name;
 
-    private final String surname;
+    private String surname;
 
-    private final Date birthDate;
+    private Date birthDate;
 
-    private final int id;
+    private int id;
 
     public Director(int id, String name, String surname, Date birthDate) {
         this.id = id;
@@ -46,5 +46,41 @@ public class Director {
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Director setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Director setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public Director setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Director setId(int id) {
+        this.id = id;
+        return this;
     }
 }

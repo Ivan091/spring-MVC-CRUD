@@ -7,15 +7,15 @@ import java.util.Objects;
 
 public class Title {
 
-    private final int titleId;
+    private int titleId;
 
-    private final float budget;
+    private float budget;
 
-    private final float boxOffice;
+    private float boxOffice;
 
-    private final LocalDate premiereDate;
+    private LocalDate premiereDate;
 
-    private final LocalTime runtime;
+    private LocalTime runtime;
 
     public Title(int titleId, float budget, float boxOffice, LocalDate premiereDate, LocalTime runtime) {
         this.titleId = titleId;
@@ -58,19 +58,44 @@ public class Title {
         return titleId;
     }
 
+    public Title setTitleId(int titleId) {
+        this.titleId = titleId;
+        return this;
+    }
+
     public float getBudget() {
         return budget;
+    }
+
+    public Title setBudget(float budget) {
+        this.budget = budget;
+        return this;
+    }
+
+    public float getBoxOffice() {
+        return boxOffice;
+    }
+
+    public Title setBoxOffice(float boxOffice) {
+        this.boxOffice = boxOffice;
+        return this;
     }
 
     public LocalDate getPremiereDate() {
         return premiereDate;
     }
 
+    public Title setPremiereDate(LocalDate premiereDate) {
+        this.premiereDate = premiereDate;
+        return this;
+    }
+
     public LocalTime getRuntime() {
         return runtime;
     }
 
-    public float getBoxOffice() {
-        return boxOffice;
+    public Title setRuntime(LocalTime runtime) {
+        this.runtime = runtime;
+        return this;
     }
 }

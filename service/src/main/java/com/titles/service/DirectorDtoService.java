@@ -1,5 +1,6 @@
 package com.titles.service;
 
+import com.titles.dao.Dao;
 import com.titles.dao.DirectorDtoDao;
 import com.titles.model.Director;
 import com.titles.model.DirectorDto;
@@ -12,13 +13,16 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class DirectorDtoServiceExtended implements DirectorDtoService {
+public class DirectorDtoService implements DirectorService {
 
     private final DirectorDtoDao directorDtoDao;
 
+    private final Dao<Director> directorDao;
+
     @Autowired
-    public DirectorDtoServiceExtended(DirectorDtoDao directorDtoDao) {
+    public DirectorDtoService(DirectorDtoDao directorDtoDao, Dao<Director> directorDao) {
         this.directorDtoDao = directorDtoDao;
+        this.directorDao = directorDao;
     }
 
     @Override
@@ -28,31 +32,31 @@ public class DirectorDtoServiceExtended implements DirectorDtoService {
 
     @Override
     public List<Director> findAll() {
-        return directorDtoDao.findAll();
+        return directorDao.findAll();
     }
 
     @Override
     public Optional<Director> findById(int id) {
-        return directorDtoDao.findById(id);
+        return directorDao.findById(id);
     }
 
     @Override
     public int update(Director entity) {
-        return 0;
+        return directorDao.update(entity);
     }
 
     @Override
     public int create(Director entity) {
-        return 0;
+        return directorDao.create(entity);
     }
 
     @Override
     public int delete(int id) {
-        return 0;
+        return directorDao.delete(id);
     }
 
     @Override
     public int count() {
-        return 0;
+        return directorDao.count();
     }
 }

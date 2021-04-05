@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Arrays;
 
 
@@ -13,6 +14,7 @@ import java.util.Arrays;
 @PropertySource("classpath:director/director.properties")
 @ComponentScan(basePackages = "com.titles")
 @ImportResource(locations = {"classpath:db.xml"})
+@EnableSwagger2
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

@@ -7,11 +7,11 @@ import java.util.Objects;
 public class DirectorDto {
 
     @JsonUnwrapped
-    private final Director director;
+    private Director director;
 
-    private final float profitMultiplier;
+    private float profitMultiplier;
 
-    private final float profitAverage;
+    private float profitAverage;
 
     public DirectorDto(Director director, float profitMultiplier, float profitAverage) {
         this.director = director;
@@ -43,5 +43,32 @@ public class DirectorDto {
                 ", profitMultiplier=" + profitMultiplier +
                 ", profitAverage=" + profitAverage +
                 '}';
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public DirectorDto setDirector(Director director) {
+        this.director = director;
+        return this;
+    }
+
+    public float getProfitMultiplier() {
+        return profitMultiplier;
+    }
+
+    public DirectorDto setProfitMultiplier(float profitMultiplier) {
+        this.profitMultiplier = profitMultiplier;
+        return this;
+    }
+
+    public float getProfitAverage() {
+        return profitAverage;
+    }
+
+    public DirectorDto setProfitAverage(float profitAverage) {
+        this.profitAverage = profitAverage;
+        return this;
     }
 }

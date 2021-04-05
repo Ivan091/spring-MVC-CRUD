@@ -5,7 +5,7 @@ import com.titles.model.DirectorDto;
 import java.util.Optional;
 
 
-public interface DirectorDtoService extends ServiceDao<Director> {
+public interface DirectorService extends ServiceDao<Director> {
 
     Optional<DirectorDto> findByIdCalculatingProfit(int id);
 }

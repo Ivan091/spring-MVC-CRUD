@@ -36,6 +36,7 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
         <logback.version>1.2.3</logback.version>
+        <springfox-swagger.version>3.0.0</springfox-swagger.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -80,6 +81,18 @@
                 <type>pom</type>
                 <version>2.4.4</version>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-swagger.version}</version>
             </dependency>
 
             <dependency>
