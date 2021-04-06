@@ -1,6 +1,7 @@
 package com.titles.dao;
 
 import com.titles.model.Director;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Disabled
 class DirectorDaoTest {
 
     private final Director newEntity = new Director(1, "Ivan", "Karnasevich", Date.valueOf("2002-07-19"));

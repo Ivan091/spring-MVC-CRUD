@@ -1,6 +1,7 @@
 package com.titles.dao;
 
 import com.titles.model.Title;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Disabled
 class TitleDaoTest {
 
     private final Title newTitleHasNoDirector = new Title(1, "Avatar", 237f, 2844f, Date.valueOf("2009-12-18"), 162, 0);

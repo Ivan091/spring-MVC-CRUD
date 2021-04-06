@@ -20,7 +20,7 @@ public class TestDbConfig {
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScripts("classpath:create-db.sql", "classpath:init-test-db.sql")
+                .addScripts("classpath:create-db1.sql", "classpath:init-t1est-db.sql")
                 .build();
     }
 }

@@ -7,4 +7,5 @@ INSERT INTO title(name, budget, box_office, premiere_date, runtime, director_id)
 VALUES ('Bridge to Therabithia', 50, 100, '2005-03-16', '130', 1),
        ('Saving Private Ryan', 200, 700, '1998-07-24', '168', 2),
        ('Kill Bill Vol. 1', 100, 500, '2001-06-11', '144', 3),
+       ('Kill Bill Vol. 2', 200, 700, '2003-01-24', '155', 3),
        ('Kill Bill Vol. 2', 200, 700, '2003-01-24', '155', 3);

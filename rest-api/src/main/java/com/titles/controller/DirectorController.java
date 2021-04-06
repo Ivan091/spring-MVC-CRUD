@@ -41,21 +41,25 @@ public class DirectorController {
     @PostMapping(value = "/directors")
     public ResponseEntity<Integer> create(@RequestBody Director director) {
         var createdId = service.create(director);
-        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdId, HttpStatus.OK);
     }
 
     @PutMapping(value = "/directors")
     public ResponseEntity<Integer> update(@RequestBody Director director) {
         var updatedRowsCount = service.update(director);
-        if (updatedRowsCount == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (updatedRowsCount == 1) {
+            return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
         }
-        return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/directors/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
+        var affectedRowsCount = service.delete(id);
+        if (affectedRowsCount == 1) {
+            return new ResponseEntity<>(affectedRowsCount, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/directors/count")
