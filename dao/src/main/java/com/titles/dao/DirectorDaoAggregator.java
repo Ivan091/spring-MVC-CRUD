@@ -22,7 +22,7 @@ public class DirectorDaoAggregator implements DirectorDtoDao {
     private final String FIND_ALL_CALCULATING_PROFIT = ClasspathResourceReader.readFileToString("director-profit.sql");
 
     @Autowired
-    public DirectorDaoAggregator(RowMapper<DirectorDto> rowMapper, NamedParameterJdbcTemplate jdbcTemplate) {
+    public DirectorDaoAggregator(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<DirectorDto> rowMapper) {
         this.rowMapper = rowMapper;
         this.jdbcTemplate = jdbcTemplate;
     }

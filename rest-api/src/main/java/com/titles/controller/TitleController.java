@@ -1,7 +1,7 @@
 package com.titles.controller;
 
 import com.titles.model.Title;
-import com.titles.service.TitleService;
+import com.titles.service.ServiceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ public class TitleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
 
-    private final TitleService service;
+    private final ServiceDao<Title> service;
 
     @Autowired
-    public TitleController(TitleService service) {
+    public TitleController(ServiceDao<Title> service) {
         this.service = service;
     }
 
