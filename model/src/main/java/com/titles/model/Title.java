@@ -1,8 +1,6 @@
 package com.titles.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.Objects;
 
 
@@ -18,15 +16,18 @@ public class Title {
 
     private Date premiereDate;
 
-    @JsonFormat(pattern = "HH:MM:SS")
-    private Time runtime;
+    private Integer runtime;
 
     private Integer directorId;
 
     public Title() {
     }
 
-    public Title(Integer id, String name, Float budget, Float boxOffice, Date premiereDate, Time runtime, Integer directorId) {
+    public Title(String name, Float budget, Float boxOffice, Date premiereDate, Integer runtime, Integer directorId) {
+        this(0, name, budget, boxOffice, premiereDate, runtime, directorId);
+    }
+
+    public Title(Integer id, String name, Float budget, Float boxOffice, Date premiereDate, Integer runtime, Integer directorId) {
         this.id = id;
         this.name = name;
         this.budget = budget;
@@ -54,14 +55,15 @@ public class Title {
     }
 
     @Override
-    public String
-    toString() {
-        return "model.Title{" +
-                "titleId=" + id +
+    public String toString() {
+        return "Title{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", budget=" + budget +
+                ", boxOffice=" + boxOffice +
                 ", premiereDate=" + premiereDate +
                 ", runtime=" + runtime +
-                ", boxOffice=" + boxOffice +
+                ", directorId=" + directorId +
                 '}';
     }
 
@@ -110,11 +112,11 @@ public class Title {
         return this;
     }
 
-    public Time getRuntime() {
+    public Integer getRuntime() {
         return runtime;
     }
 
-    public Title setRuntime(Time runtime) {
+    public Title setRuntime(Integer runtime) {
         this.runtime = runtime;
         return this;
     }

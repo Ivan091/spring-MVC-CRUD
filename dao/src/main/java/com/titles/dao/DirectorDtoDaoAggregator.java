@@ -11,9 +11,9 @@ import java.util.List;
 
 
 @Repository
-public class DirectorDaoAggregator implements DirectorDtoDao {
+public class DirectorDtoDaoAggregator implements DirectorDtoDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDaoAggregator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorDtoDaoAggregator.class);
 
     private final RowMapper<DirectorDto> rowMapper;
 
@@ -22,7 +22,7 @@ public class DirectorDaoAggregator implements DirectorDtoDao {
     private final String FIND_ALL_CALCULATING_PROFIT = ClasspathResourceReader.readFileToString("director-profit.sql");
 
     @Autowired
-    public DirectorDaoAggregator(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<DirectorDto> rowMapper) {
+    public DirectorDtoDaoAggregator(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<DirectorDto> rowMapper) {
         this.rowMapper = rowMapper;
         this.jdbcTemplate = jdbcTemplate;
     }

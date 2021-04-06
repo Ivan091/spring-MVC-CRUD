@@ -11,16 +11,19 @@ import org.springframework.test.context.ContextConfiguration;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class DirectorDaoAggregatorTest {
+class DirectorDtoDaoAggregatorTest {
 
     @Autowired
-    private DirectorDtoDao dtoDao;
+    private DirectorDtoDaoAggregator dtoDao;
 
     @Test
-    void findAllCalculatingProfit() {
+    void findsAllCalculatingProfit() {
         var dtos = dtoDao.findAllCalculatingProfit();
         var tarantino = dtos.stream().filter(x -> x.getDirector().getId().equals(3)).findFirst().orElseThrow();
-        Assertions.assertEquals(4.25f, tarantino.getProfitMultiplier());
-        Assertions.assertEquals(450f, tarantino.getProfitAverage());
+        Assertions.assertEquals(4.25f, tarantino.getProfitMultiplier(), 0.001);
+        Assertions.assertEquals(450f, tarantino.getProfitAverage(), 0.001);
+        var spielberg = dtos.stream().filter(x -> x.getDirector().getId().equals(2)).findFirst().orElseThrow();
+        Assertions.assertEquals(3.5f, spielberg.getProfitMultiplier(), 0.001);
+        Assertions.assertEquals(500f, spielberg.getProfitAverage(), 0.001);
     }
 }

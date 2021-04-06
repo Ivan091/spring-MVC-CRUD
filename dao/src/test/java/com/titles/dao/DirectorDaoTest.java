@@ -20,7 +20,7 @@ class DirectorDaoTest {
     private final Director newEntity = new Director(1, "Ivan", "Karnasevich", Date.valueOf("2002-07-19"));
 
     @Autowired
-    private Dao<Director> dao;
+    private DirectorDao dao;
 
     @Test
     void findsAll() {
@@ -31,14 +31,14 @@ class DirectorDaoTest {
 
     @Test
     void findsById() {
-        var newId = dao.create(newEntity);
-        assertEquals(newId, newEntity.getId());
-        assertEquals(newEntity, dao.findById(newId).orElseThrow());
+        var item = dao.findById(1);
+        assertTrue(item.isPresent());
+        assertEquals(1, item.get().getId());
     }
 
     @Test
     void findByWrongIdFails() {
-        assertTrue(dao.findById(-1000).isEmpty());
+        assertTrue(dao.findById(-1).isEmpty());
     }
 
     @Test
@@ -51,16 +51,19 @@ class DirectorDaoTest {
 
     @Test
     void creates() {
-        var newId = dao.create(newEntity);
-        assertEquals(newEntity.getId(), newId);
-        assertEquals(newEntity, dao.findById(newId).orElseThrow());
+        dao.create(newEntity);
+        existCheck(newEntity);
+    }
+
+    void existCheck(Director entity) {
+        var newId = entity.getId();
+        assertNotEquals(0, newId);
+        assertEquals(entity, dao.findById(newId).orElseThrow());
     }
 
     @Test
     void updates() {
         dao.create(newEntity);
-        var secondNew = new Director(newEntity.getId(), "Name", "Surname", Date.valueOf("1971-01-01"));
-        dao.update(secondNew);
-        assertEquals(secondNew, dao.findById(secondNew.getId()).orElseThrow());
+        existCheck(newEntity);
     }
 }

@@ -15,7 +15,7 @@ CREATE TABLE title
     name          VARCHAR(50) NOT NULL,
     budget        REAL        NOT NULL,
     premiere_date DATE        NOT NULL,
-    runtime       TIME        NOT NULL,
+    runtime       INT         NOT NULL,
     box_office    REAL        NOT NULL,
     director_id   INT,
     CONSTRAINT fk_director_id FOREIGN KEY (director_id)
