@@ -1,7 +1,6 @@
 package com.titles.dao;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -11,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Disabled
 class DirectorDtoDaoAggregatorTest {
 
     @Autowired

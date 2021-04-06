@@ -17,6 +17,10 @@ public class Director {
     private Director() {
     }
 
+    public Director(String name, String surname, Date birthDate) {
+        this(0, name, surname, birthDate);
+    }
+
     public Director(Integer id, String name, String surname, Date birthDate) {
         this.id = id;
         this.name = name;

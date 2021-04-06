@@ -13,6 +13,9 @@ public class DirectorDto {
 
     private Float profitAverage;
 
+    public DirectorDto() {
+    }
+
     public DirectorDto(Director director, Float profitMultiplier, Float profitAverage) {
         this.director = director;
         this.profitMultiplier = profitMultiplier;
