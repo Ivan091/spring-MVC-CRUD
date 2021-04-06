@@ -46,15 +46,19 @@ public class TitleController {
     @PutMapping(value = "/titles")
     public ResponseEntity<Integer> update(@RequestBody Title title) {
         var updatedRowsCount = service.update(title);
-        if (updatedRowsCount == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (updatedRowsCount == 1) {
+            return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
         }
-        return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/titles/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
+        var rowsAffectedCount = service.delete(id);
+        if (rowsAffectedCount == 1) {
+            return new ResponseEntity<>(rowsAffectedCount, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/titles/count")
