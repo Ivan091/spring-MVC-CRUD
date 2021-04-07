@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DataJdbcTest
-@ContextConfiguration(classes = {TestDbConfig.class})
+@ContextConfiguration(classes = {DbTestConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class DirectorDaoTest {
 

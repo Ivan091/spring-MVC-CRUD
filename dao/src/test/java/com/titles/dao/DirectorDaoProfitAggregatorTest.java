@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DataJdbcTest
-@ContextConfiguration(classes = {TestDbConfig.class})
+@ContextConfiguration(classes = {DbTestConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class DirectorDtoDaoAggregatorTest {
+class DirectorDaoProfitAggregatorTest {
 
     @Autowired
-    private DirectorDtoDaoAggregator dtoDao;
+    private DirectorDaoProfitAggregator dao;
 
     @Autowired
     private TitleDao titleDao;
@@ -27,7 +27,7 @@ class DirectorDtoDaoAggregatorTest {
 
     @Test
     void findsAllCalculatingProfit() {
-        var dtos = dtoDao.findAllCalculatingProfit();
+        var dtos = dao.findAllCalculatingProfit();
         var tarantino = dtos.stream().filter(x -> x.getDirector().getId().equals(3)).findFirst().orElseThrow();
         assertEquals(4.25f, tarantino.getProfitMultiplier(), 0.001);
         assertEquals(450f, tarantino.getProfitAverage(), 0.001);
@@ -42,6 +42,6 @@ class DirectorDtoDaoAggregatorTest {
     @Test
     void handlesNullDivisionIfBudgetIsZero() {
         titleDao.update(title.setId(1).setBudget(0f).setDirectorId(1));
-        assertThrows(DataIntegrityViolationException.class, () -> dtoDao.findAllCalculatingProfit());
+        assertThrows(DataIntegrityViolationException.class, () -> dao.findAllCalculatingProfit());
     }
 }

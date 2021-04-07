@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Configuration
 @Import(DefaultEntitiesConfig.class)
 @ComponentScan
-public class TestDbConfig {
+public class DbTestConfig {
 
     @Bean
     public DataSourceTransactionManager transactionManager() {

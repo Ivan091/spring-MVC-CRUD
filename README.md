@@ -28,6 +28,3 @@ java -jar rest-api/target/app-rest-1.0-SNAPSHOT.jar
 ```
 http://localhost:8080/swagger-ui/
 ```
-
-Important! Title schema is wrong there. I have no idea why, but swagger don't want to understand `runtime` property whose type is `java.sql.Time`. So, remember the property must be a string
-in `HH:MM:SS` format.
