@@ -1,14 +1,13 @@
 package com.titles.dao;
 
 import com.titles.model.Title;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
-import java.sql.Date;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,20 +16,29 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Disabled
 class TitleDaoTest {
 
-    private final Title newTitleHasNoDirector = new Title(1, "Avatar", 237f, 2844f, Date.valueOf("2009-12-18"), 162, 0);
+    Integer countBefore;
 
-    private final Title newTitle = new Title(1, "War Horse", 70f, 177.6f, Date.valueOf("2011-12-25"), 146, 2);
+    @Autowired
+    private Title newTitleHasNoDirector;
+
+    @Autowired
+    private Title newTitle;
 
     @Autowired
     private TitleDao dao;
 
+    @BeforeEach
+    void setUp() {
+        newTitle.setDirectorId(1);
+        countBefore = dao.count();
+    }
+
     @Test
     void findsAll() {
         var titles = dao.findAll();
-        assertTrue(titles.size() > 0);
+        assertEquals(countBefore, titles.size());
         assertTrue(titles.stream().noneMatch(Objects::isNull));
     }
 
@@ -42,14 +50,14 @@ class TitleDaoTest {
     }
 
     @Test
-    void findsByIdFails() {
-        assertTrue(dao.findById(-1).isEmpty());
+    void findsByWrongIdFails() {
+        assertTrue(dao.findById(0).isEmpty());
     }
 
     @Test
     void updates() {
-        dao.update(newTitle);
-        assertEquals(dao.findById(1).orElseThrow(), newTitle);
+        var rowsAffectedCount = dao.update(newTitle.setId(1));
+        assertEquals(1, rowsAffectedCount);
         existCheck(newTitle);
     }
 
@@ -61,7 +69,8 @@ class TitleDaoTest {
 
     @Test
     void creates() {
-        dao.create(newTitle);
+        var generatedId = dao.create(newTitle);
+        assertEquals(generatedId, newTitle.getId());
         existCheck(newTitle);
     }
 
@@ -72,13 +81,20 @@ class TitleDaoTest {
 
     @Test
     void updatingTitleWithNoDirectorFails() {
-        assertThrows(DataIntegrityViolationException.class, () -> dao.update(newTitleHasNoDirector));
+        assertThrows(DataIntegrityViolationException.class, () -> dao.update(newTitleHasNoDirector.setId(1)));
     }
 
     @Test
     void deletes() {
-        dao.delete(1);
+        var rowsAffectedCount = dao.delete(1);
+        assertEquals(1, rowsAffectedCount);
         assertTrue(dao.findById(1).isEmpty());
+    }
+
+    @Test
+    void deletesNotExistingSuccess() {
+        var rowsAffectedCount = dao.delete(0);
+        assertEquals(0, rowsAffectedCount);
     }
 
     @Test

@@ -1,6 +1,6 @@
-SELECT DIRECTOR.*,
-       AVG(BOX_OFFICE / BUDGET) as profit_multiplier,
-       AVG(BOX_OFFICE - BUDGET) as profit_average
-FROM DIRECTOR
-         LEFT JOIN TITLE T on DIRECTOR.DIRECTOR_ID = T.DIRECTOR_ID
-GROUP BY DIRECTOR.DIRECTOR_ID
+SELECT director.*,
+       AVG(box_office / budget) as profit_multiplier,
+       AVG(box_office - budget) as profit_average
+FROM director
+         LEFT JOIN title t on director.director_id = t.director_id
+GROUP BY director.director_id

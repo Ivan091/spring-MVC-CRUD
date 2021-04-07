@@ -1,6 +1,6 @@
 package com.titles.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -10,18 +10,18 @@ public class Director {
 
     private String surname;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private Integer id;
 
     private Director() {
     }
 
-    public Director(String name, String surname, Date birthDate) {
+    public Director(String name, String surname, LocalDate birthDate) {
         this(0, name, surname, birthDate);
     }
 
-    public Director(Integer id, String name, String surname, Date birthDate) {
+    public Director(Integer id, String name, String surname, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -73,11 +73,11 @@ public class Director {
         return this;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public Director setBirthDate(Date birthDate) {
+    public Director setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
         return this;
     }
