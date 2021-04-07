@@ -25,8 +25,6 @@ public class TitleDao implements Dao<Title> {
 
     private final RowMapper<Title> rowMapper;
 
-    private final String[] keyHolderUpdateKeys = new String[]{"title_id", "director_id"};
-
     @Value("${title.findAll}")
     private String FIND_ALL;
 
@@ -83,10 +81,11 @@ public class TitleDao implements Dao<Title> {
     public Integer create(Title entity) {
         var sqlParameterSource = generateMapSqlParameterSource(entity);
         var keyHolder = new GeneratedKeyHolder();
-        var result = jdbcTemplate.update(CREATE, sqlParameterSource, keyHolder);
-        entity.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
+        jdbcTemplate.update(CREATE, sqlParameterSource, keyHolder);
+        var newId = Objects.requireNonNull(keyHolder.getKey()).intValue();
+        entity.setId(newId);
         LOGGER.debug("Creating title: {}", entity);
-        return result;
+        return newId;
     }
 
     @Override
