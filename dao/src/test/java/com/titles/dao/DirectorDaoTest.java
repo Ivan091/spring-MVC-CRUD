@@ -1,13 +1,12 @@
 package com.titles.dao;
 
 import com.titles.model.Director;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ContextConfiguration;
-import java.sql.Date;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,19 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJdbcTest
 @ContextConfiguration(classes = {TestDbConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Disabled
 class DirectorDaoTest {
 
-    private final Director newEntity = new Director(1, "Ivan", "Karnasevich", Date.valueOf("2002-07-19"));
+    Integer countBefore;
+
+    @Autowired
+    private Director newEntity;
 
     @Autowired
     private DirectorDao dao;
+
+    @BeforeEach
+    void setUp() {
+        countBefore = dao.count();
+    }
 
     @Test
     void findsAll() {
         var result = dao.findAll();
         assertTrue(result.stream().noneMatch(Objects::isNull));
-        assertEquals(3, result.size());
+        assertEquals(countBefore, result.size());
     }
 
     @Test
@@ -36,11 +42,13 @@ class DirectorDaoTest {
         var item = dao.findById(1);
         assertTrue(item.isPresent());
         assertEquals(1, item.get().getId());
+        assertEquals(countBefore, dao.count());
     }
 
     @Test
     void findByWrongIdFails() {
         assertTrue(dao.findById(-1).isEmpty());
+        assertEquals(countBefore, dao.count());
     }
 
     @Test
@@ -49,12 +57,20 @@ class DirectorDaoTest {
         assertEquals(1, dao.delete(id));
         assertTrue(dao.findById(1).isEmpty());
         assertTrue(dao.findAll().stream().noneMatch(x -> x.getId() == 1));
+        assertEquals(countBefore - 1, dao.count());
+    }
+
+    @Test
+    void deletesNotExistingSuccess() {
+        var rowsAffectedCount = dao.delete(0);
+        assertEquals(0, rowsAffectedCount);
     }
 
     @Test
     void creates() {
         dao.create(newEntity);
         existCheck(newEntity);
+        assertEquals(countBefore + 1, dao.count());
     }
 
     void existCheck(Director entity) {
@@ -65,7 +81,8 @@ class DirectorDaoTest {
 
     @Test
     void updates() {
-        dao.create(newEntity);
+        dao.update(newEntity.setId(1));
         existCheck(newEntity);
+        assertEquals(countBefore, dao.count());
     }
 }

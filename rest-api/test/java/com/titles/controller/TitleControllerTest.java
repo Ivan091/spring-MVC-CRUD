@@ -3,16 +3,16 @@ package com.titles.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.titles.model.Director;
-import com.titles.model.DirectorDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.titles.model.Title;
+import com.titles.service.DirectorService;
+import com.titles.service.ServiceDao;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,13 +24,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class DirectorControllerTest {
+@Disabled
+class TitleControllerTest {
 
     private final String mainEndpoint = "/api";
 
-    private final Director director = new Director("Christopher", "Nolan", Date.valueOf("1970-07-30"));
+    @Autowired
+    private Director director;
 
-    private Integer rowCountBefore;
+    @Autowired
+    private Title title;
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,79 +41,85 @@ class DirectorControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private DirectorService directorService;
+
+    @Autowired
+    private ServiceDao<Title> titleService;
+
     @BeforeEach
-    void setUpTestCase() throws Exception {
-        rowCountBefore = count();
+    void setUpTestCase() {
+        directorService.create(director);
+        title.setDirectorId(director.getId());
     }
 
     @Test
-    Integer count() throws Exception {
+    void findsAll() throws Exception {
         var response = mockMvc.perform(
-                get(mainEndpoint + "/directors/count")
+                get(mainEndpoint + "/titles")
         ).andExpect(
                 status().isOk()
         ).andReturn().getResponse();
         assertNotNull(response);
-        return objectMapper.readValue(response.getContentAsString(), Integer.class);
-    }
-
-    @Test
-    void findsAllCalculatingAverageProfit() throws Exception {
-        var response = mockMvc.perform(
-                get(mainEndpoint + "/directors")
-        ).andExpect(
-                status().isOk()
-        ).andReturn().getResponse();
-        assertNotNull(response);
-        var result = objectMapper.readValue(response.getContentAsString(), new TypeReference<List<DirectorDto>>() {
+        var result = objectMapper.readValue(response.getContentAsString(), new TypeReference<List<Title>>() {
         });
         assertTrue(result.stream().noneMatch(Objects::isNull));
-        assertEquals(rowCountBefore, result.size());
     }
 
     @Test
-    void returnsNotFoundIfFoundDirectorDoesNotExist() throws Exception {
+    void returnsNotFoundIfDoesNotExist() throws Exception {
         var response = mockMvc.perform(
-                get(mainEndpoint + "/director/0")
+                get(mainEndpoint + "/title/0")
         ).andExpect(
                 status().isNotFound()
         ).andReturn().getResponse();
         assertNotNull(response);
-        assertEquals(rowCountBefore, count());
     }
 
     @Test
-    void findsById() throws Exception {
+    void count() throws Exception {
         var response = mockMvc.perform(
-                get(mainEndpoint + "/director/1")
-        ).andExpect(
-                status().isOk()
-        ).andReturn().getResponse();
-        var result = objectMapper.readValue(response.getContentAsString(), Director.class);
-        assertEquals(1, result.getId());
-        assertEquals(rowCountBefore, count());
-    }
-
-    @Test
-    void creates() throws Exception {
-        var json = objectMapper.writeValueAsString(director);
-        var response = mockMvc.perform(
-                post(mainEndpoint + "/directors")
-                        .content(json)
-                        .contentType(MediaType.APPLICATION_JSON)
+                get(mainEndpoint + "/titles/count")
         ).andExpect(
                 status().isOk()
         ).andReturn().getResponse();
         assertNotNull(response);
         assertDoesNotThrow(() -> objectMapper.readValue(response.getContentAsString(), Integer.class));
-        assertEquals(rowCountBefore + 1, count());
+    }
+
+    @Test
+    void findsById() throws Exception {
+        titleService.create(title);
+        var response = mockMvc.perform(
+                get(mainEndpoint + "/title/" + title.getId())
+        ).andExpect(
+                status().isOk()
+        ).andReturn().getResponse();
+        var result = objectMapper.readValue(response.getContentAsString(), Title.class);
+        assertEquals(title, result);
+    }
+
+    @Test
+    void creates() throws Exception {
+        var json = objectMapper.writeValueAsString(title);
+        var response = mockMvc.perform(
+                post(mainEndpoint + "/titles")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                status().isOk()
+        ).andReturn().getResponse();
+        assertNotNull(response);
+        var resultId = objectMapper.readValue(response.getContentAsString(), Integer.class);
+        assertNotEquals(0, resultId);
     }
 
     @Test
     void updates() throws Exception {
-        var json = objectMapper.writeValueAsString(director.setId(1));
+        titleService.create(title);
+        var json = objectMapper.writeValueAsString(title.setName("Test2").setBoxOffice(10f));
         var response = mockMvc.perform(
-                put(mainEndpoint + "/directors")
+                put(mainEndpoint + "/titles")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
@@ -118,39 +127,38 @@ class DirectorControllerTest {
         ).andReturn().getResponse();
         var rowsAffected = objectMapper.readValue(response.getContentAsString(), Integer.class);
         assertEquals(1, rowsAffected);
-        assertEquals(rowCountBefore, count());
+        assertEquals(title, titleService.findById(title.getId()).orElseThrow());
     }
 
     @Test
     void updatingNotExistingReturnsNotFound() throws Exception {
-        var json = objectMapper.writeValueAsString(director.setId(0));
+        var json = objectMapper.writeValueAsString(title.setId(0));
         var response = mockMvc.perform(
-                put(mainEndpoint + "/directors")
+                put(mainEndpoint + "/titles")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
                 status().isNotFound()
         ).andReturn().getResponse();
         assertNotNull(response);
-        assertEquals(rowCountBefore, count());
     }
 
     @Test
     void deletes() throws Exception {
+        titleService.create(title);
         var response = mockMvc.perform(
-                delete(mainEndpoint + "/directors/1")
+                delete(mainEndpoint + "/titles/" + title.getId())
         ).andExpect(
                 status().isOk()
         ).andReturn().getResponse();
         var rowsAffected = objectMapper.readValue(response.getContentAsString(), Integer.class);
         assertEquals(1, rowsAffected);
-        assertEquals(rowCountBefore - 1, count());
     }
 
     @Test
     void deletingNotExistingReturnsNotFound() throws Exception {
         var response = mockMvc.perform(
-                delete(mainEndpoint + "/directors/0")
+                delete(mainEndpoint + "/titles/0")
         ).andExpect(
                 status().isNotFound()
         ).andReturn().getResponse();

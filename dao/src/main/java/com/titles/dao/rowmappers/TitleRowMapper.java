@@ -17,7 +17,7 @@ public class TitleRowMapper implements RowMapper<Title> {
                 rs.getString("name"),
                 rs.getFloat("budget"),
                 rs.getFloat("box_office"),
-                rs.getDate("premiere_date"),
+                rs.getDate("premiere_date").toLocalDate(),
                 rs.getInt("runtime"),
                 rs.getInt("director_id")
         );

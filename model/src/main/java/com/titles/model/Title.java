@@ -1,6 +1,6 @@
 package com.titles.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -14,7 +14,7 @@ public class Title {
 
     private Float boxOffice;
 
-    private Date premiereDate;
+    private LocalDate premiereDate;
 
     private Integer runtime;
 
@@ -23,11 +23,11 @@ public class Title {
     public Title() {
     }
 
-    public Title(String name, Float budget, Float boxOffice, Date premiereDate, Integer runtime, Integer directorId) {
+    public Title(String name, Float budget, Float boxOffice, LocalDate premiereDate, Integer runtime, Integer directorId) {
         this(0, name, budget, boxOffice, premiereDate, runtime, directorId);
     }
 
-    public Title(Integer id, String name, Float budget, Float boxOffice, Date premiereDate, Integer runtime, Integer directorId) {
+    public Title(Integer id, String name, Float budget, Float boxOffice, LocalDate premiereDate, Integer runtime, Integer directorId) {
         this.id = id;
         this.name = name;
         this.budget = budget;
@@ -39,7 +39,7 @@ public class Title {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, budget, premiereDate, runtime, boxOffice);
+        return Objects.hash(id, name, budget, boxOffice, premiereDate, runtime, directorId);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Title {
             return false;
         }
         Title title = (Title) o;
-        return id.equals(title.id) && budget.equals(title.budget) && boxOffice.equals(title.boxOffice) && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime);
+        return Objects.equals(id, title.id) && Objects.equals(name, title.name) && Objects.equals(budget, title.budget) && Objects.equals(boxOffice, title.boxOffice) && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime) && Objects.equals(directorId, title.directorId);
     }
 
     @Override
@@ -103,11 +103,11 @@ public class Title {
         return this;
     }
 
-    public Date getPremiereDate() {
+    public LocalDate getPremiereDate() {
         return premiereDate;
     }
 
-    public Title setPremiereDate(Date premiereDate) {
+    public Title setPremiereDate(LocalDate premiereDate) {
         this.premiereDate = premiereDate;
         return this;
     }

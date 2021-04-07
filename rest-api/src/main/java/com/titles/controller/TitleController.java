@@ -1,6 +1,7 @@
 package com.titles.controller;
 
 import com.titles.model.Title;
+import com.titles.service.DirectorService;
 import com.titles.service.ServiceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,12 @@ public class TitleController {
 
     private final ServiceDao<Title> service;
 
+    private final DirectorService directorService;
+
     @Autowired
-    public TitleController(ServiceDao<Title> service) {
-        this.service = service;
+    public TitleController(ServiceDao<Title> titleService, DirectorService directorService) {
+        this.service = titleService;
+        this.directorService = directorService;
     }
 
     @GetMapping("/titles")
@@ -33,32 +37,43 @@ public class TitleController {
     public ResponseEntity<Title> findById(@PathVariable Integer id) {
         var title = service.findById(id);
         return title
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .map(x -> new ResponseEntity<>(x, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping(value = "/titles")
     public ResponseEntity<Integer> create(@RequestBody Title title) {
-        var createdId = service.create(title);
-        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+        var foreignDirector = directorService.findById(title.getDirectorId());
+        return foreignDirector
+                .map(x -> {
+                    var idOfCreatedTitle = service.create(title);
+                    return new ResponseEntity<>(idOfCreatedTitle, HttpStatus.OK);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping(value = "/titles")
     public ResponseEntity<Integer> update(@RequestBody Title title) {
-        var updatedRowsCount = service.update(title);
-        if (updatedRowsCount == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedRowsCount, HttpStatus.OK);
+        var foreignDirector = directorService.findById(title.getDirectorId());
+        return foreignDirector
+                .map(x -> {
+                    var rowsAffectedCount = service.update(title);
+                    return new ResponseEntity<>(rowsAffectedCount, HttpStatus.OK);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping(value = "/titles/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
+        var rowsAffectedCount = service.delete(id);
+        if (rowsAffectedCount == 1) {
+            return new ResponseEntity<>(rowsAffectedCount, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/titles/count")
-    public ResponseEntity<Integer> count() {
-        return new ResponseEntity<>(service.count(), HttpStatus.OK);
+    public Integer count() {
+        return service.count();
     }
 }

@@ -16,7 +16,7 @@ public class DirectorRowMapper implements RowMapper<Director> {
                 rs.getInt("director_id"),
                 rs.getString("name"),
                 rs.getString("surname"),
-                rs.getDate("birth_date")
+                rs.getDate("birth_date").toLocalDate()
         );
     }
 }
