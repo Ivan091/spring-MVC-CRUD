@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import {Route} from "react-router-dom";
+import DirectorTableContainer from "./components/director/DirectorTableContainer";
+import NavBar from "./components/NavBar";
 
-function App() {
+
+const App = (props) => {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
+        <>
+            <NavBar/>
+            <Route path="/directors" render={() => (<DirectorTableContainer/>)}/>
+            <Route path="/director"/>
+            <Route path="/titles"/>
+            <Route path="/title"/>
+            <Route path="/"/>
+        </>
+    )
 }
 
-export default App;
+export default App
