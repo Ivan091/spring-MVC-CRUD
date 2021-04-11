@@ -1,8 +1,8 @@
 import React from 'react'
 import {Box, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip} from "@material-ui/core";
 import {AddCircleOutlined} from "@material-ui/icons";
-import ButtonDeleteContainer from "../Buttons/ButtonDeleteContainer";
-import ButtonUpdateContainer from "../Buttons/ButtonUpdateContainer";
+import ButtonDeleteContainer from "../buttons/ButtonDeleteContainer";
+import ButtonUpdateContainer from "../buttons/ButtonUpdateContainer";
 
 const lastColumnConfig = {
     width: "10%",

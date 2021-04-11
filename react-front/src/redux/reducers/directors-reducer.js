@@ -38,8 +38,7 @@ let initState = {
             "profitMultiplier": 0,
             "profitAverage": 0
         },
-    ],
-    updatingDirector: null,
+    ]
 }
 
 const directorsReducer = (state = initState, action) => {

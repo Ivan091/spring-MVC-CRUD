@@ -4,8 +4,10 @@ const theme = createMuiTheme({
     typography: {
         button: {
             textTransform: 'none'
-        }
-    }
+        },
+        fontFamily:
+            '"Segoe UI","Roboto"',
+    },
 });
 
 export default theme;
