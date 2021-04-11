@@ -1,4 +1,3 @@
-import './App.css';
 import React from "react";
 import {Route} from "react-router-dom";
 import DirectorTableContainer from "./components/director/DirectorTableContainer";

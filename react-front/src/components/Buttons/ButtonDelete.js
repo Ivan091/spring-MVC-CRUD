@@ -4,13 +4,13 @@ import {DeleteSharp} from "@material-ui/icons";
 
 const ButtonDelete = (props) => {
 
-    let deleteDirector = () => {
-        props.deleteDirector(props.id)
+    let deleteEntity = () => {
+        props.delete(props.id)
     }
 
     return (
         <Tooltip title={"Delete"}>
-            <IconButton onClick={deleteDirector}>
+            <IconButton onClick={deleteEntity}>
                 <DeleteSharp/>
             </IconButton>
         </Tooltip>

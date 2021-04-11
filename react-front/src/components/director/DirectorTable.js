@@ -10,39 +10,43 @@ const lastColumnConfig = {
 
 const DirectorTable = (props) => {
 
-    let directorRows = props.directors.map(director =>
-        <TableRow>
-            <TableCell>{director.name}</TableCell>
-            <TableCell>{director.surname}</TableCell>
-            <TableCell>{director.birthDate}</TableCell>
-            <TableCell>{director.profitAverage}</TableCell>
-            <TableCell>{director.profitMultiplier}</TableCell>
+    let tableHead = (
+        <TableHead>
+            <TableCell>Name</TableCell>
+            <TableCell>Surname</TableCell>
+            <TableCell>Birth Date</TableCell>
+            <TableCell>Profit Average</TableCell>
+            <TableCell>Profit Multiplier</TableCell>
             <TableCell style={lastColumnConfig}>
-                <ButtonUpdateContainer director={director}/>
-                <ButtonDeleteContainer id={director.id}/>
+                <Tooltip title={"Add"}>
+                    <IconButton>
+                        <AddCircleOutlined color={"primary"}/>
+                    </IconButton>
+                </Tooltip>
             </TableCell>
-        </TableRow>
+        </TableHead>
+    )
+
+    let tableBody = props.directors.map(director =>
+        <TableBody>
+            <TableRow>
+                <TableCell>{director.name}</TableCell>
+                <TableCell>{director.surname}</TableCell>
+                <TableCell>{director.birthDate}</TableCell>
+                <TableCell>{director.profitAverage}</TableCell>
+                <TableCell>{director.profitMultiplier}</TableCell>
+                <TableCell style={lastColumnConfig}>
+                    <ButtonUpdateContainer id={director.id}/>
+                    <ButtonDeleteContainer id={director.id}/>
+                </TableCell>
+            </TableRow>
+        </TableBody>
     )
     return (
         <Box m={5}>
             <Table>
-                <TableHead>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Surname</TableCell>
-                    <TableCell>Birth Date</TableCell>
-                    <TableCell>Profit Average</TableCell>
-                    <TableCell>Profit Multiplier</TableCell>
-                    <TableCell style={lastColumnConfig}>
-                        <Tooltip title={"Add"}>
-                            <IconButton>
-                                <AddCircleOutlined color={"primary"}/>
-                            </IconButton>
-                        </Tooltip>
-                    </TableCell>
-                </TableHead>
-                <TableBody>
-                    {directorRows}
-                </TableBody>
+                {tableHead}
+                {tableBody}
             </Table>
         </Box>
     )

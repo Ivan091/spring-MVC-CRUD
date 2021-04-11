@@ -33,7 +33,7 @@ public class TitleController {
         return service.findAll();
     }
 
-    @GetMapping("/title/{id}")
+    @GetMapping("/titles/{id}")
     public ResponseEntity<Title> findById(@PathVariable Integer id) {
         var title = service.findById(id);
         return title

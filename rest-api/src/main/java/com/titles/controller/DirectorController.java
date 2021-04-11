@@ -30,7 +30,7 @@ public class DirectorController {
         return service.findAllCalculatingProfit();
     }
 
-    @GetMapping("/director/{id}")
+    @GetMapping("/directors/{id}")
     public ResponseEntity<Director> findById(@PathVariable Integer id) {
         var director = service.findById(id);
         return director

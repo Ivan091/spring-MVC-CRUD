@@ -1,5 +1,8 @@
-const EDIT_DIRECTOR = "EDIT_DIRECTOR"
-const DELETE_DIRECTOR = 'DELETE_DIRECTOR'
+import {directorAPI} from "../../api/director";
+
+const EDIT = "EDIT"
+const DELETE = 'DELETE'
+const FIND_ALL = 'FIND_ALL'
 
 let initState = {
     directors: [
@@ -35,106 +38,44 @@ let initState = {
             "profitMultiplier": 0,
             "profitAverage": 0
         },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 5,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 6,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 7,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 8,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 9,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 10,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 11,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 12,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 13,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 14,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        }
     ],
-    editingDirector: {},
+    updatingDirector: null,
 }
 
 const directorsReducer = (state = initState, action) => {
     switch (action.type) {
-        case DELETE_DIRECTOR:
-            let stateCopy = {...state}
-            stateCopy.directors = stateCopy.directors.filter(x => x.id !== action.id)
-            return stateCopy
-        case EDIT_DIRECTOR:
-            state.editingDirector = action.director
-            return state;
+        case FIND_ALL: {
+            return {...state, directors: action.directors}
+        }
+        case DELETE: {
+            debugger
+            return {...state, directors: state.directors.filter(x => x.id !== action.id)}
+        }
+        case EDIT: {
+            state.updatingDirector = state.directors.find(x => x.id === action.id)
+            return {...state, updatingDirector: state.directors.find(x => x.id === action.id)};
+        }
         default :
             return state
     }
 }
 
-export const deleteDirector = (id) => ({type: DELETE_DIRECTOR, id: id})
+export const directorActionCreator = {
+    delete: (id) => ({type: DELETE, id: id}),
+    update: (id) => ({type: EDIT, id: id}),
+    findAll: (directors) => ({type: FIND_ALL, directors: directors}),
+}
 
-export const updateDirector = (director) => ({type: EDIT_DIRECTOR, director: director})
+export const directorThunkCreator = {
+    findAll: () => (dispatch) => directorAPI.findAll().then(data =>
+        dispatch(directorActionCreator.findAll(data))
+    ),
+    delete: (id) => (dispatch) => {
+        debugger
+        directorAPI.delete(id).then(r => r)
+        dispatch(directorActionCreator.delete(id))
+    }
+}
+
 
 export default directorsReducer

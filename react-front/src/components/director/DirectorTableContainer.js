@@ -1,12 +1,29 @@
 import {connect} from "react-redux";
 import DirectorTable from "./DirectorTable";
+import React from "react"
+import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
 
-let mapStateToProps = (state) => {
-    return {
-        directors: state.directors.directors
+
+class directorTableContainer extends React.Component {
+    componentDidMount() {
+        this.props.findAll();
+    }
+
+    render() {
+        return (
+            <DirectorTable directors={this.props.directors}/>
+        )
     }
 }
 
-const DirectorsContainer = connect(mapStateToProps)(DirectorTable)
+let mapStateToProps = (state) => {
+    return {
+        directors: state.directorsPage.directors
+    }
+}
 
-export default DirectorsContainer
+
+export default connect(mapStateToProps, {
+        findAll: directorThunkCreator.findAll
+    }
+)(directorTableContainer)
