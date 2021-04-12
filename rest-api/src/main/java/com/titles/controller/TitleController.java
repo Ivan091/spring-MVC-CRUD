@@ -1,8 +1,9 @@
 package com.titles.controller;
 
 import com.titles.model.Title;
+import com.titles.model.TitleWithDirectorFullNameDto;
 import com.titles.service.DirectorService;
-import com.titles.service.ServiceDao;
+import com.titles.service.TitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,22 @@ public class TitleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
 
-    private final ServiceDao<Title> service;
+    private final TitleService service;
 
     private final DirectorService directorService;
 
     @Autowired
-    public TitleController(ServiceDao<Title> titleService, DirectorService directorService) {
+    public TitleController(TitleService titleService, DirectorService directorService) {
         this.service = titleService;
         this.directorService = directorService;
     }
 
     @GetMapping("/titles")
-    public List<Title> findAll() {
-        return service.findAll();
+    public List<TitleWithDirectorFullNameDto> findAll() {
+        return service.findAllTitlesWithDirectorFullName();
     }
 
-    @GetMapping("/title/{id}")
+    @GetMapping("/titles/{id}")
     public ResponseEntity<Title> findById(@PathVariable Integer id) {
         var title = service.findById(id);
         return title

@@ -83,7 +83,7 @@ public class TitleDao implements Dao<Title> {
         var keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(CREATE, sqlParameterSource, keyHolder);
         var newId = Objects.requireNonNull(keyHolder.getKey()).intValue();
-        entity.setId(newId);
+        entity.setTitleId(newId);
         LOGGER.debug("Creating title: {}", entity);
         return newId;
     }
@@ -108,7 +108,7 @@ public class TitleDao implements Dao<Title> {
 
     private MapSqlParameterSource generateMapSqlParameterSource(Title entity) {
         return new MapSqlParameterSource()
-                .addValue("title_id", entity.getId())
+                .addValue("title_id", entity.getTitleId())
                 .addValue("name", entity.getName())
                 .addValue("budget", entity.getBudget())
                 .addValue("premiere_date", entity.getPremiereDate())

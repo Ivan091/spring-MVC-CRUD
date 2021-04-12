@@ -1,7 +1,9 @@
 package com.titles.service;
 
 import com.titles.dao.Dao;
+import com.titles.dao.TitleDtoDao;
 import com.titles.model.Title;
+import com.titles.model.TitleWithDirectorFullNameDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,13 +11,16 @@ import java.util.Optional;
 
 
 @Service
-public class TitleService implements ServiceDao<Title> {
+public class TitleDtoService implements TitleService {
 
     private final Dao<Title> dao;
 
+    private final TitleDtoDao dtoDao;
+
     @Autowired
-    public TitleService(Dao<Title> dao) {
+    public TitleDtoService(Dao<Title> dao, TitleDtoDao dtoDao) {
         this.dao = dao;
+        this.dtoDao = dtoDao;
     }
 
     @Override
@@ -46,5 +51,10 @@ public class TitleService implements ServiceDao<Title> {
     @Override
     public Integer count() {
         return dao.count();
+    }
+
+    @Override
+    public List<TitleWithDirectorFullNameDto> findAllTitlesWithDirectorFullName() {
+        return dtoDao.findAllTitlesWithDirectorFullName();
     }
 }

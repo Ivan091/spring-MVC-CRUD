@@ -41,7 +41,7 @@ class DirectorDaoTest {
     void findsById() {
         var item = dao.findById(1);
         assertTrue(item.isPresent());
-        assertEquals(1, item.get().getId());
+        assertEquals(1, item.get().getDirectorId());
         assertEquals(countBefore, dao.count());
     }
 
@@ -56,7 +56,7 @@ class DirectorDaoTest {
         var id = 1;
         assertEquals(1, dao.delete(id));
         assertTrue(dao.findById(1).isEmpty());
-        assertTrue(dao.findAll().stream().noneMatch(x -> x.getId() == 1));
+        assertTrue(dao.findAll().stream().noneMatch(x -> x.getDirectorId() == 1));
         assertEquals(countBefore - 1, dao.count());
     }
 
@@ -74,14 +74,14 @@ class DirectorDaoTest {
     }
 
     void existCheck(Director entity) {
-        var newId = entity.getId();
+        var newId = entity.getDirectorId();
         assertNotEquals(0, newId);
         assertEquals(entity, dao.findById(newId).orElseThrow());
     }
 
     @Test
     void updates() {
-        dao.update(newEntity.setId(1));
+        dao.update(newEntity.setDirectorId(1));
         existCheck(newEntity);
         assertEquals(countBefore, dao.count());
     }

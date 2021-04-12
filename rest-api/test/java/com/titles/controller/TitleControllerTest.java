@@ -2,8 +2,7 @@ package com.titles.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.titles.model.Director;
-import com.titles.model.Title;
+import com.titles.model.*;
 import com.titles.service.DirectorService;
 import com.titles.service.ServiceDao;
 import org.junit.jupiter.api.*;
@@ -50,7 +49,7 @@ class TitleControllerTest {
     @BeforeEach
     void setUpTestCase() {
         directorService.create(director);
-        title.setDirectorId(director.getId());
+        title.setDirectorId(director.getDirectorId());
     }
 
     @Test
@@ -61,8 +60,9 @@ class TitleControllerTest {
                 status().isOk()
         ).andReturn().getResponse();
         assertNotNull(response);
-        var result = objectMapper.readValue(response.getContentAsString(), new TypeReference<List<Title>>() {
-        });
+        var result = objectMapper.readValue(response.getContentAsString(),
+                new TypeReference<List<TitleWithDirectorFullNameDto>>() {
+                });
         assertTrue(result.stream().noneMatch(Objects::isNull));
     }
 
@@ -91,7 +91,7 @@ class TitleControllerTest {
     void findsById() throws Exception {
         titleService.create(title);
         var response = mockMvc.perform(
-                get(mainEndpoint + "/title/" + title.getId())
+                get(mainEndpoint + "/title/" + title.getTitleId())
         ).andExpect(
                 status().isOk()
         ).andReturn().getResponse();
@@ -127,12 +127,12 @@ class TitleControllerTest {
         ).andReturn().getResponse();
         var rowsAffected = objectMapper.readValue(response.getContentAsString(), Integer.class);
         assertEquals(1, rowsAffected);
-        assertEquals(title, titleService.findById(title.getId()).orElseThrow());
+        assertEquals(title, titleService.findById(title.getTitleId()).orElseThrow());
     }
 
     @Test
     void updatingNotExistingReturnsNotFound() throws Exception {
-        var json = objectMapper.writeValueAsString(title.setId(0));
+        var json = objectMapper.writeValueAsString(title.setTitleId(0));
         var response = mockMvc.perform(
                 put(mainEndpoint + "/titles")
                         .content(json)
@@ -147,7 +147,7 @@ class TitleControllerTest {
     void deletes() throws Exception {
         titleService.create(title);
         var response = mockMvc.perform(
-                delete(mainEndpoint + "/titles/" + title.getId())
+                delete(mainEndpoint + "/titles/" + title.getTitleId())
         ).andExpect(
                 status().isOk()
         ).andReturn().getResponse();

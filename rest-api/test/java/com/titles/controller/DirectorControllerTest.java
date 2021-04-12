@@ -78,7 +78,7 @@ class DirectorControllerTest {
                 status().isOk()
         ).andReturn().getResponse();
         var result = objectMapper.readValue(response.getContentAsString(), Director.class);
-        assertEquals(1, result.getId());
+        assertEquals(1, result.getDirectorId());
     }
 
     @Test
@@ -97,7 +97,7 @@ class DirectorControllerTest {
 
     @Test
     void updates() throws Exception {
-        var json = objectMapper.writeValueAsString(director.setId(1));
+        var json = objectMapper.writeValueAsString(director.setDirectorId(1));
         var response = mockMvc.perform(
                 put(mainEndpoint + "/directors")
                         .content(json)
@@ -111,7 +111,7 @@ class DirectorControllerTest {
 
     @Test
     void updatingNotExistingReturnsNotFound() throws Exception {
-        var json = objectMapper.writeValueAsString(director.setId(0));
+        var json = objectMapper.writeValueAsString(director.setDirectorId(0));
         var response = mockMvc.perform(
                 put(mainEndpoint + "/directors")
                         .content(json)

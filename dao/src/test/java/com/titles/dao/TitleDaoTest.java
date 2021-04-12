@@ -46,7 +46,7 @@ class TitleDaoTest {
     void findsById() {
         var title = dao.findById(1);
         assertTrue(title.isPresent());
-        assertEquals(1, title.get().getId());
+        assertEquals(1, title.get().getTitleId());
     }
 
     @Test
@@ -56,13 +56,13 @@ class TitleDaoTest {
 
     @Test
     void updates() {
-        var rowsAffectedCount = dao.update(newTitle.setId(1));
+        var rowsAffectedCount = dao.update(newTitle.setTitleId(1));
         assertEquals(1, rowsAffectedCount);
         existCheck(newTitle);
     }
 
     void existCheck(Title entity) {
-        var newId = entity.getId();
+        var newId = entity.getTitleId();
         assertNotEquals(0, newId);
         assertEquals(entity, dao.findById(newId).orElseThrow());
     }
@@ -70,7 +70,7 @@ class TitleDaoTest {
     @Test
     void creates() {
         var generatedId = dao.create(newTitle);
-        assertEquals(generatedId, newTitle.getId());
+        assertEquals(generatedId, newTitle.getTitleId());
         existCheck(newTitle);
     }
 
@@ -81,7 +81,7 @@ class TitleDaoTest {
 
     @Test
     void updatingTitleWithNoDirectorFails() {
-        assertThrows(DataIntegrityViolationException.class, () -> dao.update(newTitleHasNoDirector.setId(1)));
+        assertThrows(DataIntegrityViolationException.class, () -> dao.update(newTitleHasNoDirector.setTitleId(1)));
     }
 
     @Test

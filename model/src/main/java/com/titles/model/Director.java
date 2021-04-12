@@ -12,7 +12,7 @@ public class Director {
 
     private LocalDate birthDate;
 
-    private Integer id;
+    private Integer directorId;
 
     private Director() {
     }
@@ -21,8 +21,8 @@ public class Director {
         this(0, name, surname, birthDate);
     }
 
-    public Director(Integer id, String name, String surname, LocalDate birthDate) {
-        this.id = id;
+    public Director(Integer directorId, String name, String surname, LocalDate birthDate) {
+        this.directorId = directorId;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -30,7 +30,7 @@ public class Director {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, birthDate);
+        return Objects.hash(directorId, name, surname, birthDate);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class Director {
             return false;
         }
         Director director = (Director) o;
-        return id.equals(director.id) && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
+        return directorId.equals(director.directorId) && Objects.equals(name, director.name) && Objects.equals(surname, director.surname) && Objects.equals(birthDate, director.birthDate);
     }
 
     @Override
     public String toString() {
         return "model.Director{" +
-                "id=" + id +
+                "id=" + directorId +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +
@@ -82,12 +82,12 @@ public class Director {
         return this;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getDirectorId() {
+        return directorId;
     }
 
-    public Director setId(int id) {
-        this.id = id;
+    public Director setDirectorId(int directorId) {
+        this.directorId = directorId;
         return this;
     }
 }
