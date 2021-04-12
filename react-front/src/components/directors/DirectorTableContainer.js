@@ -1,20 +1,8 @@
 import {connect} from "react-redux";
+import React, {useEffect} from "react"
 import DirectorTable from "./DirectorTable";
-import React from "react"
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
 
-
-class directorTableContainer extends React.Component {
-    componentDidMount() {
-        this.props.findAll();
-    }
-
-    render() {
-        return (
-            <DirectorTable directors={this.props.directors}/>
-        )
-    }
-}
 
 let mapStateToProps = (state) => {
     return {
@@ -22,8 +10,15 @@ let mapStateToProps = (state) => {
     }
 }
 
+const DirectorTableContainer = (props) => {
+    useEffect(() => props.findAll(), [])
+    return (
+        <DirectorTable directors={props.directors}/>
+    )
+}
+
 
 export default connect(mapStateToProps, {
         findAll: directorThunkCreator.findAll
     }
-)(directorTableContainer)
+)(DirectorTableContainer)

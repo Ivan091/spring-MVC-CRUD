@@ -1,15 +1,14 @@
 import React from 'react'
-import {Box, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip} from "@material-ui/core";
-import {AddCircleOutlined} from "@material-ui/icons";
-import ButtonDeleteContainer from "../buttons/ButtonDeleteContainer";
-import ButtonUpdateContainer from "../buttons/ButtonUpdateContainer";
+import {Box, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
+import ButtonDeleteContainer from "./ButtonDeleteDirectorContainer";
+import ButtonNavLinkContainer from "../buttons/ButtonNavLinkContainer";
+import {AddCircleOutlined, EditSharp} from "@material-ui/icons";
 
 const lastColumnConfig = {
     width: "10%",
 }
 
 const DirectorTable = (props) => {
-
     let tableHead = (
         <TableHead>
             <TableCell>Name</TableCell>
@@ -18,11 +17,10 @@ const DirectorTable = (props) => {
             <TableCell>Profit Average</TableCell>
             <TableCell>Profit Multiplier</TableCell>
             <TableCell style={lastColumnConfig}>
-                <Tooltip title={"Add"}>
-                    <IconButton>
-                        <AddCircleOutlined color={"primary"}/>
-                    </IconButton>
-                </Tooltip>
+                <ButtonNavLinkContainer
+                    title={"Add"}
+                    inner={<AddCircleOutlined color={"primary"}/>}
+                    url={"directors/add"}/>
             </TableCell>
         </TableHead>
     )
@@ -36,8 +34,11 @@ const DirectorTable = (props) => {
                 <TableCell>{director.profitAverage}</TableCell>
                 <TableCell>{director.profitMultiplier}</TableCell>
                 <TableCell style={lastColumnConfig}>
-                    <ButtonUpdateContainer id={director.id}/>
-                    <ButtonDeleteContainer id={director.id}/>
+                    <ButtonNavLinkContainer
+                        title={"Edit"}
+                        inner={<EditSharp/>}
+                        url={`directors/${director.directorId}`}/>
+                    <ButtonDeleteContainer id={director.directorId}/>
                 </TableCell>
             </TableRow>
         </TableBody>

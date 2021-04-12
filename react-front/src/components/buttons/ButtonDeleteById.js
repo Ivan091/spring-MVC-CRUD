@@ -2,7 +2,7 @@ import React from 'react'
 import {IconButton, Tooltip} from "@material-ui/core";
 import {DeleteSharp} from "@material-ui/icons";
 
-const ButtonDelete = (props) => {
+const ButtonDeleteById = (props) => {
 
     let deleteEntity = () => {
         props.delete(props.id)
@@ -17,4 +17,4 @@ const ButtonDelete = (props) => {
     )
 }
 
-export default ButtonDelete
+export default ButtonDeleteById

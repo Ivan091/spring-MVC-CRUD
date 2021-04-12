@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Title {
 
-    private Integer id;
+    private Integer titleId;
 
     private String name;
 
@@ -27,8 +27,8 @@ public class Title {
         this(0, name, budget, boxOffice, premiereDate, runtime, directorId);
     }
 
-    public Title(Integer id, String name, Float budget, Float boxOffice, LocalDate premiereDate, Integer runtime, Integer directorId) {
-        this.id = id;
+    public Title(Integer titleId, String name, Float budget, Float boxOffice, LocalDate premiereDate, Integer runtime, Integer directorId) {
+        this.titleId = titleId;
         this.name = name;
         this.budget = budget;
         this.premiereDate = premiereDate;
@@ -39,7 +39,7 @@ public class Title {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, budget, boxOffice, premiereDate, runtime, directorId);
+        return Objects.hash(titleId, name, budget, boxOffice, premiereDate, runtime, directorId);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class Title {
             return false;
         }
         Title title = (Title) o;
-        return Objects.equals(id, title.id) && Objects.equals(name, title.name) && Objects.equals(budget, title.budget) && Objects.equals(boxOffice, title.boxOffice) && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime) && Objects.equals(directorId, title.directorId);
+        return Objects.equals(titleId, title.titleId) && Objects.equals(name, title.name) && Objects.equals(budget, title.budget) && Objects.equals(boxOffice, title.boxOffice) && Objects.equals(premiereDate, title.premiereDate) && Objects.equals(runtime, title.runtime) && Objects.equals(directorId, title.directorId);
     }
 
     @Override
     public String toString() {
         return "Title{" +
-                "id=" + id +
+                "id=" + titleId +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
                 ", boxOffice=" + boxOffice +
@@ -67,12 +67,12 @@ public class Title {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTitleId() {
+        return titleId;
     }
 
-    public Title setId(Integer id) {
-        this.id = id;
+    public Title setTitleId(Integer titleId) {
+        this.titleId = titleId;
         return this;
     }
 

@@ -2,13 +2,15 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import directorsReducer from "./reducers/directors-reducer";
 import thunk from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import titlesReducer from "./reducers/titles-reducer";
 
-let reducers = combineReducers({
+const reducers = combineReducers({
     directorsPage: directorsReducer,
+    titlesPage: titlesReducer,
     form: formReducer
 })
 
-let store = createStore(reducers, applyMiddleware(thunk))
+const store = createStore(reducers, applyMiddleware(thunk))
 
 window.store = store
 

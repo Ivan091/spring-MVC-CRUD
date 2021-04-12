@@ -28,20 +28,20 @@ class DirectorDaoProfitAggregatorTest {
     @Test
     void findsAllCalculatingProfit() {
         var dtos = dao.findAllCalculatingProfit();
-        var tarantino = dtos.stream().filter(x -> x.getDirector().getId().equals(3)).findFirst().orElseThrow();
+        var tarantino = dtos.stream().filter(x -> x.getDirector().getDirectorId().equals(3)).findFirst().orElseThrow();
         assertEquals(4.25f, tarantino.getProfitMultiplier(), 0.001);
         assertEquals(450f, tarantino.getProfitAverage(), 0.001);
-        var spielberg = dtos.stream().filter(x -> x.getDirector().getId().equals(2)).findFirst().orElseThrow();
+        var spielberg = dtos.stream().filter(x -> x.getDirector().getDirectorId().equals(2)).findFirst().orElseThrow();
         assertEquals(3.5f, spielberg.getProfitMultiplier(), 0.001);
         assertEquals(500f, spielberg.getProfitAverage(), 0.001);
-        var smith = dtos.stream().filter(x -> x.getDirector().getId().equals(1)).findFirst().orElseThrow();
+        var smith = dtos.stream().filter(x -> x.getDirector().getDirectorId().equals(1)).findFirst().orElseThrow();
         assertEquals(2f, smith.getProfitMultiplier(), 0.001);
         assertEquals(50f, smith.getProfitAverage(), 0.001);
     }
 
     @Test
     void handlesNullDivisionIfBudgetIsZero() {
-        titleDao.update(title.setId(1).setBudget(0f).setDirectorId(1));
+        titleDao.update(title.setTitleId(1).setBudget(0f).setDirectorId(1));
         assertThrows(DataIntegrityViolationException.class, () -> dao.findAllCalculatingProfit());
     }
 }

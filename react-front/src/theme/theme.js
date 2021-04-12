@@ -5,6 +5,9 @@ const theme = createMuiTheme({
         button: {
             textTransform: 'none'
         },
+        navLink: {
+            textDecoration: 'none'
+        },
         fontFamily:
             '"Segoe UI","Roboto"',
     },

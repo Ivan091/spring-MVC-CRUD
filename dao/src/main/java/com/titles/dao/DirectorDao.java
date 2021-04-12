@@ -84,7 +84,7 @@ public class DirectorDao implements Dao<Director> {
         var sqlParameterSource = generateMapSqlParameterSource(entity);
         jdbcTemplate.update(CREATE, sqlParameterSource, keyHolder);
         var newId = Objects.requireNonNull(keyHolder.getKey()).intValue();
-        entity.setId(newId);
+        entity.setDirectorId(newId);
         return newId;
     }
 
@@ -108,7 +108,7 @@ public class DirectorDao implements Dao<Director> {
 
     private MapSqlParameterSource generateMapSqlParameterSource(Director entity) {
         return new MapSqlParameterSource()
-                .addValue("director_id", entity.getId())
+                .addValue("director_id", entity.getDirectorId())
                 .addValue("name", entity.getName())
                 .addValue("surname", entity.getSurname())
                 .addValue("birth_date", entity.getBirthDate());

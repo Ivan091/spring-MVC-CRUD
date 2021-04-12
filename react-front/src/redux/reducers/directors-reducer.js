@@ -1,58 +1,15 @@
 import {directorAPI} from "../../api/director";
 
-const EDIT = "EDIT"
-const DELETE = 'DELETE'
-const FIND_ALL = 'FIND_ALL'
+const FIND_ALL_DIRECTORS = 'FIND_ALL_DIRECTORS'
 
 let initState = {
-    directors: [
-        {
-            "name": "John",
-            "surname": "Smith",
-            "birthDate": "1960-07-25",
-            "id": 1,
-            "profitMultiplier": 2,
-            "profitAverage": 50
-        },
-        {
-            "name": "Steven",
-            "surname": "Spielberg",
-            "birthDate": "1976-01-06",
-            "id": 2,
-            "profitMultiplier": 3.5,
-            "profitAverage": 500
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 3,
-            "profitMultiplier": 3.607143,
-            "profitAverage": 492.85715
-        },
-        {
-            "name": "Quentin",
-            "surname": "Tarantino",
-            "birthDate": "1963-03-27",
-            "id": 4,
-            "profitMultiplier": 0,
-            "profitAverage": 0
-        },
-    ]
+    directors: [],
 }
 
 const directorsReducer = (state = initState, action) => {
     switch (action.type) {
-        case FIND_ALL: {
+        case FIND_ALL_DIRECTORS: {
             return {...state, directors: action.directors}
-        }
-        case DELETE: {
-            debugger
-            return {...state, directors: state.directors.filter(x => x.id !== action.id)}
-        }
-        case EDIT: {
-            state.updatingDirector = state.directors.find(x => x.id === action.id)
-            return {...state, updatingDirector: state.directors.find(x => x.id === action.id)};
         }
         default :
             return state
@@ -60,20 +17,32 @@ const directorsReducer = (state = initState, action) => {
 }
 
 export const directorActionCreator = {
-    delete: (id) => ({type: DELETE, id: id}),
-    update: (id) => ({type: EDIT, id: id}),
-    findAll: (directors) => ({type: FIND_ALL, directors: directors}),
+    findAll: (xs) => ({type: FIND_ALL_DIRECTORS, directors: xs}),
 }
 
 export const directorThunkCreator = {
-    findAll: () => (dispatch) => directorAPI.findAll().then(data =>
-        dispatch(directorActionCreator.findAll(data))
-    ),
+    findAll: () => (dispatch) => {
+        directorAPI.findAll().then(data => {
+            dispatch(directorActionCreator.findAll(data))
+        })
+    },
+    find: () => (dispatch) => directorAPI.findAll(),
     delete: (id) => (dispatch) => {
-        debugger
-        directorAPI.delete(id).then(r => r)
-        dispatch(directorActionCreator.delete(id))
-    }
+        directorAPI.delete(id)
+            .then(() => directorAPI.findAll()
+                .then(x => dispatch(directorActionCreator.findAll(x))))
+    },
+    update: (x) => (dispatch) => {
+        directorAPI.update(x)
+            .then(() => directorAPI.findAll()
+                .then(x => dispatch(directorActionCreator.findAll(x))))
+    },
+    add: (x) => (dispatch) => {
+        directorAPI.add(x)
+            .then(() => directorAPI.findAll()
+                .then(x => dispatch(directorActionCreator.findAll(x))))
+    },
+    findById: (id) => (dispatch) => directorAPI.findById(id)
 }
 
 
