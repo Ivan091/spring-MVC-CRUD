@@ -1,6 +1,7 @@
 import {directorAPI} from "../../api/director";
 
-const FIND_ALL_DIRECTORS = 'FIND_ALL_DIRECTORS'
+const REQUEST_ALL = 'directors/REQUEST_ALL'
+const DELETE = 'directors/DELETE'
 
 let initState = {
     directors: [],
@@ -8,7 +9,10 @@ let initState = {
 
 const directorsReducer = (state = initState, action) => {
     switch (action.type) {
-        case FIND_ALL_DIRECTORS: {
+        case DELETE: {
+
+        }
+        case REQUEST_ALL: {
             return {...state, directors: action.directors}
         }
         default :
@@ -17,30 +21,31 @@ const directorsReducer = (state = initState, action) => {
 }
 
 export const directorActionCreator = {
-    findAll: (xs) => ({type: FIND_ALL_DIRECTORS, directors: xs}),
+    requestAll: (xs) => ({type: REQUEST_ALL, directors: xs}),
+    delete: (directorId) => ({type: REQUEST_ALL, directorId: directorId}),
 }
 
 export const directorThunkCreator = {
     findAll: () => (dispatch) => {
         directorAPI.findAll().then(data => {
-            dispatch(directorActionCreator.findAll(data))
+            dispatch(directorActionCreator.requestAll(data))
         })
     },
     find: () => (dispatch) => directorAPI.findAll(),
     delete: (id) => (dispatch) => {
         directorAPI.delete(id)
             .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.findAll(x))))
+                .then(x => dispatch(directorActionCreator.requestAll(x))))
     },
     update: (x) => (dispatch) => {
         directorAPI.update(x)
             .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.findAll(x))))
+                .then(x => dispatch(directorActionCreator.requestAll(x))))
     },
     add: (x) => (dispatch) => {
         directorAPI.add(x)
             .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.findAll(x))))
+                .then(x => dispatch(directorActionCreator.requestAll(x))))
     },
     findById: (id) => (dispatch) => directorAPI.findById(id)
 }
