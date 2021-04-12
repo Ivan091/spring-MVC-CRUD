@@ -1,6 +1,9 @@
 import {titleAPI} from "../../api/title";
 
-const FIND_ALL_TITLES = 'FIND_ALL'
+const UPDATE_ALL = 'titles/UPDATE_ALL'
+const DELETE = 'titles/DELETE'
+const UPDATE = 'titles/UPDATE'
+const ADD = 'titles/ADD'
 
 let initState = {
     titles: [],
@@ -8,8 +11,23 @@ let initState = {
 
 const titlesReducer = (state = initState, action) => {
     switch (action.type) {
-        case FIND_ALL_TITLES: {
+        case UPDATE_ALL: {
             return {...state, titles: action.titles}
+        }
+        case DELETE: {
+            return {...state, titles: state.titles.filter(t => t.titleId !== action.titleId)}
+        }
+        case UPDATE: {
+            const titlesCopy = [...state.titles]
+            const targetIdx = state.titles.findIndex(t => t.titleId === action.title.titleId)
+            titlesCopy[targetIdx] = action.title
+            let a = {...state, titles: titlesCopy}
+            return {...state, titles: titlesCopy}
+        }
+        case ADD : {
+            const titlesCopy = [...state.titles]
+            titlesCopy.push(action.title)
+            return {...state, titles: titlesCopy}
         }
         default :
             return state
@@ -17,31 +35,33 @@ const titlesReducer = (state = initState, action) => {
 }
 
 export const titleActionCreator = {
-    findAll: (titles) => ({type: FIND_ALL_TITLES, titles: titles}),
+    updateAll: (titles) => ({type: UPDATE_ALL, titles: titles}),
+    delete: (titleId) => ({type: DELETE, titleId: titleId}),
+    update: (title) => ({type: UPDATE, title: title}),
+    add: (title) => ({type: ADD, title: title}),
 }
 
-export const titleThunkCreator = {
-    findAll: () => (dispatch) => {
-        titleAPI.findAll().then(data => {
-            dispatch(titleActionCreator.findAll(data))
-        })
-    },
-    find: () => (dispatch) => titleAPI.findAll(),
+const refresh = async (dispatch) => {
+    const titles = await titleAPI.findAll()
+    dispatch(titleActionCreator.updateAll(titles))
+}
 
-    delete: (id) => (dispatch) => {
-        titleAPI.delete(id)
-            .then(() => titleAPI.findAll()
-                .then(x => dispatch(titleActionCreator.findAll(x))))
+
+export const titleThunkCreator = {
+    requestAll: () => async (dispatch) => {
+        await refresh(dispatch)
     },
-    update: (x) => (dispatch) => {
-        titleAPI.update(x)
-            .then(() => titleAPI.findAll()
-                .then(x => dispatch(titleActionCreator.findAll(x))))
+    delete: (id) => async (dispatch) => {
+        await titleAPI.delete(id)
+        dispatch(titleActionCreator.delete(id))
     },
-    add: (x) => (dispatch) => {
-        titleAPI.add(x)
-            .then(() => titleAPI.findAll()
-                .then(x => dispatch(titleActionCreator.findAll(x))))
+    update: (title) => async (dispatch) => {
+        await titleAPI.update(title)
+        await refresh(dispatch)
+    },
+    add: (title) => async (dispatch) => {
+        await titleAPI.add(title)
+        await refresh(dispatch)
     },
     findById: (id) => (dispatch) => titleAPI.findById(id)
 }

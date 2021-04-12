@@ -11,8 +11,6 @@ const renderTextField = ({label, input, meta: {touched, invalid, error}, ...cust
         margin={"normal"}
         variant={"outlined"}
         fullWidth
-        value={() => "das"}
-        defaultValue="123"
         {...input}
     />
 )

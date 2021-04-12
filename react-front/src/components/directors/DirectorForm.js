@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Container} from "@material-ui/core";
 import {Form, reduxForm} from "redux-form";
-import TextFieldFormItem from "../form-items/TextFieldFormItem";
-import DateFieldFormItem from "../form-items/DateFieldFormItem";
+import TextFieldFormItem from "../form/TextFieldFormItem";
+import DateFieldFormItem from "../form/DateFieldFormItem";
 import {connect} from "react-redux";
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
-import {useHistory, withRouter} from "react-router";
+import {Redirect, withRouter} from "react-router";
 import {compose} from "redux";
 import CancelSubmitButtonPair from "../buttons/CancelSubmitButtonPair";
 
@@ -28,14 +28,17 @@ const DirectorFormRedux = reduxForm({form: 'directorForm', enableReinitialize: t
 
 const DirectorUpdateReduxFormContainer = (props) => {
 
+    const findByIdProps = props.findById
+    const findById = useCallback((id) => findByIdProps(id), [findByIdProps])
+
+    const initId = props.match.params.id
     const [submitted, setSubmitted] = useState(false);
     const [initValues, setInitValue] = useState({})
-    let initId = props.match.params.id
-    useEffect(() => {
-        props.findById(initId).then(obj => setInitValue(obj))
-    }, [])
 
-    let history = useHistory()
+    useEffect(() => {
+        findById(initId).then(obj => setInitValue(obj))
+    }, [findById, initId])
+
     const onSubmit = (formData) => {
         formData.id = initId
         props.onSubmit(formData)
@@ -43,7 +46,7 @@ const DirectorUpdateReduxFormContainer = (props) => {
     }
 
     if (submitted) {
-        history.push("/directors")
+        return (<Redirect to={"/directors"}/>)
     }
 
     return (
@@ -55,8 +58,6 @@ const DirectorAddFormReduxContainer = (props) => {
 
     const [submitted, setSubmitted] = useState(false);
 
-    let history = useHistory()
-    debugger
     const onSubmit = (formData) => {
         formData.id = 1
         props.onSubmit({...formData, id: 1})
@@ -64,7 +65,7 @@ const DirectorAddFormReduxContainer = (props) => {
     }
 
     if (submitted) {
-        history.push("/directors")
+        return (<Redirect to={"/directors"}/>)
     }
 
     return (
@@ -74,8 +75,7 @@ const DirectorAddFormReduxContainer = (props) => {
 
 export const DirectorUpdateFormContainer = compose(
     withRouter,
-    connect(() => {
-    }, {
+    connect(null, {
         onSubmit: directorThunkCreator.update,
         findById: directorThunkCreator.findById
     })
@@ -83,8 +83,7 @@ export const DirectorUpdateFormContainer = compose(
 
 export const DirectorAddFormContainer = compose(
     withRouter,
-    connect(() => {
-    }, {
+    connect(null, {
         onSubmit: directorThunkCreator.add,
     })
 )(DirectorAddFormReduxContainer)

@@ -4,13 +4,13 @@ const REQUEST_ALL = 'directors/REQUEST_ALL'
 const DELETE = 'directors/DELETE'
 
 let initState = {
-    directors: [],
+    directors: null,
 }
 
 const directorsReducer = (state = initState, action) => {
     switch (action.type) {
         case DELETE: {
-
+            return state
         }
         case REQUEST_ALL: {
             return {...state, directors: action.directors}
@@ -26,7 +26,7 @@ export const directorActionCreator = {
 }
 
 export const directorThunkCreator = {
-    findAll: () => (dispatch) => {
+    requestAll: () => (dispatch) => {
         directorAPI.findAll().then(data => {
             dispatch(directorActionCreator.requestAll(data))
         })

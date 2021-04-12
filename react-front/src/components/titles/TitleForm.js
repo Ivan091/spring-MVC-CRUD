@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Container, FormControl, MenuItem} from "@material-ui/core";
 import {Form, reduxForm} from "redux-form";
-import TextFieldFormItem from "../form-items/TextFieldFormItem";
-import DateFieldFormItem from "../form-items/DateFieldFormItem";
-import {connect} from "react-redux";
-import {useHistory, withRouter} from "react-router";
+import TextFieldFormItem from "../form/TextFieldFormItem";
+import DateFieldFormItem from "../form/DateFieldFormItem";
+import {connect, useDispatch} from "react-redux";
+import {Redirect, useHistory, withRouter} from "react-router";
 import {compose} from "redux";
 import {titleThunkCreator} from "../../redux/reducers/titles-reducer";
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
-import SelectFormItem from "../form-items/SelectFormItem";
+import SelectFormItem from "../form/SelectFormItem";
 import CancelSubmitButtonPair from "../buttons/CancelSubmitButtonPair";
 
 const TitleForm = (props) => {
 
     const generatedMenuItems = props.directors.map(director =>
-        <MenuItem value={director.directorId}>{`${director.name} ${director.surname}`}</MenuItem>
+        <MenuItem key={director.directorId}
+                  value={director.directorId}>{`${director.name} ${director.surname}`}</MenuItem>
     )
 
     return (
@@ -28,7 +29,8 @@ const TitleForm = (props) => {
                     <TextFieldFormItem name={"budget"} label={"Budget"}/>
                     <DateFieldFormItem name={"premiereDate"} label={"Premiere Date"}/>
                     <TextFieldFormItem name={"runtime"} label={"Runtime"}/>
-                    <SelectFormItem name={"directorId"} label={"Director"} children={generatedMenuItems}/>
+                    <SelectFormItem defaultValue="" name={"directorId"} label={"Director"}
+                                    children={generatedMenuItems}/>
                 </FormControl>
                 <CancelSubmitButtonPair cancelLink={"/titles"}/>
             </Form>
@@ -40,27 +42,27 @@ const TitleFormRedux = reduxForm({form: 'titleForm', enableReinitialize: true})(
 
 const TitleUpdateReduxFormContainer = (props) => {
 
-    let [submitted, setSubmitted] = useState(false);
-    let [initValues, setInitValue] = useState({})
-    let initId = props.match.params.id
-    useEffect(() => {
-        props.findById(initId).then(obj => setInitValue(obj))
-    }, [])
-    let [directors, setDirectors] = useState([])
-    useEffect(() => {
-            props.findAllDirectors().then(obj => setDirectors(obj))
-        }, []
-    )
+    const dispatch = useDispatch()
+    const findById = useCallback((id) => dispatch(titleThunkCreator.findById(id)), [titleThunkCreator.findById])
+    const findAllDirectors = useCallback(() => dispatch(directorThunkCreator.find()), [directorThunkCreator.find])
+    const submit = useCallback((formData) => dispatch(titleThunkCreator.update(formData)), [titleThunkCreator.add])
 
-    let history = useHistory()
+    const initId = Number(props.match.params.id)
+    const [submitted, setSubmitted] = useState(false);
+    const [initValues, setInitValue] = useState({})
+    const [directors, setDirectors] = useState([])
+
+    useEffect(() => findById(initId).then(obj => setInitValue(obj)), [findById, initId])
+    useEffect(() => findAllDirectors().then(obj => setDirectors(obj)), [findAllDirectors, directors])
+
     const onSubmit = (formData) => {
         formData.titleId = initId
-        props.onSubmit(formData)
+        submit(formData)
         setSubmitted(true)
     }
 
     if (submitted) {
-        history.push("/titles")
+        return <Redirect to={"/titles"}/>
     }
 
     return (
@@ -70,46 +72,42 @@ const TitleUpdateReduxFormContainer = (props) => {
 
 const TitleAddFormReduxContainer = (props) => {
 
+    const findAllDirectorsProps = props.findAllDirectors
+    const findAllDirectors = useCallback(() => findAllDirectorsProps(), [findAllDirectorsProps])
+
     const [submitted, setSubmitted] = useState(false);
+    const [directors, setDirectors] = useState([])
+
+    useEffect(() => {
+            findAllDirectors().then(obj => setDirectors(obj))
+        }, [findAllDirectors, directors]
+    )
 
     let history = useHistory()
-    debugger
+
     const onSubmit = (formData) => {
-        formData.id = 1
-        props.onSubmit({...formData, id: 1})
+        props.onSubmit({...formData, titleId: 0})
         setSubmitted(true)
     }
 
-    let [directors, setDirectors] = useState([])
-    useEffect(() => {
-            props.findAllDirectors().then(obj => setDirectors(obj))
-        }, []
-    )
 
     if (submitted) {
         history.push("/titles")
     }
 
     return (
-        <TitleFormRedux directors={directors} onSubmit={onSubmit}/>
+        <TitleFormRedux initialValues={directors} onSubmit={onSubmit}/>
     )
 }
 
 export const TitleUpdateFormContainer = compose(
     withRouter,
-    connect(() => {
-    }, {
+    connect(null, {
         onSubmit: titleThunkCreator.update,
-        findById: titleThunkCreator.findById,
         findAllDirectors: directorThunkCreator.find
     })
 )(TitleUpdateReduxFormContainer)
 
 export const TitleAddFormContainer = compose(
     withRouter,
-    connect(() => {
-    }, {
-        onSubmit: titleThunkCreator.add,
-        findAllDirectors: directorThunkCreator.find,
-    })
 )(TitleAddFormReduxContainer)
