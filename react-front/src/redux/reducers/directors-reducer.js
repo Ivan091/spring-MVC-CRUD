@@ -1,19 +1,19 @@
 import {directorAPI} from "../../api/director";
 
-const REQUEST_ALL = 'directors/REQUEST_ALL'
+const UPDATE_ALL = 'directors/UPDATE_ALL'
 const DELETE = 'directors/DELETE'
 
 let initState = {
-    directors: null,
+    directors: [],
 }
 
 const directorsReducer = (state = initState, action) => {
     switch (action.type) {
-        case DELETE: {
-            return state
-        }
-        case REQUEST_ALL: {
+        case UPDATE_ALL: {
             return {...state, directors: action.directors}
+        }
+        case DELETE: {
+            return {...state, directors: state.directors.filter(t => t.directorId !== action.directorId)}
         }
         default :
             return state
@@ -21,33 +21,35 @@ const directorsReducer = (state = initState, action) => {
 }
 
 export const directorActionCreator = {
-    requestAll: (xs) => ({type: REQUEST_ALL, directors: xs}),
-    delete: (directorId) => ({type: REQUEST_ALL, directorId: directorId}),
+    updateAll: (directors) => ({type: UPDATE_ALL, directors: directors}),
+    delete: (directorId) => ({type: DELETE, directorId: directorId}),
+}
+
+const refresh = async (dispatch) => {
+    const titles = await directorAPI.findAll()
+    dispatch(directorActionCreator.updateAll(titles))
 }
 
 export const directorThunkCreator = {
-    requestAll: () => (dispatch) => {
-        directorAPI.findAll().then(data => {
-            dispatch(directorActionCreator.requestAll(data))
-        })
+    requestAll: () => async (dispatch) => {
+        await refresh(dispatch)
     },
-    find: () => (dispatch) => directorAPI.findAll(),
-    delete: (id) => (dispatch) => {
+
+    delete: (id) => async (dispatch) => {
         directorAPI.delete(id)
             .then(() => directorAPI.findAll()
                 .then(x => dispatch(directorActionCreator.requestAll(x))))
     },
-    update: (x) => (dispatch) => {
-        directorAPI.update(x)
-            .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.requestAll(x))))
+    update: (x) => async (dispatch) => {
+        await directorAPI.update(x)
+        await refresh(dispatch)
     },
-    add: (x) => (dispatch) => {
-        directorAPI.add(x)
-            .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.requestAll(x))))
+    add: (x) => async (dispatch) => {
+        await directorAPI.add(x)
+        await refresh(dispatch)
     },
-    findById: (id) => (dispatch) => directorAPI.findById(id)
+    findAll: () => async (dispatch) => await directorAPI.findAll(),
+    findById: (id) => async (dispatch) => await directorAPI.findById(id)
 }
 
 

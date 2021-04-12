@@ -3,8 +3,8 @@ import {Container, FormControl, MenuItem} from "@material-ui/core";
 import {Form, reduxForm} from "redux-form";
 import TextFieldFormItem from "../form/TextFieldFormItem";
 import DateFieldFormItem from "../form/DateFieldFormItem";
-import {connect, useDispatch} from "react-redux";
-import {Redirect, useHistory, withRouter} from "react-router";
+import {connect} from "react-redux";
+import {Redirect, withRouter} from "react-router";
 import {compose} from "redux";
 import {titleThunkCreator} from "../../redux/reducers/titles-reducer";
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
@@ -40,24 +40,23 @@ const TitleForm = (props) => {
 
 const TitleFormRedux = reduxForm({form: 'titleForm', enableReinitialize: true})(TitleForm)
 
-const TitleUpdateReduxFormContainer = (props) => {
+const TitleUpdateReduxFormContainer = ({onSubmit, findById, findAllDirectors, ...props}) => {
 
-    const dispatch = useDispatch()
-    const findById = useCallback((id) => dispatch(titleThunkCreator.findById(id)), [titleThunkCreator.findById])
-    const findAllDirectors = useCallback(() => dispatch(directorThunkCreator.find()), [directorThunkCreator.find])
-    const submit = useCallback((formData) => dispatch(titleThunkCreator.update(formData)), [titleThunkCreator.add])
+    const findByIdCallBack = useCallback((id) => findById(id), [findById])
+    const findAllDirectorsCallBack = useCallback(() => findAllDirectors(), [findAllDirectors])
+    const onSubmitCallBack = useCallback((formData) => onSubmit(formData), [onSubmit])
 
     const initId = Number(props.match.params.id)
     const [submitted, setSubmitted] = useState(false);
     const [initValues, setInitValue] = useState({})
     const [directors, setDirectors] = useState([])
 
-    useEffect(() => findById(initId).then(obj => setInitValue(obj)), [findById, initId])
-    useEffect(() => findAllDirectors().then(obj => setDirectors(obj)), [findAllDirectors, directors])
+    useEffect(() => findByIdCallBack(initId).then(obj => setInitValue(obj)), [findByIdCallBack, initId])
+    useEffect(() => findAllDirectorsCallBack().then(obj => setDirectors(obj)), [findAllDirectorsCallBack, directors])
 
-    const onSubmit = (formData) => {
+    const onFormSubmit = (formData) => {
         formData.titleId = initId
-        submit(formData)
+        onSubmitCallBack(formData)
         setSubmitted(true)
     }
 
@@ -66,37 +65,32 @@ const TitleUpdateReduxFormContainer = (props) => {
     }
 
     return (
-        <TitleFormRedux initialValues={initValues} directors={directors} onSubmit={onSubmit}/>
+        <TitleFormRedux initialValues={initValues} directors={directors} onSubmit={onFormSubmit}/>
     )
 }
 
-const TitleAddFormReduxContainer = (props) => {
+const TitleAddFormReduxContainer = ({onSubmit, findAllDirectors}) => {
 
-    const findAllDirectorsProps = props.findAllDirectors
-    const findAllDirectors = useCallback(() => findAllDirectorsProps(), [findAllDirectorsProps])
+    const findAllDirectorsCallBack = useCallback(() => findAllDirectors(), [findAllDirectors])
+    const onSubmitCallBack = useCallback((title) => onSubmit(title), [onSubmit])
 
     const [submitted, setSubmitted] = useState(false);
     const [directors, setDirectors] = useState([])
 
-    useEffect(() => {
-            findAllDirectors().then(obj => setDirectors(obj))
-        }, [findAllDirectors, directors]
-    )
+    useEffect(() => findAllDirectorsCallBack().then(obj => setDirectors(obj)), [findAllDirectorsCallBack, directors])
 
-    let history = useHistory()
-
-    const onSubmit = (formData) => {
-        props.onSubmit({...formData, titleId: 0})
+    const onFormSubmit = (formData) => {
+        formData.titleId = 0
+        onSubmitCallBack(formData)
         setSubmitted(true)
     }
 
-
     if (submitted) {
-        history.push("/titles")
+        return <Redirect to={"/titles"}/>
     }
 
     return (
-        <TitleFormRedux initialValues={directors} onSubmit={onSubmit}/>
+        <TitleFormRedux directors={directors} onSubmit={onFormSubmit}/>
     )
 }
 
@@ -104,10 +98,15 @@ export const TitleUpdateFormContainer = compose(
     withRouter,
     connect(null, {
         onSubmit: titleThunkCreator.update,
-        findAllDirectors: directorThunkCreator.find
+        findById: titleThunkCreator.findById,
+        findAllDirectors: directorThunkCreator.findAll
     })
 )(TitleUpdateReduxFormContainer)
 
 export const TitleAddFormContainer = compose(
     withRouter,
+    connect(null, {
+        onSubmit: titleThunkCreator.add,
+        findAllDirectors: directorThunkCreator.findAll
+    })
 )(TitleAddFormReduxContainer)

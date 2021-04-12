@@ -8,15 +8,11 @@ import {AddCircleOutlined, EditSharp} from "@material-ui/icons";
 import ButtonDeleteContainer from "../titles/ButtonDeleteTitleContainer";
 
 
-let mapStateToProps = (state) => {
-    return {
-        directors: state.directorsPage.directors
-    }
-}
-
 const DirectorTableContainer = ({requestAll, directors}) => {
     const request = useCallback(() => requestAll(), [requestAll])
-    useEffect(() => request(), [request])
+    useEffect(() => {
+        request()
+    }, [request])
     return (
         <Box m={5}>
             <TableGeneric
@@ -50,8 +46,12 @@ const DirectorTableContainer = ({requestAll, directors}) => {
     )
 }
 
+let mapStateToProps = (state) => {
+    return {
+        directors: state.directorsPage.directors
+    }
+}
 
 export default connect(mapStateToProps, {
-        requestAll: directorThunkCreator.requestAll
-    }
-)(DirectorTableContainer)
+    requestAll: directorThunkCreator.requestAll
+})(DirectorTableContainer)

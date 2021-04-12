@@ -9,8 +9,4 @@ let mapState = (state, ownProps) => {
     }
 }
 
-export default connect(mapState,
-    {
-        delete: titleThunkCreator.delete
-    }
-)(ButtonDeleteById)
+export default connect(mapState, {delete: titleThunkCreator.delete})(ButtonDeleteById)
