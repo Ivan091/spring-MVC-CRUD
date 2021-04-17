@@ -7,9 +7,11 @@ import com.titles.service.TitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -40,6 +42,16 @@ public class TitleController {
         return title
                 .map(x -> new ResponseEntity<>(x, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/titles/between")
+    public List<TitleWithDirectorFullNameDto> findAllBetween(@RequestParam(name = "firstDate")
+                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                     LocalDate first,
+                                                             @RequestParam(name = "secondDate")
+                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                     LocalDate second) {
+        return service.findAllTitlesBetween(first, second);
     }
 
     @PostMapping(value = "/titles")

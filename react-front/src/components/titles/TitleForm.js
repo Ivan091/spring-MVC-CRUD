@@ -29,7 +29,7 @@ const TitleForm = (props) => {
                     <TextFieldFormItem name={"budget"} label={"Budget"}/>
                     <DateFieldFormItem name={"premiereDate"} label={"Premiere Date"}/>
                     <TextFieldFormItem name={"runtime"} label={"Runtime"}/>
-                    <SelectFormItem defaultValue="" name={"directorId"} label={"Director"}
+                    <SelectFormItem name={"directorId"} label={"Director"}
                                     children={generatedMenuItems}/>
                 </FormControl>
                 <CancelSubmitButtonPair cancelLink={"/titles"}/>

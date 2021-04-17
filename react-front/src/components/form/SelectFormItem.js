@@ -8,8 +8,8 @@ const renderSelectField = ({label, input, meta: {touched, invalid, error}, child
         <Select
             labelId={"select-label-id"}
             label={label}
-            {...custom}
             {...input}
+            {...custom}
         >
             {children}
         </Select>
@@ -19,7 +19,7 @@ const renderSelectField = ({label, input, meta: {touched, invalid, error}, child
 
 const SelectFormItem = (props) => {
     return (
-        <Field name={"directorId"} {...props} component={renderSelectField}/>
+        <Field {...props} component={renderSelectField}/>
     )
 }
 

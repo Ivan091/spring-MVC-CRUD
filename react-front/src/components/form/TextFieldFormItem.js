@@ -10,13 +10,12 @@ const renderTextField = ({label, input, meta: {touched, invalid, error}, ...cust
         helperText={touched && error}
         margin={"normal"}
         variant={"outlined"}
-        fullWidth
         {...input}
+        {...custom}
     />
 )
 
 const TextFieldFormItem = (props) => {
-
     return (
         <Field {...props} component={renderTextField}/>
     )

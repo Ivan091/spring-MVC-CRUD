@@ -46,7 +46,11 @@ export const titleThunkCreator = {
         await titleAPI.add(title)
         await refresh(dispatch)
     },
-    findById: (id) => async (dispatch) => await titleAPI.findById(id)
+    findById: (id) => async (dispatch) => await titleAPI.findById(id),
+    findAllBetween: (firstDate, secondDate) => async (dispatch) => {
+        const titlesBetween = await titleAPI.findAllBetween(firstDate, secondDate)
+        dispatch(titleActionCreator.updateAll(titlesBetween))
+    }
 }
 
 export default titlesReducer

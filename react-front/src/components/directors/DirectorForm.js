@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {Container} from "@material-ui/core";
+import {Container, FormControl} from "@material-ui/core";
 import {Form, reduxForm} from "redux-form";
 import TextFieldFormItem from "../form/TextFieldFormItem";
 import DateFieldFormItem from "../form/DateFieldFormItem";
@@ -15,10 +15,12 @@ const DirectorForm = (props) => {
             <Form
                 onSubmit={props.handleSubmit}
                 style={{justifyContent: "end"}}>
-                <TextFieldFormItem name={"name"} label={"Name"}/>
-                <TextFieldFormItem name={"surname"} label={"Surname"}/>
-                <DateFieldFormItem name={"birthDate"} label={"Birth Date"}/>
-                <CancelSubmitButtonPair cancelLink={"/directors"}/>
+                <FormControl variant={"outlined"} margin={"normal"} fullWidth>
+                    <TextFieldFormItem name={"name"} label={"Name"}/>
+                    <TextFieldFormItem name={"surname"} label={"Surname"}/>
+                    <DateFieldFormItem name={"birthDate"} label={"Birth Date"}/>
+                    <CancelSubmitButtonPair cancelLink={"/directors"}/>
+                </FormControl>
             </Form>
         </Container>
     )
@@ -31,7 +33,7 @@ const DirectorUpdateReduxFormContainer = (props) => {
     const findByIdProps = props.findById
     const findById = useCallback((id) => findByIdProps(id), [findByIdProps])
 
-    const initId = props.match.params.id
+    const initId = Number(props.match.params.id)
     const [submitted, setSubmitted] = useState(false);
     const [initValues, setInitValue] = useState({})
 

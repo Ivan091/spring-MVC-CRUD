@@ -7,10 +7,9 @@ const renderDateField = ({label, input, meta: {touched, invalid, error}, ...cust
         label={label}
         error={touched && invalid}
         helperText={touched && error}
+        type={"date"}
         margin={"normal"}
         variant={"outlined"}
-        type={"date"}
-        fullWidth
         InputLabelProps={{shrink: true}}
         {...input}
         {...custom}

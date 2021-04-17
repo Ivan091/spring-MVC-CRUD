@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, Button, ButtonGroup} from "@material-ui/core";
 import {NavLink} from "react-router-dom";
+import SubmitButton from "./SubmitButton";
 
 const CancelSubmitButtonPair = (props) => {
     return (
@@ -9,9 +10,7 @@ const CancelSubmitButtonPair = (props) => {
                 <Button color={"secondary"} component={NavLink} to={props.cancelLink}>
                     Cancel
                 </Button>
-                <Button type={"submit"} color={"primary"}>
-                    Submit
-                </Button>
+                <SubmitButton/>
             </ButtonGroup>
         </Box>
     )

@@ -5,7 +5,7 @@ import TableGeneric from "../table/TableGeneric";
 import {Box} from "@material-ui/core";
 import ButtonNavLinkContainer from "../buttons/ButtonNavLinkContainer";
 import {AddCircleOutlined, EditSharp} from "@material-ui/icons";
-import ButtonDeleteContainer from "../titles/ButtonDeleteTitleContainer";
+import ButtonDeleteDirectorContainer from "./ButtonDeleteDirectorContainer";
 
 
 const DirectorTableContainer = ({requestAll, directors}) => {
@@ -38,7 +38,7 @@ const DirectorTableContainer = ({requestAll, directors}) => {
                             title={"Edit"}
                             inner={<EditSharp/>}
                             url={`directors/${directorId}`}/>
-                        <ButtonDeleteContainer key={directorId + "deleteButton"} id={directorId}/>
+                        <ButtonDeleteDirectorContainer key={directorId + "deleteButton"} id={directorId}/>
                     </>
                 )}
             />
