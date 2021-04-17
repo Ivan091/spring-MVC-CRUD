@@ -9,19 +9,19 @@ public class TitleWithDirectorFullNameDto {
     @JsonUnwrapped
     Title title;
 
-    Integer directorId;
-
     String directorFullName;
+
+    private TitleWithDirectorFullNameDto() {
+    }
 
     public TitleWithDirectorFullNameDto(Title title, Integer directorId, String directorFullName) {
         this.title = title;
-        this.directorId = directorId;
         this.directorFullName = directorFullName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, directorId, directorFullName);
+        return Objects.hash(title, directorFullName);
     }
 
     @Override
@@ -33,14 +33,13 @@ public class TitleWithDirectorFullNameDto {
             return false;
         }
         TitleWithDirectorFullNameDto that = (TitleWithDirectorFullNameDto) o;
-        return Objects.equals(title, that.title) && Objects.equals(directorId, that.directorId) && Objects.equals(directorFullName, that.directorFullName);
+        return Objects.equals(title, that.title) && Objects.equals(directorFullName, that.directorFullName);
     }
 
     @Override
     public String toString() {
         return "TitleWithDirectorFullNameDto{" +
                 "title=" + title +
-                ", directorId=" + directorId +
                 ", directorFullName='" + directorFullName + '\'' +
                 '}';
     }
@@ -51,15 +50,6 @@ public class TitleWithDirectorFullNameDto {
 
     public TitleWithDirectorFullNameDto setTitle(Title title) {
         this.title = title;
-        return this;
-    }
-
-    public Integer getDirectorId() {
-        return directorId;
-    }
-
-    public TitleWithDirectorFullNameDto setDirectorId(Integer directorId) {
-        this.directorId = directorId;
         return this;
     }
 

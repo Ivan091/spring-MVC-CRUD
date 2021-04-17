@@ -20,7 +20,7 @@ public class Title {
 
     private Integer directorId;
 
-    public Title() {
+    private Title() {
     }
 
     public Title(String name, Float budget, Float boxOffice, LocalDate premiereDate, Integer runtime, Integer directorId) {

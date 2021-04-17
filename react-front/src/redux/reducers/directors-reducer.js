@@ -26,8 +26,8 @@ export const directorActionCreator = {
 }
 
 const refresh = async (dispatch) => {
-    const titles = await directorAPI.findAll()
-    dispatch(directorActionCreator.updateAll(titles))
+    const directors = await directorAPI.findAll()
+    dispatch(directorActionCreator.updateAll(directors))
 }
 
 export const directorThunkCreator = {
@@ -36,21 +36,19 @@ export const directorThunkCreator = {
     },
 
     delete: (id) => async (dispatch) => {
-        directorAPI.delete(id)
-            .then(() => directorAPI.findAll()
-                .then(x => dispatch(directorActionCreator.requestAll(x))))
+        await directorAPI.delete(id)
+        dispatch(directorActionCreator.delete(id))
     },
-    update: (x) => async (dispatch) => {
-        await directorAPI.update(x)
+    update: (director) => async (dispatch) => {
+        await directorAPI.update(director)
         await refresh(dispatch)
     },
-    add: (x) => async (dispatch) => {
-        await directorAPI.add(x)
+    add: (director) => async (dispatch) => {
+        await directorAPI.add(director)
         await refresh(dispatch)
     },
     findAll: () => async (dispatch) => await directorAPI.findAll(),
     findById: (id) => async (dispatch) => await directorAPI.findById(id)
 }
-
 
 export default directorsReducer

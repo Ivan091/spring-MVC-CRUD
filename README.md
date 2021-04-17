@@ -10,6 +10,7 @@
 
 * JDK 11
 * Apache Maven
+* npm
 
 ### Build:
 

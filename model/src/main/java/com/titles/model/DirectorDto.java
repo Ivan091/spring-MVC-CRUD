@@ -13,7 +13,7 @@ public class DirectorDto {
 
     private Float profitAverage;
 
-    public DirectorDto() {
+    private DirectorDto() {
     }
 
     public DirectorDto(Director director, Float profitMultiplier, Float profitAverage) {

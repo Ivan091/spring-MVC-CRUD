@@ -6,6 +6,7 @@ import com.titles.model.Title;
 import com.titles.model.TitleWithDirectorFullNameDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,10 @@ public class TitleDtoService implements TitleService {
     @Override
     public List<TitleWithDirectorFullNameDto> findAllTitlesWithDirectorFullName() {
         return dtoDao.findAllTitlesWithDirectorFullName();
+    }
+
+    @Override
+    public List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate first, LocalDate second) {
+        return dtoDao.findAllTitlesBetween(first, second);
     }
 }

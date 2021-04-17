@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -153,6 +154,22 @@ class TitleControllerTest {
         ).andReturn().getResponse();
         var rowsAffected = objectMapper.readValue(response.getContentAsString(), Integer.class);
         assertEquals(1, rowsAffected);
+    }
+
+    @Test
+    void findBetweenTwoDates() throws Exception {
+        titleService.create(title.setPremiereDate(LocalDate.of(2016, 1, 1)));
+        var response = mockMvc.perform(
+                get(mainEndpoint + "/titles/between")
+                        .param("firstDate", "2000-01-01")
+                        .param("secondDate", "2010-01-01")
+        ).andExpect(
+                status().isOk()
+        ).andReturn().getResponse();
+        var result = objectMapper.readValue(response.getContentAsString(),
+                new TypeReference<List<TitleWithDirectorFullNameDto>>() {
+                });
+        assertNotNull(result);
     }
 
     @Test
