@@ -24,7 +24,7 @@ mvn clean install
 java -jar rest-api/target/app-rest-1.0-SNAPSHOT.jar
 ```
 
-#### Front server will be available by:
+#### Back server will be available by:
 
 ```
 http://localhost:8080/
