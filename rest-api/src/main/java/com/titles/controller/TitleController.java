@@ -4,8 +4,6 @@ import com.titles.model.Title;
 import com.titles.model.TitleWithDirectorFullNameDto;
 import com.titles.service.DirectorService;
 import com.titles.service.TitleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -17,8 +15,6 @@ import java.util.List;
 
 @RestController
 public class TitleController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TitleController.class);
 
     private final TitleService service;
 

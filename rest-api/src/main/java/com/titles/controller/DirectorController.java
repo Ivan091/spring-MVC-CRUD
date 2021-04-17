@@ -3,8 +3,6 @@ package com.titles.controller;
 import com.titles.model.Director;
 import com.titles.model.DirectorDto;
 import com.titles.service.DirectorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,6 @@ import java.util.List;
 
 @RestController
 public class DirectorController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorController.class);
 
     private final DirectorService service;
 

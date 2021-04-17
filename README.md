@@ -12,19 +12,33 @@
 * Apache Maven
 * npm
 
-### Build:
+### Build back:
 
 ```
 mvn clean install
 ```
 
-### To run the app:
+#### Run back:
 
 ```
 java -jar rest-api/target/app-rest-1.0-SNAPSHOT.jar
 ```
 
-#### To view available rest endpoint run the app and access the following URL:
+### Build front:
+
+```
+cd react-front/
+npm run build
+```
+
+#### Run front:
+
+```
+sudo npm install -g serve
+serve -s build
+```
+
+#### To view available rest endpoint run the back and access the following URL:
 
 ```
 http://localhost:8080/swagger-ui/
