@@ -9,5 +9,5 @@ public interface TitleDtoDao {
 
     List<TitleWithDirectorFullNameDto> findAllTitlesWithDirectorFullName();
 
-    List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate date1, LocalDate date2);
+    List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate start, LocalDate end);
 }

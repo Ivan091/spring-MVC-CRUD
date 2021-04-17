@@ -3,7 +3,7 @@ import {Button} from "@material-ui/core";
 
 const SubmitButton = (props) => {
     return (
-        <Button type={"submit"} color={"primary"} {...props}>
+        <Button type={"submit"}  {...props} color={"primary"}>
             Submit
         </Button>
     )

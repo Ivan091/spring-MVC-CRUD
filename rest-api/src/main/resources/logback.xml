@@ -1,26 +1,35 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n
             </pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="file-all" class="ch.qos.logback.core.FileAppender">
         <file>app.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{300} - %msg%n
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{1000} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file-titles" class="ch.qos.logback.core.FileAppender">
+        <file>titles.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{1000} - %msg%n
             </pattern>
         </encoder>
     </appender>
 
     <logger name="com.titles" level="DEBUG">
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="file-titles"/>
     </logger>
 
     <root level="DEBUG">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="file-all"/>
+        <appender-ref ref="stdout"/>
     </root>
 </configuration>

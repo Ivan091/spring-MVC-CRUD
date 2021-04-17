@@ -1,6 +1,6 @@
 package com.titles.dao;
 
-import com.titles.dao.util.ResourceReader;
+import com.titles.dao.util.InjectFileData;
 import com.titles.model.TitleWithDirectorFullNameDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +21,15 @@ public class TitleDaoDirectorAggregator implements TitleDtoDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final String FIND_ALL_WITH_DIRECTOR_FULL_NAME;
+    @InjectFileData("find-add-titles-with-director-full-name.sql")
+    private String FIND_ALL_WITH_DIRECTOR_FULL_NAME;
 
-    private final String FIND_ALL_WITH_DIRECTOR_BETWEEN;
+    @InjectFileData("find-all-titles-with-director-full-name-between-two-dates.sql")
+    private String FIND_ALL_WITH_DIRECTOR_BETWEEN;
 
-    public TitleDaoDirectorAggregator(RowMapper<TitleWithDirectorFullNameDto> rowMapper, NamedParameterJdbcTemplate jdbcTemplate, ResourceReader resourceReader) {
+    public TitleDaoDirectorAggregator(RowMapper<TitleWithDirectorFullNameDto> rowMapper, NamedParameterJdbcTemplate jdbcTemplate) {
         this.rowMapper = rowMapper;
         this.jdbcTemplate = jdbcTemplate;
-        this.FIND_ALL_WITH_DIRECTOR_FULL_NAME = resourceReader.readFileToString("find-add-titles-with-director-full-name.sql");
-        this.FIND_ALL_WITH_DIRECTOR_BETWEEN = resourceReader.readFileToString("find-all-titles-with-director-full-name-between-two-dates.sql");
     }
 
     public List<TitleWithDirectorFullNameDto> findAllTitlesWithDirectorFullName() {
@@ -39,12 +39,12 @@ public class TitleDaoDirectorAggregator implements TitleDtoDao {
     }
 
     @Override
-    public List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate date1, LocalDate date2) {
+    public List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate start, LocalDate end) {
         var mapSqlParameterSource =
-                new MapSqlParameterSource("first_date", date1)
-                        .addValue("last_date", date2);
+                new MapSqlParameterSource("first_date", start)
+                        .addValue("last_date", end);
         var titles = jdbcTemplate.query(FIND_ALL_WITH_DIRECTOR_BETWEEN, mapSqlParameterSource, rowMapper);
-        LOGGER.debug("Finding titles with directors' full names between {} and {} ({} found)", date1, date2, titles.size());
+        LOGGER.debug("Finding titles with directors' full names between {} and {} ({} found)", start, end, titles.size());
         return titles;
     }
 }

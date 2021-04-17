@@ -13,10 +13,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
 public class DirectorController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DirectorController.class);
 
     private final DirectorService service;
 

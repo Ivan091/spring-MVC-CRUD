@@ -60,7 +60,7 @@ public class TitleDtoService implements TitleService {
     }
 
     @Override
-    public List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate first, LocalDate second) {
-        return dtoDao.findAllTitlesBetween(first, second);
+    public List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate start, LocalDate end) {
+        return dtoDao.findAllTitlesBetween(start, end);
     }
 }

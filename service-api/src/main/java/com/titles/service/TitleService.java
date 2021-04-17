@@ -10,5 +10,5 @@ public interface TitleService extends ServiceDao<Title> {
 
     List<TitleWithDirectorFullNameDto> findAllTitlesWithDirectorFullName();
 
-    List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate first, LocalDate second);
+    List<TitleWithDirectorFullNameDto> findAllTitlesBetween(LocalDate start, LocalDate end);
 }

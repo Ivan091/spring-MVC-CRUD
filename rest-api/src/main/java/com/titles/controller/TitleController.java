@@ -16,10 +16,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
 public class TitleController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TitleController.class);
 
     private final TitleService service;
 
@@ -47,11 +46,11 @@ public class TitleController {
     @GetMapping("/titles/between")
     public List<TitleWithDirectorFullNameDto> findAllBetween(@RequestParam(name = "firstDate")
                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                                     LocalDate first,
+                                                                     LocalDate start,
                                                              @RequestParam(name = "secondDate")
                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                                     LocalDate second) {
-        return service.findAllTitlesBetween(first, second);
+                                                                     LocalDate end) {
+        return service.findAllTitlesBetween(start, end);
     }
 
     @PostMapping(value = "/titles")
