@@ -18,7 +18,5 @@ CREATE TABLE title
     runtime       INT         NOT NULL,
     box_office    REAL        NOT NULL,
     director_id   INT,
-    CONSTRAINT fk_director_id FOREIGN KEY (director_id)
-        REFERENCES director (director_id)
-        ON DELETE SET NULL
+    FOREIGN KEY (director_id) REFERENCES director (director_id) ON DELETE SET NULL
 )
