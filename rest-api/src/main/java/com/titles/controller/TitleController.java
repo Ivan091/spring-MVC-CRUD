@@ -55,7 +55,7 @@ public class TitleController {
         return foreignDirector
                 .map(x -> {
                     var idOfCreatedTitle = service.create(title);
-                    return new ResponseEntity<>(idOfCreatedTitle, HttpStatus.OK);
+                    return new ResponseEntity<>(idOfCreatedTitle, HttpStatus.CREATED);
                 })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

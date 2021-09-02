@@ -36,7 +36,7 @@ public class DirectorController {
     @PostMapping(value = "/directors")
     public ResponseEntity<Integer> create(@RequestBody Director director) {
         var createdId = service.create(director);
-        return new ResponseEntity<>(createdId, HttpStatus.OK);
+        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/directors")
