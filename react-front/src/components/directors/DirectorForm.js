@@ -5,7 +5,7 @@ import TextFieldFormItem from "../form/TextFieldFormItem";
 import DateFieldFormItem from "../form/DateFieldFormItem";
 import {connect} from "react-redux";
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
-import {Redirect, withRouter} from "react-router";
+import {Redirect} from "react-router";
 import {compose} from "redux";
 import CancelSubmitButtonPair from "../buttons/CancelSubmitButtonPair";
 
@@ -76,7 +76,6 @@ const DirectorAddFormReduxContainer = (props) => {
 }
 
 export const DirectorUpdateFormContainer = compose(
-    withRouter,
     connect(null, {
         onSubmit: directorThunkCreator.update,
         findById: directorThunkCreator.findById
@@ -84,7 +83,6 @@ export const DirectorUpdateFormContainer = compose(
 )(DirectorUpdateReduxFormContainer)
 
 export const DirectorAddFormContainer = compose(
-    withRouter,
     connect(null, {
         onSubmit: directorThunkCreator.add,
     })

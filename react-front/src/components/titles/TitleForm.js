@@ -4,7 +4,7 @@ import {Form, reduxForm} from "redux-form";
 import TextFieldFormItem from "../form/TextFieldFormItem";
 import DateFieldFormItem from "../form/DateFieldFormItem";
 import {connect} from "react-redux";
-import {Redirect, withRouter} from "react-router";
+import {Redirect} from "react-router";
 import {compose} from "redux";
 import {titleThunkCreator} from "../../redux/reducers/titles-reducer";
 import {directorThunkCreator} from "../../redux/reducers/directors-reducer";
@@ -95,7 +95,6 @@ const TitleAddFormReduxContainer = ({onSubmit, findAllDirectors}) => {
 }
 
 export const TitleUpdateFormContainer = compose(
-    withRouter,
     connect(null, {
         onSubmit: titleThunkCreator.update,
         findById: titleThunkCreator.findById,
@@ -104,7 +103,6 @@ export const TitleUpdateFormContainer = compose(
 )(TitleUpdateReduxFormContainer)
 
 export const TitleAddFormContainer = compose(
-    withRouter,
     connect(null, {
         onSubmit: titleThunkCreator.add,
         findAllDirectors: directorThunkCreator.findAll
