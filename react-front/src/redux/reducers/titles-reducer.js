@@ -21,8 +21,8 @@ const titlesReducer = (state = initState, action) => {
 }
 
 export const titleActionCreator = {
-    updateAll: (titles) => ({type: UPDATE_ALL, titles: titles}),
-    delete: (titleId) => ({type: DELETE, titleId: titleId}),
+    updateAll: (titles) => ({type: UPDATE_ALL, titles}),
+    delete: (titleId) => ({type: DELETE, titleId}),
 }
 
 const refresh = async (dispatch) => {

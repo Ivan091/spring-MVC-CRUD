@@ -1,23 +1,49 @@
 import React from 'react'
 import {Route} from "react-router-dom";
 import {DirectorAddFormContainer, DirectorUpdateFormContainer} from "./directors/DirectorForm";
-import DirectorTableContainer from "./directors/DirectorTableContainer";
 import {TitleAddFormContainer, TitleUpdateFormContainer} from "./titles/TitleForm";
 import TitleTableContainer from "./titles/TitleTableContainer";
 import {Switch} from "react-router";
+import LoginContainer from "./login/Login";
+import NavBar from "./NavBar";
+import DirectorTableContainer from "./directors/DirectorTableContainer";
+import PrivateRoute from "./PrivateRoute";
 
-const PageSwitcher = (props) => {
+const PageSwitcher = () => {
     return (
         <Switch>
-            <Route exact path="/directors/add" render={() => (<DirectorAddFormContainer/>)}/>
-            <Route exact path="/directors/:id" render={() => (<DirectorUpdateFormContainer/>)}/>
-            <Route exact path="/directors" render={() => (<DirectorTableContainer/>)}/>
-            <Route exact path="/titles/add" render={() => (<TitleAddFormContainer/>)}/>
-            <Route exact path="/titles/:id" render={() => (<TitleUpdateFormContainer/>)}/>
-            <Route exact path="/titles" render={() => (<TitleTableContainer/>)}/>
-            <Route path="/"/>
+            <PrivateRoute exact path="/directors/add">
+                <NavBar/>
+                <DirectorAddFormContainer/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/directors/:id">
+                <NavBar/>
+                <DirectorUpdateFormContainer/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/directors">
+                <NavBar/>
+                <DirectorTableContainer/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/titles/add">
+                <NavBar/>
+                <TitleAddFormContainer/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/titles/:id">
+                <NavBar/>
+                <TitleUpdateFormContainer/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/titles">
+                <NavBar/>
+                <TitleTableContainer/>
+            </PrivateRoute>
+            <Route exact path="/login">
+                <LoginContainer/>
+            </Route>
+            <PrivateRoute exact path="/">
+                <NavBar/>
+            </PrivateRoute>
         </Switch>
     )
 }
 
-export default PageSwitcher
+export default PageSwitcher;

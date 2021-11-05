@@ -19,4 +19,11 @@ CREATE TABLE title
     box_office    REAL        NOT NULL,
     director_id   INT,
     FOREIGN KEY (director_id) REFERENCES director (director_id) ON DELETE SET NULL
-)
+);
+
+CREATE TABLE user
+(
+    login    VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (login, password)
+);
