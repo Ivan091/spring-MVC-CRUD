@@ -1,14 +1,28 @@
 package edu.titles.model;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import lombok.*;
+import lombok.Value;
+import lombok.With;
+import org.springframework.data.annotation.Id;
+import java.time.LocalDate;
 
 
 @Value
+@With
 public class TitleWithDirectorFullName {
 
-    @JsonUnwrapped
-    Title title;
+    @Id
+    @With
+    Integer titleId;
+
+    String name;
+
+    Double budget;
+
+    Integer runtime;
+
+    Double boxOffice;
+
+    LocalDate premiereDate;
 
     String directorFullName;
 }

@@ -16,32 +16,24 @@ public final class DirectorService {
     @Autowired
     DirectorRepo directorRepo;
 
-    public List<DirectorWithoutTitles> findAll(){
-        return StreamSupport.stream(directorRepo.findAll().spliterator(), true)
-                .map(Director::withoutTitles)
-                .collect(Collectors.toList());
-    }
-
-
     public List<DirectorWithAverageParams> findAllCalculatingProfit() {
-        return StreamSupport.stream(directorRepo.findAll().spliterator(), true)
-                .map(Director::calculateAverageParams)
-                .collect(Collectors.toList());
+        return directorRepo.findDirectorCalculatingAverageParams();
     }
 
-    public Optional<DirectorWithoutTitles> findById(Integer id){
-        return directorRepo.findById(id).map(Director::withoutTitles);
+    public Optional<Director> findById(Integer id){
+        return directorRepo.findById(id);
     }
 
-    public void update(DirectorWithoutTitles directorWithoutTitles){
-        directorRepo.findById(directorWithoutTitles.getDirectorId())
-                .map(x -> x.update(directorWithoutTitles))
-                .map(directorRepo::save);
+    public Boolean update(Director director){
+        if (directorRepo.existsById(director.getDirectorId())){
+            directorRepo.save(director);
+            return true;
+        }
+        return false;
     }
 
-    public void create(DirectorWithoutTitles directorWithoutTitles){
-        var director = directorWithoutTitles.toDirector().withDirectorId(null);
-        directorRepo.save(director);
+    public void create(Director director){
+        directorRepo.save(director.withDirectorId(null));
     }
 
     public void delete(Integer directorId){

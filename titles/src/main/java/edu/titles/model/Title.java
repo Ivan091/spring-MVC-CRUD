@@ -1,7 +1,9 @@
 package edu.titles.model;
 
-import lombok.*;
+import lombok.Value;
+import lombok.With;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import java.time.LocalDate;
 
 
@@ -22,7 +24,5 @@ public class Title {
 
     LocalDate premiereDate;
 
-    public static Title of(String name, Double budget, Integer runtime, Double boxOffice, LocalDate premiereDate){
-        return new Title(null, name, budget, runtime, boxOffice, premiereDate);
-    }
+    Integer directorId;
 }

@@ -1,16 +1,29 @@
 package edu.titles.model;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Value;
+import lombok.With;
+import org.springframework.data.annotation.Id;
+import java.time.LocalDate;
 
 
 @Value
 public class DirectorWithAverageParams {
 
-    @JsonUnwrapped
-    DirectorWithoutTitles director;
+    @Id
+    @With
+    Integer directorId;
+
+    String name;
+
+    String surname;
+
+    LocalDate birthDate;
+
+    Double profitAverage;
 
     Double profitMultiplier;
 
-    Double profitAverage;
+    public Director toDirector(){
+        return new Director(directorId, name, surname, birthDate);
+    }
 }
