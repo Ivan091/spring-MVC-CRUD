@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 
 export const loginAPI = {
     doLogin: async (login, password) => {
-        const response = await axiosInstance.post(`login`, {login, password})
+        const response = await axiosInstance.put(`login`, {login, password})
         return response.status === 200;
     },
 }
