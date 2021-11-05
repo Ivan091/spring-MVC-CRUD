@@ -3,7 +3,6 @@ package edu.titles.model;
 import lombok.Value;
 import lombok.With;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import java.time.LocalDate;
 
 
@@ -24,5 +23,5 @@ public class Title {
 
     LocalDate premiereDate;
 
-    Integer directorId;
+    Director directorId;
 }
