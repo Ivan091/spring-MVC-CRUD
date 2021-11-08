@@ -1,5 +1,6 @@
 package edu.titles.api;
 
+import edu.titles.api.dto.TitleDto;
 import edu.titles.service.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,5 +1,6 @@
 package edu.titles.api;
 
+import edu.titles.api.dto.DirectorDto;
 import edu.titles.service.DirectorService;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

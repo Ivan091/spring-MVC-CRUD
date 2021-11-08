@@ -1,4 +1,4 @@
-package edu.titles.api;
+package edu.titles.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.titles.model.Director;

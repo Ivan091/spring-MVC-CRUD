@@ -1,6 +1,6 @@
 package edu.titles.service;
 
-import edu.titles.api.DirectorDto;
+import edu.titles.api.dto.DirectorDto;
 import edu.titles.repo.DirectorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

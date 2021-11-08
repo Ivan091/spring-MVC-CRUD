@@ -1,6 +1,6 @@
 package edu.titles.service;
 
-import edu.titles.api.TitleDto;
+import edu.titles.api.dto.TitleDto;
 import edu.titles.repo.TitleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

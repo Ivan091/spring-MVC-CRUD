@@ -1,4 +1,4 @@
-package edu.titles.api;
+package edu.titles.api.dto;
 
 import edu.titles.model.Title;
 import edu.titles.model.TitleWithDirectorFullName;
