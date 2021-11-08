@@ -1,12 +1,12 @@
 package edu.titles.service;
 
-import edu.titles.model.Director;
-import edu.titles.model.DirectorWithAverageParams;
+import edu.titles.api.DirectorDto;
 import edu.titles.repo.DirectorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -15,24 +15,27 @@ public final class DirectorService {
     @Autowired
     DirectorRepo directorRepo;
 
-    public List<DirectorWithAverageParams> findAllCalculatingProfit() {
-        return directorRepo.findDirectorCalculatingAverageParams();
+    public List<DirectorDto.WithAverageParams> findAllCalculatingProfit() {
+        return directorRepo.findDirectorCalculatingAverageParams()
+                .stream()
+                .map(DirectorDto.WithAverageParams::of)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Director> findById(Integer id) {
-        return directorRepo.findById(id);
+    public Optional<DirectorDto.WithId> findById(Integer id) {
+        return directorRepo.findById(id).map(DirectorDto.WithId::of);
     }
 
-    public Boolean update(Director director) {
-        if (directorRepo.existsById(director.getDirectorId())) {
-            directorRepo.save(director);
+    public Boolean update(DirectorDto.WithId directorDtoBase) {
+        if (directorRepo.existsById(directorDtoBase.getDirectorId())) {
+            directorRepo.save(directorDtoBase.to());
             return true;
         }
         return false;
     }
 
-    public void create(Director director) {
-        directorRepo.save(director.withDirectorId(null));
+    public void create(DirectorDto.Base directorDtoBase) {
+        directorRepo.save(directorDtoBase.to());
     }
 
     public void delete(Integer directorId) {
