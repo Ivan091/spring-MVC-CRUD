@@ -8,6 +8,7 @@ import LoginContainer from "./login/Login";
 import NavBar from "./NavBar";
 import DirectorTableContainer from "./directors/DirectorTableContainer";
 import PrivateRoute from "./PrivateRoute";
+import RegisterContainer from "./register/Register";
 
 const PageSwitcher = () => {
     return (
@@ -38,6 +39,9 @@ const PageSwitcher = () => {
             </PrivateRoute>
             <Route exact path="/login">
                 <LoginContainer/>
+            </Route>
+            <Route exact path="/register">
+                <RegisterContainer/>
             </Route>
             <PrivateRoute exact path="/">
                 <NavBar/>

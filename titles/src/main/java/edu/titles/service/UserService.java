@@ -17,7 +17,7 @@ public final class UserService {
     }
 
     public Boolean register(UserDto.Base user) {
-        if (isRegistered(user)) {
+        if (isRegistered(user) || userRepo.existsByLogin(user.getLogin())) {
             return false;
         } else {
             userRepo.save(user.to());

@@ -23,7 +23,7 @@ public final class UserDto {
         }
 
         public User to() {
-            return new User(login, password);
+            return new User(null, login, password);
         }
     }
 }

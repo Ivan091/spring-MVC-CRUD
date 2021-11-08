@@ -24,7 +24,8 @@ CREATE TABLE title
 
 CREATE TABLE user
 (
+    user_id  INT         NOT NULL AUTO_INCREMENT,
     login    VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
-    PRIMARY KEY (login)
+    PRIMARY KEY (user_id)
 );

@@ -1,10 +1,10 @@
 import React from 'react'
 import {Button} from "@material-ui/core";
 
-const SubmitButton = (props) => {
+const SubmitButton = ({props, message = "Submit"}) => {
     return (
         <Button type={"submit"}  {...props} color={"primary"}>
-            Submit
+            {message}
         </Button>
     )
 }

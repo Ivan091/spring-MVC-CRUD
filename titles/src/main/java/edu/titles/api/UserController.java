@@ -23,7 +23,7 @@ public final class UserController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody UserDto.Base user) {
         if (userService.register(user)) {
             return new ResponseEntity<>(HttpStatus.OK);
