@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 
 @Value
-@With
 public class TitleWithDirectorFullName {
 
     @Id

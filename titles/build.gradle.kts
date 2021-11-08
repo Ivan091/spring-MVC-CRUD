@@ -51,6 +51,7 @@ dependencies {
     implementation("org.apache.commons:commons-lang3")
     implementation("io.springfox:springfox-swagger-ui")
     implementation("io.springfox:springfox-boot-starter")
+    implementation("org.modelmapper:modelmapper:0.7.5")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.mockito:mockito-core")
     testImplementation("org.mockito:mockito-junit-jupiter")

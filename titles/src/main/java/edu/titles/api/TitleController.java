@@ -1,13 +1,11 @@
 package edu.titles.api;
 
-import edu.titles.model.Title;
-import edu.titles.model.TitleWithDirectorFullName;
+import edu.titles.api.dto.TitleDto;
 import edu.titles.service.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,12 +18,12 @@ public final class TitleController {
     private TitleService service;
 
     @GetMapping("/titles")
-    public List<TitleWithDirectorFullName> findAll() {
+    public List<TitleDto.WithDirectorFullName> findAll() {
         return service.findAllWithDirectorFullName();
     }
 
     @GetMapping("/titles/{id}")
-    public ResponseEntity<Title> findById(@PathVariable Integer id) {
+    public ResponseEntity<TitleDto.Base> findById(@PathVariable Integer id) {
         var title = service.findById(id);
         return title
                 .map(x -> new ResponseEntity<>(x, HttpStatus.OK))
@@ -33,23 +31,23 @@ public final class TitleController {
     }
 
     @GetMapping("/titles/between")
-    public List<TitleWithDirectorFullName> findAllBetween(@RequestParam(name = "firstDate")
-                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                                  LocalDate start,
-                                                          @RequestParam(name = "secondDate")
-                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                                  LocalDate end) {
+    public List<TitleDto.WithDirectorFullName> findAllBetween(@RequestParam(name = "firstDate")
+                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                      LocalDate start,
+                                                              @RequestParam(name = "secondDate")
+                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                      LocalDate end) {
         return service.findAllWithDirectorFullNameBetween(start, end);
     }
 
     @PostMapping(value = "/titles")
-    public ResponseEntity<Void> create(@RequestBody Title title) {
+    public ResponseEntity<Void> create(@RequestBody TitleDto.Base title) {
         service.create(title);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(value = "/titles")
-    public ResponseEntity<Void> update(@RequestBody Title title) {
+    public ResponseEntity<Void> update(@RequestBody TitleDto.Base title) {
         if (service.update(title)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

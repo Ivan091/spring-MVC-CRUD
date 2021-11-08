@@ -1,7 +1,6 @@
 package edu.titles.api;
 
-import edu.titles.model.Director;
-import edu.titles.model.DirectorWithAverageParams;
+import edu.titles.api.dto.DirectorDto;
 import edu.titles.service.DirectorService;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,12 +20,12 @@ public final class DirectorController {
     private DirectorService directorService;
 
     @GetMapping("/directors")
-    public List<DirectorWithAverageParams> findAllCalculatingAverageProfit() {
+    public List<DirectorDto.WithAverageParams> findAllCalculatingAverageProfit() {
         return directorService.findAllCalculatingProfit();
     }
 
     @GetMapping("/directors/{id}")
-    public ResponseEntity<Director> findById(@PathVariable Integer id) {
+    public ResponseEntity<DirectorDto.WithId> findById(@PathVariable Integer id) {
         var director = directorService.findById(id);
         return director
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -34,14 +33,14 @@ public final class DirectorController {
     }
 
     @PostMapping(value = "/directors")
-    public ResponseEntity<Void> create(@RequestBody Director director) {
-        directorService.create(director.withDirectorId(null));
+    public ResponseEntity<Void> create(@RequestBody DirectorDto.Base directorDtoBase) {
+        directorService.create(directorDtoBase);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/directors")
-    public ResponseEntity<Void> update(@RequestBody Director director) {
-        if (directorService.update(director)){
+    public ResponseEntity<Void> update(@RequestBody DirectorDto.WithId directorDtoBase) {
+        if (directorService.update(directorDtoBase)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

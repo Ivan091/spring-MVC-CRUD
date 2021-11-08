@@ -7,11 +7,11 @@ const initState = {
 }
 
 const loginReducer = (state = initState, action) => {
-    switch (action.type){
+    switch (action.type) {
         case login: {
             return {...state, isLogged: action.isLogged}
         }
-        default:{
+        default: {
             return state;
         }
     }
@@ -25,7 +25,22 @@ export const loginActionCreator = {
 
 export const loginThunkCreator = {
     doLogin: (login, password) => async (dispatch) => {
-        const status = await loginAPI.doLogin(login, password)
-        dispatch(loginActionCreator.login(status))
+        try {
+            const isOk = await loginAPI.doLogin(login, password)
+            dispatch(loginActionCreator.login(isOk))
+        } catch (e) {
+            return "Login or username is incorrect";
+        }
+    }
+}
+
+export const registerThunkCreator = {
+    doRegister: (login, password) => async (dispatch) => {
+        try {
+            const isOk = await loginAPI.doRegister(login, password)
+            dispatch(loginActionCreator.login(isOk))
+        } catch (e) {
+            return "The user is already exist";
+        }
     }
 }

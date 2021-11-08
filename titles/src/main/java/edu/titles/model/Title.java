@@ -24,5 +24,5 @@ public class Title {
 
     LocalDate premiereDate;
 
-    Integer directorId;
+    AggregateReference<Director, Integer> directorId;
 }
