@@ -13,7 +13,7 @@ public final class UserService {
     private UserRepo userRepo;
 
     public Boolean isRegistered(UserDto.Base user) {
-        return userRepo.existsById(user.getLogin());
+        return userRepo.existsByLogin(user.getLogin());
     }
 
     public Boolean register(UserDto.Base user) {

@@ -2,6 +2,8 @@
 out/
 node_modules/
 *.class
+build/
+.gradle/
 
 # Log file
 *.log
@@ -13,6 +15,7 @@ node_modules/
 target/
 .mtj.tmp/
 .idea/
+
 
 # Package Files #
 *.jar
