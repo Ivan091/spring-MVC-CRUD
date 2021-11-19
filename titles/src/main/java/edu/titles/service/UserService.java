@@ -13,7 +13,8 @@ public final class UserService {
     private UserRepo userRepo;
 
     public Boolean isRegistered(UserDto.Base user) {
-        return userRepo.existsByLogin(user.getLogin());
+        var userOpt = userRepo.findByLogin(user.getLogin());
+        return userOpt.filter(value -> user.getPassword().equals(value.getPassword())).isPresent();
     }
 
     public Boolean register(UserDto.Base user) {
