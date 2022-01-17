@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserRepo extends CrudRepository<User, Integer> {
 
     Boolean existsByLogin(String login);
-    
+
     Optional<User> findByLogin(String login);
 }
